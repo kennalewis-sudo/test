@@ -1,0 +1,209 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "dashboard/**",
+              "uploads/TapIn Dashboard (Org & Space) May 2026/**",
+              "wireframes/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Poppins|JetBrains Mono))/i]",
+        "message": "Font not provided by the design system. Available: Poppins, JetBrains Mono."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {},
+    "tokens": [
+      "--ai-grad",
+      "--canvas",
+      "--danger-bg",
+      "--danger-fg",
+      "--danger-strong",
+      "--ease",
+      "--ep-page-w",
+      "--font-mono",
+      "--font-sans",
+      "--green-bg",
+      "--green-text",
+      "--heat-1",
+      "--heat-2",
+      "--heat-3",
+      "--heat-4",
+      "--heat-5",
+      "--info-bg",
+      "--info-fg",
+      "--ink-400",
+      "--ink-500",
+      "--ink-600",
+      "--ink-700",
+      "--ink-800",
+      "--ink-900",
+      "--line",
+      "--line-2",
+      "--offwhite",
+      "--purple-bg",
+      "--purple-fg",
+      "--r-lg",
+      "--r-md",
+      "--r-pill",
+      "--r-sm",
+      "--r-xl",
+      "--r-xs",
+      "--radius-card",
+      "--red-bg",
+      "--red-bg-soft",
+      "--red-text",
+      "--red-text-soft",
+      "--row-hover-bg",
+      "--sh-btn-primary",
+      "--sh-card",
+      "--sh-focus",
+      "--sh-modal",
+      "--sh-pop",
+      "--shadow-card",
+      "--space-1",
+      "--space-10",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-7",
+      "--space-8",
+      "--space-9",
+      "--success-bg",
+      "--success-fg",
+      "--t-fast",
+      "--t-med",
+      "--tapin-blue",
+      "--tapin-blue-100",
+      "--tapin-blue-200",
+      "--tapin-blue-300",
+      "--tapin-blue-400",
+      "--tapin-blue-50",
+      "--tapin-blue-dark",
+      "--tapin-blue-press",
+      "--warn-bg",
+      "--warn-fg",
+      "--white"
+    ],
+    "tokenKinds": {
+      "--tapin-blue": "color",
+      "--tapin-blue-dark": "color",
+      "--tapin-blue-press": "color",
+      "--tapin-blue-50": "color",
+      "--tapin-blue-100": "color",
+      "--tapin-blue-200": "color",
+      "--tapin-blue-300": "color",
+      "--tapin-blue-400": "color",
+      "--ink-900": "color",
+      "--ink-800": "color",
+      "--ink-700": "color",
+      "--ink-600": "color",
+      "--ink-500": "color",
+      "--ink-400": "color",
+      "--white": "color",
+      "--offwhite": "color",
+      "--canvas": "color",
+      "--line": "color",
+      "--line-2": "color",
+      "--success-bg": "color",
+      "--success-fg": "color",
+      "--danger-bg": "color",
+      "--danger-fg": "color",
+      "--danger-strong": "color",
+      "--warn-bg": "color",
+      "--warn-fg": "color",
+      "--info-bg": "color",
+      "--info-fg": "color",
+      "--purple-bg": "color",
+      "--purple-fg": "color",
+      "--ai-grad": "other",
+      "--heat-1": "color",
+      "--heat-2": "color",
+      "--heat-3": "color",
+      "--heat-4": "color",
+      "--heat-5": "color",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-7": "spacing",
+      "--space-8": "spacing",
+      "--space-9": "spacing",
+      "--space-10": "spacing",
+      "--r-xs": "spacing",
+      "--r-sm": "spacing",
+      "--r-md": "spacing",
+      "--r-lg": "spacing",
+      "--r-xl": "spacing",
+      "--r-pill": "spacing",
+      "--sh-card": "shadow",
+      "--sh-pop": "shadow",
+      "--sh-modal": "shadow",
+      "--sh-focus": "shadow",
+      "--sh-btn-primary": "shadow",
+      "--ease": "other",
+      "--t-fast": "other",
+      "--t-med": "other",
+      "--font-sans": "font",
+      "--font-mono": "font",
+      "--green-bg": "color",
+      "--green-text": "font",
+      "--red-bg": "color",
+      "--red-text": "font",
+      "--red-bg-soft": "color",
+      "--red-text-soft": "font",
+      "--shadow-card": "shadow",
+      "--radius-card": "radius",
+      "--row-hover-bg": "color",
+      "--ep-page-w": "spacing"
+    },
+    "fontFamilies": [
+      "JetBrains Mono",
+      "Poppins"
+    ]
+  }
+}

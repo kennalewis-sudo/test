@@ -1,0 +1,153 @@
+/* ─────────────────────────────────────────────────────────────
+   TapIn Design System v3.0 — Tokens
+   Single source of truth: colors, type, space, radius, shadow, motion.
+   Import this first; every component in the kit reads from these.
+   ───────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* ── BRAND BLUE ─────────────────────────────────────────────── */
+  --tapin-blue:        #007DF9;
+  --tapin-blue-dark:   #0066CC;   /* hover state on primary button */
+  --tapin-blue-press:  #003F7D;   /* pressed state (reserve) */
+  --tapin-blue-50:     #F7FCFF;
+  --tapin-blue-100:    #EFF8FF;
+  --tapin-blue-200:    #D8ECFA;
+  --tapin-blue-300:    #B0D8FF;
+  --tapin-blue-400:    #B2CBF5;
+
+  /* ── INK (text) ─────────────────────────────────────────────── */
+  --ink-900: #000D32;                    /* headings, big numbers */
+  --ink-800: #141D23;                    /* body, important UI text */
+  --ink-700: #2A323A;                    /* secondary text */
+  --ink-600: rgba(20, 29, 35, 0.60);     /* meta, captions */
+  --ink-500: rgba(0, 13, 50, 0.57);      /* placeholders, eyebrows */
+  --ink-400: rgba(20, 29, 35, 0.40);     /* disabled, outside-month */
+
+  /* ── SURFACE ────────────────────────────────────────────────── */
+  --white:    #FFFFFF;
+  --offwhite: #FBFCFE;                   /* default fill for inputs/buttons */
+  --canvas:   #F7FCFF;                   /* dashboard background */
+  --line:     #DDE4F0;                   /* default 1px stroke */
+  --line-2:   #B2CBF5;                   /* card / heavier stroke */
+
+  /* ── SEMANTIC ───────────────────────────────────────────────── */
+  --success-bg:     #E2FBE9;
+  --success-fg:     #0B6A00;
+  --danger-bg:      #FBE2E2;
+  --danger-fg:      #6A0000;
+  --danger-strong:  #B00020;
+  --warn-bg:        #FFF1DC;
+  --warn-fg:        #C97200;
+  --info-bg:        #EAF3FF;
+  --info-fg:        #0B59B2;
+  --purple-bg:      #EFE6FF;
+  --purple-fg:      #6E33CC;
+
+  /* AI gradient — reserved for generative output + agent surfaces. */
+  --ai-grad: linear-gradient(135deg, #007DF9 0%, #6E33CC 100%);
+
+  /* ── HEAT SCALE — heatmaps & engagement overlays ONLY ──────── */
+  --heat-1: #FF3D2E;
+  --heat-2: #FF7A1A;
+  --heat-3: #FFD83D;
+  --heat-4: #7BD874;
+  --heat-5: #3FA9F5;
+
+  /* ── SPACING (4-based) ──────────────────────────────────────── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-7:  32px;
+  --space-8:  40px;
+  --space-9:  56px;
+  --space-10: 80px;
+
+  /* ── RADIUS ─────────────────────────────────────────────────── */
+  --r-xs:   6px;
+  --r-sm:   8px;
+  --r-md:   10px;
+  --r-lg:   14px;
+  --r-xl:   21px;   /* dashboard-card signature radius */
+  --r-pill: 999px;
+
+  /* ── SHADOW / ELEVATION ─────────────────────────────────────── */
+  --sh-card:  0 2px 1px 0 rgba(64,72,82,0.05);
+  --sh-pop:   0 16px 40px -12px rgba(15,30,60,0.18), 0 4px 12px rgba(15,30,60,0.06);
+  --sh-modal: 0 24px 60px -14px rgba(15,30,60,0.22), 0 6px 18px rgba(15,30,60,0.10);
+  --sh-focus: 0 0 0 3px rgba(0,125,249,0.18);
+  --sh-btn-primary: 0 4px 14px rgba(0,125,249,0.20);
+
+  /* ── MOTION ─────────────────────────────────────────────────── */
+  --ease:   cubic-bezier(.2, .8, .2, 1);
+  --t-fast: 140ms;
+  --t-med:  220ms;
+
+  /* ── TYPE FAMILIES ──────────────────────────────────────────── */
+  --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Base / reset
+   ───────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  color: var(--ink-800);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font-family: inherit; }
+.mono { font-family: var(--font-mono); }
+
+/* ─────────────────────────────────────────────────────────────
+   Type scale (use classes, OR copy values into your own selectors)
+   ───────────────────────────────────────────────────────────── */
+.t-display {
+  font-size: 56px; line-height: 1.02; font-weight: 700;
+  letter-spacing: -0.025em; color: var(--ink-900);
+}
+.t-h1 {
+  font-size: 32px; line-height: 1.15; font-weight: 600;
+  letter-spacing: -0.02em;  color: var(--ink-900);
+}
+.t-h2 {
+  font-size: 24px; line-height: 1.20; font-weight: 500;
+  letter-spacing: -0.01em;  color: var(--ink-900);
+}
+.t-h3 {
+  font-size: 20px; line-height: 1.30; font-weight: 500;
+  color: var(--ink-900);
+}
+.t-h4 {
+  font-size: 16px; line-height: 1.35; font-weight: 700;
+  color: var(--ink-900);
+}
+.t-body  { font-size: 14px; line-height: 1.55; font-weight: 400; color: var(--ink-800); }
+.t-small { font-size: 13px; line-height: 1.50; font-weight: 400; color: var(--ink-600); }
+.t-caption { font-size: 11px; line-height: 1.45; font-weight: 500; color: var(--ink-600); }
+.t-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.10em;
+  text-transform: uppercase; color: var(--tapin-blue);
+}
+.t-mono  { font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
+.t-num   {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+}
+
+/* Weights — use sparingly */
+.fw-300 { font-weight: 300; }
+.fw-400 { font-weight: 400; }
+.fw-500 { font-weight: 500; }
+.fw-600 { font-weight: 600; }
+.fw-700 { font-weight: 700; }
+.fw-800 { font-weight: 800; }

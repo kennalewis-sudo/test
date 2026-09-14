@@ -1,0 +1,411 @@
+1	© 2026 TapIn Solutions Inc. All Rights Reserved.	© 2026 TapIn Solutions Inc. All Rights Reserved.
+TapIn for Sales
+TapIn owns Point of Sales Presence
+Truth is Physical.
+Cincinnati, OH | Seed Round | $2M @ $12M Pre-Money
+
+-- 1 of 22 --
+
+2	© 2026 TapIn Solutions Inc. All Rights Reserved.
+The most valuable
+moment in sales is the
+only one running on paper.
+The Problem
+A company with $20 million in revenue loses $2 million
+annually due to low-quality CRM data. IndustrySelect / Plauti
+of collected leads are never contacted
+or properly entered into CRM systems.
+Salesforce / Aura Nexus	70%
+UP TO 1-hour response drives 7x higher
+qualification vs. next day. Landbase
+
+-- 2 of 22 --
+
+3	© 2026 TapIn Solutions Inc. All Rights Reserved.
+Finally, a platform for the
+highest-intent sales moment.
+The Solution
+Experience loads instantly
+while the rep is present.
+TapIn runs the sequence.
+Deck sent. Demo booked.
+1
+Prospect simply taps
+the rep’s card.
+CRM inherits the result and
+receives verified record.
+2 	3 	4
+The prospect taps. The sequence runs. The rep is still in the room.
+Other tools feed CRM to start the sequence. TapIn wins the moment – then updates the CRM.
+Consent built into every step. Prospects control what they share. Encrypted, server-authenticated. SOC 2 Type II on the roadmap.
+
+-- 3 of 22 --
+
+4	© 2026 TapIn Solutions Inc. All Rights Reserved.
+Three forces are converging.
+TapIn is built to ride all three.
+Why Now?
+AI needs truth.
+CRM isn’t it.
+CRM data is 60–80%
+inaccurate (Gartner). AI is
+only as good as its inputs.
+TapIn creates the first
+verified record of real-world
+sales activity.
+1 	2 	3
+IRL is rising in value.
+As the world digitizes,
+in-person presence
+becomes the highest-trust
+signal.
+The rep in the room is now
+the most credible moment in
+sales.
+The infrastructure
+just arrived.
+Every smartphone now has
+secure NFC built in. The
+phone becomes the reader.
+TapIn turns physical
+presence into verified data.
+
+-- 4 of 22 --
+
+5	© 2026 TapIn Solutions Inc. All Rights Reserved.
+$15B+ market. No platforms
+for the physical moment.
+$2.44M ARR
+80 contracts,
+$30.5K blended ACV
+~$3B
+Mid-Market B2B w/Teams 10–500
+$15B+
+US Sales Performance & Enablement Software
+TAM
+SAM
+SOM
+(18mo)
+Beachhead Buyer: Business frustrated by poor CRM data quality.
+Who: Head of Sales / CRO @ 100–500 employee
+B2B company using Gong, Outreach, or HubSpot
+Sales Cycle: Single decision maker • 4–8 weeks
+Buys For: CRM data quality • AI tool ROI
+• Verified field activity • Pipeline attribution
+CRM is a $46B market. Sales enablement adds $6B. TapIn
+feeds both from a moment neither is able to capture.
+Market Opportunity
+
+-- 5 of 22 --
+
+6	© 2026 TapIn Solutions Inc. All Rights Reserved.
+TapIn is the sole occupant of its
+competitive quadrant.
+Competitive Landscape & Moat
+Own digital workflows, cannot capture physical
+interactions without human entry.
+Badge Scanners, QR Tools extract data,
+but deliver nothing to the prospect.
+Initiate a tap, but share static rep identity
+profiles, not verified prospect experience, and
+no sequences.
+TapIn captures verified physical
+interactions and contacts - CRM can’t.
+TapIn runs real-time sales sequences
+- digital cards can’t.
+TapIn creates a proprietary dataset
+competitors can’t replicate, even
+through acquisition.
+Prospect Engagement
+In-Person Contact Sharing
+Point of Presence
+
+-- 6 of 22 --
+
+7	© 2026 TapIn Solutions Inc. All Rights Reserved.
+Data Moat
+AI benchmarking reveals what behaviors and sequences drive
+conversion at the interaction moment. This dataset cannot be licensed,
+scraped, or acquired. Every new customer sharpens the benchmarks.
+Product Moat
+TapIn alone occupies the Point of Presence quadrant.
+Competitors face an architectural rewrite, not a feature sprint.
+Easier to buy TapIn than compete.
+Moat Loop
+Network Moat
+Predictive lead scoring ranks which physical interactions convert based on
+cross-customer patterns. New entrants can't match the customer count,
+interaction history, or accumulated signal. The window closes permanently.
+Moat Loop
+Today
+18 mo
+36 mo
+
+-- 7 of 22 --
+
+8	© 2026 TapIn Solutions Inc. All Rights Reserved.
+The category is validated. The moment is real.
+Traction
+Events - Corporate Learning
+Beachhead Customers
+Hospital
+TapIn made registration and CME tracking at our Nephrology Symposium seamless and fraud-proof. It gave us
+instant, reliable proof of who was physically present—something paper sign-ins and QR codes can’t guarantee.
+– Sunshine Barhorst, DNP, ACNP-BC, UC Health
+Restaurant
+Retail Loyalty	Museum
+New Segment Validation
+Events + Campus	Events + Campus 	Events
+Events - Sales
+Short-Term Rental
+
+-- 8 of 22 --
+
+9	© 2026 TapIn Solutions Inc. All Rights Reserved.
+Conversion
+momentum
+Financials
+Strong early conversion from
+pilots → customers, with
+multi-vertical demand.
+Total Contract Value could reach
+~$271Kwith existing and current
+opportunities.
+QUALIFIED LEADS
+10 Accounts
+(Demo, Interest)
+$128K+ TCV
+HIGH INTENT
+6 Accounts
+(Pilots, Negotiation)
+~$24.2K TCV
+WON
+4 Accounts
+~$119K TCV
+MARKETING OUTREACH (started mid-March)
+~1.4K Target Accounts
+Est. conversion → Qualified: 2–4%
+
+-- 9 of 22 --
+
+10	© 2026 TapIn Solutions Inc. All Rights Reserved.
+Michael Jones, PhD
+Co-Founder
+Cryptoeconomics Lab Director, UC.
+Inventor, "Physical Interface for
+Digital Assets" (patent-pending).
+The technical moat lives here.
+Proven leadership. The right team to create a
+category and sell it to a CRO.
+The Team
+Joel Edgerton
+CEO & Co-Founder
+Serial entrepreneur. Ex-CEO bitFlyer
+USA. Ex-Head of Enterprise Sales
+-US at Ledger. IBM, Citi, State Street,
+BNP Paribas. 30+ years B2B.
+Ken Burcham
+CTO & Co-Founder
+30+ years B2B SaaS. Rev.io, 2Cast,
+Pinnacle. Proven platform
+architect.
+Marc Tribbe
+CPO
+25+ years in tech. Founder/CEO
+Park Bench Solutions (exit to
+Rev.io). Proven product builder.
+Previous exits.
+*Patent-pending
+
+-- 10 of 22 --
+
+11	© 2026 TapIn Solutions Inc. All Rights Reserved.
+Be the first capital in to the
+“Point of Presence” category.
+The Ask
+RAISING
+$2M@ $12M pre-money
+14.3% equity
+What this capital does
+1. Scale sales targeting mid-market B2B companies.
+2. Deliver required product changes (HubSpot + Salesforce and SOC2).
+3. Reach 50 customers to activate the “Point of Presence” data moat.
+Multiple (comps) 	Exit Valuation Investor Return
+25x (Category Leader) 	$180M 	12.9x
+15x (Category SaaS) 	$108M 	7.7x
+8x (Conservative Floor) 	$57.6M 	4.1x
+
+-- 11 of 22 --
+
+12	© 2026 TapIn Solutions Inc. All Rights Reserved. 	12	© 2026 TapIn Solutions Inc. All Rights Reserved.
+TapIn owns Point of Sales Presence
+tapin.me
+Contact: joel.edgerton@tapin.me | LinkedIn
+Thank you.
+
+-- 12 of 22 --
+
+13	© 2026 TapIn Solutions Inc. All Rights Reserved.
+Appendix
+Supporting Materials
+A. Technology
+B. GTM Flywheel
+C. Product Deep Dive
+D. Privacy & Data
+E. Healthcare Use Case
+F. Land & Expand Economics
+G. Objection Handling
+H. Funding
+I. GTM Flywheel
+
+-- 13 of 22 --
+
+14	© 2026 TapIn Solutions Inc. All Rights Reserved.
+Why does TapIn use NFC?
+Appendix A
+Legacy NFC: Powered, managed device (POS terminal, kiosk). Expensive. Insecure. Immobile.
+QR Code: Extremely insecure (scams/fraud), difficult experience, no dynamic capability, does not work
+in all environments, and is easily damaged.
+TapIn
+Inexpensive: the phone IS the reader. Every modern smartphone has a cryptographically secure NFC
+reader built in. TapIn’s passive, stateless chip — same as your credit card — works without power on a
+device everyone already loves - their own phone.
+Secure + Verified: Every tap is cryptographically signed and timestamped server-side. Not a URL
+redirect. A verified physical event. This is the foundation of the data moat.
+Ubiquitous: Works in any lighting, and difficult to damage
+
+-- 14 of 22 --
+
+15	© 2026 TapIn Solutions Inc. All Rights Reserved.
+How the mailer campaign works:
+● 4,000 ICP accounts identified (mid-market B2B, field sales teams, existing AI tool investment)
+● Each receives a TapIn-powered NFC mailer — prospect experiences a tap before agreeing to a
+demo
+● Tap-rate, time-of-tap, and repeat-tap captured in real-time
+● Tapped accounts flagged warm; AEs prioritize accordingly
+● Demo conversion rate for tapped vs. cold accounts tracked separately — this delta is the
+flywheel proof point
+Appendix B
+
+-- 15 of 22 --
+
+16	© 2026 TapIn Solutions Inc. All Rights Reserved.
+Product deep dive
+(PRD Summary — v0.6)
+Appendix C
+
+-- 16 of 22 --
+
+17	© 2026 TapIn Solutions Inc. All Rights Reserved.
+Privacy & data
+● Explicit opt-in required. Consent record (timestamp, checkbox state, form version) stored with
+every interaction.
+● Prospect controls what they share. All fields optional except one contact method.
+● B2B data handling. Enterprise customer is the data controller. TapIn processes per customer
+terms of service.
+● Cross-account AI training. V2 coaching pools interaction data across customers. Disclosed at
+B2B terms of service level. Legal review in progress before v2 activation.
+● SOC 2 Type II on the product roadmap — prioritized when regulated enterprise expansion begins
+at Month 18.
+Appendix D
+
+-- 17 of 22 --
+
+18	© 2026 TapIn Solutions Inc. All Rights Reserved.
+Healthcare use case
+Verified physical presence is a compliance requirement in healthcare and financial services.
+UC Health used TapIn for CME tracking: fraud-proof, instant proof of physical presence.
+This use case anchors the Phase 2 regulated enterprise expansion. TapIn's verified interaction record is
+a compliance asset no other sales tool produces — and commands premium ACV when that
+expansion begins.
+Appendix E
+
+-- 18 of 22 --
+
+19	© 2026 TapIn Solutions Inc. All Rights Reserved.
+Land & expand economics
+Land: Enterprise Starter at $11K ACV — justified by a single quarter of eliminated lead decay on a 10-rep
+field team. Net-new capability at net-positive ROI vs. cost of CRM data decay and follow-up lag.
+Expand: Enterprise Growth at $50K ACV as rep headcount and campaign volume scale. AI coaching,
+rep performance benchmarking, and cross-customer analytics activate at the 50-customer threshold
+— a named expansion revenue line. Every new use case (events, trade shows) adds TapPoint
+deployment volume and grows subscription revenue without increasing CAC.
+Appendix F
+
+-- 19 of 22 --
+
+20	© 2026 TapIn Solutions Inc. All Rights Reserved.
+Objection handling
+Objection 	Response
+"Why hasn't anyone done
+this?"
+Digital card tools are built around the rep's identity — extending that to campaign management and coaching is a platform rewrite.
+CRMs need data to already exist. Nobody was built to own this moment. TapIn was.
+"What's your moat?" 	Three layers: feature moat today (empty quadrant); data moat at Month 18 (proprietary verified interaction dataset); network moat
+at Month 36 (predictive scoring no new entrant can replicate).
+"Why is hardware required?" The chip is not the product — the platform is. Hardware is a passive commodity NFC chip. The value is the verified data and
+intelligence layer. Any competitor can copy the chip. They cannot copy the dataset.
+"What about privacy?" 	Explicit opt-in at every interaction. Prospect controls what they share. B2B data handling per enterprise customer terms of service.
+SOC 2 on the roadmap. See Appendix D.
+"Your ARR growth looks
+aggressive."
+80 contracts from 4,000 accounts = 2% penetration. Target accounts pre-qualified by existing AI tool investment. Comparable
+category-creation SaaS (Drift, Gong at seed) showed similar ramp profiles. The 2025 revenue reflects deliberate validation — not a
+failed commercial effort.
+"Why mid-market B2B
+only?"
+Category creation requires focus. We picked the buyer who already feels the problem — they've spent money on AI sales tools and
+are watching them underperform because CRM data is dirty. Healthcare, events, and SMB are named expansions — deliberately
+deferred.
+"What's your pilot-to-close
+conversion?"
+[Populate with live data before any investor meeting.]
+"What's your IP?" 	Patent-pending: "Physical Interface for Digital Assets" — Co-Founder Michael Jones, PhD. SecureTap server-authentication
+architecture. Long-term moat is the proprietary dataset, not the patent alone.
+Appendix G
+
+-- 20 of 22 --
+
+21	© 2026 TapIn Solutions Inc. All Rights Reserved.
+Strong Non-Dilutive
+Capital Foundation
+Investor Funding Raised
+$300K$750K
+$165K
+$1.22M
+Total Funding
+Secured
+Grant Funding Remaining
+Appendix H
+TapIn has secured $1.2M+ in funding, with a strong share
+from non-dilutive grants amplifying invested capital.
+This has enabled product development, early validation,
+and customer acquisition without significant dilution.
+Multiple 	Exit Valuation Investor Return
+25x (Category Leader) 	$180M 	12.9x
+15x (Category SaaS Comp) $108M 	7.7x
+8x (Conservative Floor) 	$57.6M 	4.1x
+
+-- 21 of 22 --
+
+22	© 2026 TapIn Solutions Inc. All Rights Reserved.
+Every tap makes the next sale easier.
+Better outcomes drive referrals and
+expansion. Rep expansion and
+word-of-mouth restart the loop.
+Data improves AI coaching for
+every customer on the platform.
+TapIn gets smarter with scale.
+NFC mailers → target accounts.
+Prospects experience the tap. Tap-rate
+is a live sales signal before the first call.
+Tap-rate converts to demos.
+Mailer-engaged accounts convert
+far higher than cold outreach.
+Demos convert to contracts.
+Each new customer adds verified
+interaction data to the platform.
+Appendix I
+
+-- 22 of 22 --
+
