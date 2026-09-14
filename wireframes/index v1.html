@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>TapIn to Sales — Wireframes</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; background: #EAF3FF; font-family: 'Poppins', sans-serif; }
+  .page { max-width: 1500px; margin: 0 auto; padding: 40px 32px 80px; }
+  .hero { margin-bottom: 40px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #0080FF; }
+  .title { font-size: 44px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin: 8px 0 10px; color: #141D22; }
+  .lede { font-size: 17px; line-height: 1.55; color: #404569; max-width: 720px; }
+  .section-label { display: flex; align-items: center; gap: 14px; margin: 44px 0 18px; }
+  .section-label .n { width: 28px; height: 28px; border-radius: 50%; background: #0080FF; color: #fff; display: grid; place-items: center; font-size: 12px; font-weight: 700; }
+  .section-label h2 { font-size: 22px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  .section-label .desc { margin-left: auto; font-size: 13px; color: rgba(20,29,34,.65); max-width: 420px; text-align: right; }
+  .frame-row { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+  .frame-col { display: flex; flex-direction: column; gap: 10px; }
+  .frame-col .cap { font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: rgba(20,29,34,.65); }
+  .frame-col .sub { font-size: 12px; color: rgba(20,29,34,.55); max-width: 280px; }
+  .tabs { display: inline-flex; background: #fff; border: 1px solid #DDE4F0; border-radius: 999px; padding: 4px; gap: 2px; margin-bottom: 16px; }
+  .tabs button { border: 0; background: transparent; padding: 7px 16px; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 500; color: rgba(20,29,34,.65); cursor: pointer; }
+  .tabs button.active { background: #0080FF; color: #fff; font-weight: 600; }
+  .flow-bar { display: flex; gap: 0; background: #fff; border: 1px solid #DDE4F0; border-radius:14px; padding: 12px; margin-bottom: 20px; align-items: center; }
+  .flow-bar .step { flex: 1; display: flex; align-items: center; gap: 10px; padding: 6px 12px; }
+  .flow-bar .num { width: 22px; height: 22px; border-radius: 50%; background: #EAF3FF; color: #0080FF; display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+  .flow-bar .num.dark { background: #0080FF; color: #fff; }
+  .flow-bar .label { font-size: 12px; color: #141D22; font-weight: 500; line-height: 1.3; }
+  .flow-bar .arrow { color: #B2CBF5; font-size: 14px; }
+  .caveat { padding: 14px 18px; background: rgba(255,171,59,.12); border: 1px solid rgba(255,171,59,.35); border-radius: 12px; color: #8f5a0f; font-size: 13px; line-height: 1.5; margin-top: 18px; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+/* TapIn component library — shared across all wireframe surfaces */
+
+// Icon — stroke SVGs, matches Lucide weight
+const Icon = ({ name, size = 20, color = 'currentColor' }) => {
+  const p = { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: color, strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' };
+  const paths = {
+    play: <><path d="m10 7 5 3-5 3z" fill={color}/><rect x="2" y="4" width="20" height="16" rx="3"/></>,
+    file: <><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></>,
+    cal: <><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></>,
+    glass: <><path d="M8 2h8l4 10v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8z"/><path d="M4 12h16"/><path d="M10 12v6"/><path d="M14 12v6"/></>,
+    card: <><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2.5"/><path d="M14 10h5"/><path d="M14 14h4"/></>,
+    chev: <path d="m9 18 6-6-6-6"/>,
+    chevUp: <path d="m18 15-6-6-6 6"/>,
+    lock: <><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></>,
+    user: <><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></>,
+    plus: <><path d="M12 5v14"/><path d="M5 12h14"/></>,
+    check: <path d="M20 6 9 17l-5-5"/>,
+    bolt: <path d="M13 2 3 14h7l-1 8 10-12h-7z" fill={color}/>,
+    sparkle: <><path d="M12 3v4"/><path d="M12 17v4"/><path d="M3 12h4"/><path d="M17 12h4"/><path d="m5.6 5.6 2.8 2.8"/><path d="m15.6 15.6 2.8 2.8"/><path d="m5.6 18.4 2.8-2.8"/><path d="m15.6 8.4 2.8-2.8"/></>,
+    wave: <><path d="M4 12a8 8 0 0 1 16 0"/><path d="M7.5 12a4.5 4.5 0 0 1 9 0"/><circle cx="12" cy="12" r="1.2" fill={color}/></>,
+    arrow: <><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></>,
+    search: <><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></>,
+    bell: <><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></>,
+    grid: <><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></>,
+    settings: <><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.5-2.3.9a7 7 0 0 0-2-1.2L14 3h-4l-.6 2.5a7 7 0 0 0-2 1.2l-2.3-.9-2 3.5 2 1.5A7 7 0 0 0 5 12a7 7 0 0 0 .1 1.2l-2 1.5 2 3.5 2.3-.9a7 7 0 0 0 2 1.2L10 21h4l.6-2.5a7 7 0 0 0 2-1.2l2.3.9 2-3.5-2-1.5A7 7 0 0 0 19 12z"/></>,
+    home: <><path d="M3 11 12 3l9 8v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></>,
+    tappoint: <><circle cx="12" cy="12" r="2.5" fill={color}/><path d="M8 12a4 4 0 0 1 8 0"/><path d="M4 12a8 8 0 0 1 16 0"/></>,
+    swipe: <><path d="M7 11V5a2 2 0 0 1 4 0v6"/><path d="M11 7a2 2 0 0 1 4 0v4"/><path d="M15 9a2 2 0 0 1 4 0v7a6 6 0 0 1-12 0v-3l-2-2a1.4 1.4 0 0 1 2-2l2 2"/></>,
+    link: <><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></>,
+    building: <><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01M9 17h6"/></>,
+  };
+  return <svg {...p}>{paths[name]}</svg>;
+};
+
+// Logo mark — the TapIn parentheses/wave mark
+const TapInMark = ({ size = 28, color = '#0080FF' }) => (
+  <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
+    <path d="M18 12c-4 7-4 29 0 37" stroke={color} strokeWidth="8" strokeLinecap="round"/>
+    <path d="M34 6c6 10 6 38 0 48" stroke={color} strokeWidth="8" strokeLinecap="round"/>
+  </svg>
+);
+
+// Phone frame — simplified for small mobile mockups
+const Phone = ({ children, width = 320, height = 640, chromeColor = '#141D22' }) => (
+  <div style={{
+    width, height, borderRadius: 42, padding: 10, background: chromeColor,
+    boxShadow: '0 30px 60px rgba(10,15,20,.2), 0 0 0 1px rgba(0,0,0,.1)',
+    position: 'relative', flexShrink: 0,
+  }}>
+    <div style={{
+      width: '100%', height: '100%', borderRadius: 32, overflow: 'hidden',
+      background: '#fff', position: 'relative', display: 'flex', flexDirection: 'column',
+    }}>
+      {/* dynamic island */}
+      <div style={{
+        position: 'absolute', top: 8, left: '50%', transform: 'translateX(-50%)',
+        width: 88, height: 24, borderRadius: 16, background: '#000', zIndex: 10,
+      }}/>
+      {children}
+    </div>
+  </div>
+);
+
+// Status bar for small Phone
+const StatusBar = ({ dark = false }) => (
+  <div style={{
+    height: 44, flexShrink: 0, display: 'flex', alignItems: 'flex-end',
+    justifyContent: 'space-between', padding: '0 20px 4px',
+    fontSize: 12, fontWeight: 600, color: dark ? '#fff' : '#000',
+  }}>
+    <span>9:41</span>
+    <span style={{ opacity: 0 }}>•</span>
+    <span style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+      <svg width="14" height="10" viewBox="0 0 14 10"><rect x="0" y="6" width="2.5" height="4" rx="0.5" fill={dark?'#fff':'#000'}/><rect x="4" y="4" width="2.5" height="6" rx="0.5" fill={dark?'#fff':'#000'}/><rect x="8" y="2" width="2.5" height="8" rx="0.5" fill={dark?'#fff':'#000'}/><rect x="12" y="0" width="1.5" height="10" rx="0.5" fill={dark?'#fff':'#000'} fillOpacity="0.4"/></svg>
+      <svg width="18" height="10" viewBox="0 0 18 10"><rect x="0.5" y="0.5" width="15" height="9" rx="2" stroke={dark?'#fff':'#000'} strokeOpacity="0.4" fill="none"/><rect x="2" y="2" width="10" height="6" rx="1" fill={dark?'#fff':'#000'}/></svg>
+    </span>
+  </div>
+);
+
+
+
+// Setup website — desktop surface where Matt configures sales motions before the conference.
+
+const SetupWebsite = () => {
+  return (
+    <div style={{ width: 1200, height: 780, background: '#FBFCFE', display: 'flex', fontFamily: 'Poppins, sans-serif', borderRadius: 12, overflow: 'hidden', border: '1px solid #DDE4F0' }}>
+      {/* Sidebar */}
+      <div style={{ width: 220, background: '#fff', borderRight: '1px solid #EAF3FF', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '18px 20px', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #EAF3FF' }}>
+          <TapInMark size={22}/>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#141D22' }}>TapIn</div>
+        </div>
+        <div style={{ padding: '14px 10px', display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {[
+            { name: 'Home', icon: 'home' },
+            { name: 'Sales Motions', icon: 'bolt', active: true },
+            { name: 'TapPoints', icon: 'tappoint' },
+            { name: 'Experiences', icon: 'grid' },
+            { name: 'Leads & CRM', icon: 'user' },
+            { name: 'Insights', icon: 'sparkle' },
+            { name: 'Settings', icon: 'settings' },
+          ].map(i => (
+            <div key={i.name} style={{
+              padding: '9px 12px', borderRadius: 8, fontSize: 13,
+              display: 'flex', alignItems: 'center', gap: 10,
+              background: i.active ? '#EAF3FF' : 'transparent',
+              color: i.active ? '#0080FF' : '#404569',
+              fontWeight: i.active ? 600 : 500,
+              cursor: 'pointer',
+            }}>
+              <Icon name={i.icon} size={16} color={i.active ? '#0080FF' : 'rgba(20,29,34,.65)'}/>{i.name}
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 'auto', padding: 14, borderTop: '1px solid #EAF3FF', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ width: 30, height: 30, borderRadius: '50%', background: '#0080FF', color: '#fff', display: 'grid', placeItems: 'center', fontSize: 11, fontWeight: 600 }}>MG</div>
+          <div>
+            <div style={{ fontSize: 12, fontWeight: 600, color: '#141D22' }}>Matt Gropp</div>
+            <div style={{ fontSize: 10, color: 'rgba(20,29,34,.55)' }}>TapIn Solutions</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main */}
+      <div style={{ flex: 1, overflowY: 'auto' }}>
+        {/* Top nav */}
+        <div style={{ padding: '14px 28px', borderBottom: '1px solid #EAF3FF', background: '#fff', display: 'flex', alignItems: 'center', gap: 14 }}>
+          <div style={{ fontSize: 11, color: 'rgba(20,29,34,.55)' }}>Sales Motions ›</div>
+          <div style={{ fontSize: 13, fontWeight: 600, color: '#141D22' }}>SaaStr 2026</div>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: 10 }}>
+            <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+              <Icon name="search" size={14} color="rgba(20,29,34,.55)"/>
+              <input placeholder="Search motions…" style={{ border: '1px solid #DDE4F0', borderRadius: 999, padding: '7px 14px 7px 30px', fontSize: 12, fontFamily: 'inherit', width: 180, marginLeft: -22 }}/>
+            </div>
+            <button style={{ background: '#0080FF', color: '#fff', border: 0, borderRadius: 999, padding: '7px 16px', fontWeight: 600, fontSize: 12, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <Icon name="plus" size={14} color="#fff"/> New Motion
+            </button>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div style={{ padding: '24px 28px' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 20 }}>
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#0080FF' }}>Event Campaign</div>
+              <div style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-.02em', marginTop: 4, color: '#141D22' }}>SaaStr 2026</div>
+              <div style={{ fontSize: 13, color: 'rgba(20,29,34,.65)', marginTop: 4 }}>Oct 14–16, 2026 · San Francisco · Assigned to 4 TapPoints</div>
+            </div>
+            <div style={{ display: 'flex', gap: 10 }}>
+              <div style={{ padding: '6px 12px', borderRadius: 999, background: 'rgba(131,194,21,.14)', color: '#4f7a0c', fontSize: 11, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 5 }}>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#83C215' }}/> Live
+              </div>
+              <button style={{ background: '#fff', border: '1px solid #DDE4F0', borderRadius: 999, padding: '7px 14px', fontSize: 12, fontWeight: 500, cursor: 'pointer' }}>Preview</button>
+            </div>
+          </div>
+
+          {/* Stat row */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginBottom: 24 }}>
+            {[
+              { label: 'Motions configured', n: '5', sub: '+2 this week' },
+              { label: 'TapPoints linked', n: '4', sub: 'Matt · Ava · JB · Kyle' },
+              { label: 'Projected taps', n: '~280', sub: 'Based on last event' },
+              { label: 'Pipeline target', n: '$42k', sub: 'Avg ICP 78' },
+            ].map(s => (
+              <div key={s.label} style={{ padding: 16, background: '#fff', border: '1px solid #DDE4F0', borderRadius: 14 }}>
+                <div style={{ fontSize: 11, color: 'rgba(20,29,34,.55)', fontWeight: 500 }}>{s.label}</div>
+                <div style={{ fontSize: 28, fontWeight: 600, color: '#141D22', letterSpacing: '-.02em', marginTop: 4 }}>{s.n}</div>
+                <div style={{ fontSize: 10, color: 'rgba(20,29,34,.65)', marginTop: 2 }}>{s.sub}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Two-col */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 16 }}>
+            {/* Motions list */}
+            <div style={{ background: '#fff', border: '1px solid #DDE4F0', borderRadius: 14, overflow: 'hidden' }}>
+              <div style={{ padding: '14px 18px', borderBottom: '1px solid #EAF3FF', display: 'flex', alignItems: 'center' }}>
+                <div style={{ fontSize: 14, fontWeight: 600 }}>Motion set · reorderable</div>
+                <div style={{ marginLeft: 'auto', fontSize: 11, color: 'rgba(20,29,34,.55)' }}>Drag to reorder on phone</div>
+              </div>
+              {[
+                { name: 'Digital Card', sub: 'vCard · Matt Gropp', icon: 'card', tint: '#4f7a0c', tintBg: 'rgba(131,194,21,.14)', def: true },
+                { name: 'Send Brochure', sub: 'Platform Overview · PDF · 2.4 MB', icon: 'file', tint: '#0D99A3', tintBg: 'rgba(13,153,163,.14)', def: true },
+                { name: 'Send Video', sub: '90-sec product demo · MP4', icon: 'play', tint: '#0080FF', tintBg: '#EAF3FF', def: true },
+                { name: 'Happy Hour Invite', sub: 'Tonight 6 PM · Hotel Nia · SaaStr-only', icon: 'glass', tint: '#8f5a0f', tintBg: 'rgba(255,171,59,.18)', def: false },
+                { name: 'Book a Meeting', sub: '30-min · Calendly · post-event', icon: 'cal', tint: '#0080FF', tintBg: '#EAF3FF', def: true },
+              ].map((m, i) => (
+                <div key={m.name} style={{ padding: '14px 18px', borderTop: i ? '1px solid #EAF3FF' : 0, display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ color: '#B2CBF5', fontSize: 10, fontWeight: 700, width: 12 }}>{i + 1}</div>
+                  <div style={{ width: 36, height: 36, borderRadius: 10, background: m.tintBg, display: 'grid', placeItems: 'center' }}>
+                    <Icon name={m.icon} size={18} color={m.tint}/>
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, fontWeight: 600 }}>{m.name}
+                      {m.def && <span style={{ marginLeft: 8, fontSize: 9, fontWeight: 600, color: '#0080FF', background: '#EAF3FF', padding: '2px 7px', borderRadius: 999, letterSpacing: '.04em' }}>DEFAULT</span>}
+                      {!m.def && <span style={{ marginLeft: 8, fontSize: 9, fontWeight: 600, color: '#8f5a0f', background: 'rgba(255,171,59,.18)', padding: '2px 7px', borderRadius: 999, letterSpacing: '.04em' }}>EVENT</span>}
+                    </div>
+                    <div style={{ fontSize: 11, color: 'rgba(20,29,34,.65)', marginTop: 2 }}>{m.sub}</div>
+                  </div>
+                  <button style={{ background: 'transparent', border: '1px solid #DDE4F0', borderRadius: 999, padding: '5px 12px', fontSize: 11, fontWeight: 500, cursor: 'pointer' }}>Edit</button>
+                </div>
+              ))}
+              <div style={{ padding: 14, borderTop: '1px solid #EAF3FF' }}>
+                <button style={{ width: '100%', background: '#FBFCFE', border: '1px dashed #B2CBF5', borderRadius: 10, padding: 11, fontSize: 12, fontWeight: 500, color: 'rgba(20,29,34,.65)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                  <Icon name="plus" size={14} color="rgba(20,29,34,.65)"/> Add a motion
+                </button>
+              </div>
+            </div>
+
+            {/* TapPoints + prospect form */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{ background: '#fff', border: '1px solid #DDE4F0', borderRadius: 14, padding: 18 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>Linked TapPoints</div>
+                {[
+                  { n: 'Matt — Sales Card', id: 'TP-0412', state: 'Linked' },
+                  { n: 'Ava — Booth Puck', id: 'TP-0431', state: 'Linked' },
+                  { n: 'JB — Sales Card', id: 'TP-0490', state: 'Linked' },
+                  { n: 'Kyle — Sales Card', id: 'TP-0502', state: 'Linked' },
+                ].map(t => (
+                  <div key={t.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0', borderBottom: '1px solid #EAF3FF' }}>
+                    <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#141D22', display: 'grid', placeItems: 'center' }}>
+                      <TapInMark size={14} color="#fff"/>
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 12, fontWeight: 600 }}>{t.n}</div>
+                      <div style={{ fontSize: 10, color: 'rgba(20,29,34,.55)', fontFamily: 'ui-monospace, monospace' }}>{t.id}</div>
+                    </div>
+                    <div style={{ fontSize: 10, color: '#4f7a0c', fontWeight: 600 }}>● {t.state}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ background: '#fff', border: '1px solid #DDE4F0', borderRadius: 14, padding: 18 }}>
+                <div style={{ fontSize: 14, fontWeight: 600 }}>Prospect capture</div>
+                <div style={{ fontSize: 11, color: 'rgba(20,29,34,.65)', marginTop: 2, marginBottom: 12 }}>Fields shown on the first screen after tap</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {['Full name', 'Company URL'].map(f => (
+                    <div key={f} style={{ padding: '8px 12px', background: '#FBFCFE', border: '1px solid #EAF3FF', borderRadius: 8, display: 'flex', alignItems: 'center', gap: 8, fontSize: 12 }}>
+                      <Icon name="check" size={14} color="#4f7a0c"/>{f}
+                    </div>
+                  ))}
+                  <div style={{ padding: '8px 12px', border: '1px dashed #B2CBF5', borderRadius: 8, fontSize: 11, color: 'rgba(20,29,34,.55)' }}>+ Email (auto-requested on Happy Hour RSVP)</div>
+                </div>
+              </div>
+
+              <div style={{ background: 'linear-gradient(135deg, #0080FF, #0066CC)', borderRadius: 14, padding: 16, color: '#fff' }}>
+                <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', opacity: .7 }}>CRM Sync</div>
+                <div style={{ fontSize: 14, fontWeight: 600, marginTop: 4 }}>Salesforce · enabled</div>
+                <div style={{ fontSize: 11, opacity: .85, marginTop: 4 }}>Verified taps + ICP enrichment push to your CRM at session close.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
+
+// Salesperson mobile — the live "at the conference" screen.
+// Picks a motion, swipes up to push it to the prospect's phone.
+// Layout variants: 'stack' (list), 'grid' (2-col), 'carousel' (horiz swipe cards)
+
+const MOTIONS = [
+  { id: 'brochure', name: 'Send Brochure', sub: 'Platform Overview · PDF', icon: 'file', tint: '#0D99A3', tintBg: 'rgba(13,153,163,.14)' },
+  { id: 'video', name: 'Send Video', sub: '90-sec demo · MP4', icon: 'play', tint: '#0080FF', tintBg: '#EAF3FF' },
+  { id: 'happyhour', name: 'Happy Hour Invite', sub: 'Tonight · 6 PM · Hotel Nia', icon: 'glass', tint: '#8f5a0f', tintBg: 'rgba(255,171,59,.18)' },
+  { id: 'meeting', name: 'Book a Meeting', sub: '30-min · Calendly', icon: 'cal', tint: '#0080FF', tintBg: '#EAF3FF' },
+  { id: 'vcard', name: 'Digital Card', sub: 'Save contact · vCard', icon: 'card', tint: '#4f7a0c', tintBg: 'rgba(131,194,21,.14)' },
+];
+
+const SalesMobile = ({ layout = 'stack', activeMotion = null, onSend = () => {} }) => {
+  return (
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#FBFCFE', overflow: 'hidden' }}>
+      {/* Top bar */}
+      <div style={{ padding: '10px 16px 12px', display: 'flex', alignItems: 'center', gap: 10, background: '#fff', borderBottom: '1px solid #EAF3FF' }}>
+        <TapInMark size={22}/>
+        <div>
+          <div style={{ fontSize: 10, color: 'rgba(20,29,34,.55)', lineHeight: 1 }}>LIVE SESSION</div>
+          <div style={{ fontSize: 12, fontWeight: 600, color: '#141D22', marginTop: 2 }}>SaaStr · Booth 42</div>
+        </div>
+        <div style={{ marginLeft: 'auto', padding: '4px 10px', borderRadius: 999, background: 'rgba(131,194,21,.14)', color: '#4f7a0c', fontSize: 10, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 5 }}>
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#83C215' }}/>Connected
+        </div>
+      </div>
+
+      {/* Prospect card — fills in live */}
+      <div style={{ margin: '12px 16px 0', padding: 14, background: '#fff', border: '1px solid #DDE4F0', borderRadius: 14, boxShadow: '0 2px 6px rgba(10,15,20,.06)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, #0080FF, #1BACE0)', display: 'grid', placeItems: 'center', color: '#fff', fontWeight: 600, fontSize: 13 }}>NW</div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#141D22' }}>Nicholas Wright</div>
+            <div style={{ fontSize: 11, color: 'rgba(20,29,34,.65)' }}>VP Product · Acme Inc.</div>
+          </div>
+          <div style={{ padding: '3px 8px', borderRadius: 999, background: '#0080FF', color: '#fff', fontSize: 10, fontWeight: 700 }}>ICP 92</div>
+        </div>
+        <div style={{ display: 'flex', gap: 8, fontSize: 10, color: 'rgba(20,29,34,.65)' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}><Icon name="link" size={10}/>acme.com</span>
+          <span>·</span>
+          <span>Series B · 240 emp</span>
+          <span>·</span>
+          <span>Martech</span>
+        </div>
+      </div>
+
+      {/* Motion picker */}
+      <div style={{ padding: '14px 16px 6px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'rgba(20,29,34,.65)' }}>Send a motion</div>
+        <div style={{ fontSize: 10, color: 'rgba(20,29,34,.55)' }}>SaaStr · default set</div>
+      </div>
+
+      {layout === 'stack' && (
+        <div style={{ padding: '0 16px', display: 'flex', flexDirection: 'column', gap: 8, flex: 1, overflowY: 'auto' }}>
+          {MOTIONS.map(m => (
+            <div key={m.id} style={{
+              padding: 12, background: '#fff',
+              border: `1px solid ${activeMotion === m.id ? '#0080FF' : '#DDE4F0'}`,
+              borderRadius: 12, display: 'flex', alignItems: 'center', gap: 12,
+              boxShadow: activeMotion === m.id ? '0 8px 20px rgba(0,128,255,.18)' : '0 1px 2px rgba(10,15,20,.03)',
+              cursor: 'pointer',
+            }} onClick={() => onSend(m.id)}>
+              <div style={{ width: 36, height: 36, borderRadius: 10, background: m.tintBg, color: m.tint, display: 'grid', placeItems: 'center', flexShrink: 0 }}>
+                <Icon name={m.icon} size={18} color={m.tint}/>
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#141D22' }}>{m.name}</div>
+                <div style={{ fontSize: 11, color: 'rgba(20,29,34,.65)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{m.sub}</div>
+              </div>
+              <div style={{ fontSize: 10, fontWeight: 600, color: '#0080FF', display: 'flex', alignItems: 'center', gap: 4 }}>
+                <Icon name="swipe" size={14} color="#0080FF"/>Swipe
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {layout === 'grid' && (
+        <div style={{ padding: '0 16px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, flex: 1, overflowY: 'auto', alignContent: 'start' }}>
+          {MOTIONS.map(m => (
+            <div key={m.id} style={{
+              padding: 14, background: '#fff',
+              border: `1px solid ${activeMotion === m.id ? '#0080FF' : '#DDE4F0'}`,
+              borderRadius: 14, display: 'flex', flexDirection: 'column', gap: 8,
+              boxShadow: activeMotion === m.id ? '0 8px 20px rgba(0,128,255,.18)' : '0 1px 2px rgba(10,15,20,.03)',
+              cursor: 'pointer', aspectRatio: '1/1.05',
+            }} onClick={() => onSend(m.id)}>
+              <div style={{ width: 36, height: 36, borderRadius: 10, background: m.tintBg, color: m.tint, display: 'grid', placeItems: 'center' }}>
+                <Icon name={m.icon} size={18} color={m.tint}/>
+              </div>
+              <div style={{ marginTop: 'auto' }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#141D22', lineHeight: 1.2 }}>{m.name}</div>
+                <div style={{ fontSize: 10, color: 'rgba(20,29,34,.65)', marginTop: 3, lineHeight: 1.3 }}>{m.sub}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {layout === 'carousel' && (
+        <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ padding: '0 16px 12px', display: 'flex', gap: 10, overflowX: 'auto', flexShrink: 0 }}>
+            {MOTIONS.map(m => (
+              <div key={m.id} style={{
+                minWidth: 150, padding: 14,
+                background: activeMotion === m.id ? '#0080FF' : '#fff',
+                color: activeMotion === m.id ? '#fff' : '#141D22',
+                border: `1px solid ${activeMotion === m.id ? '#0080FF' : '#DDE4F0'}`,
+                borderRadius: 16, display: 'flex', flexDirection: 'column', gap: 10,
+                boxShadow: activeMotion === m.id ? '0 12px 30px rgba(0,128,255,.3)' : '0 2px 6px rgba(10,15,20,.06)',
+                cursor: 'pointer', flexShrink: 0,
+              }} onClick={() => onSend(m.id)}>
+                <div style={{
+                  width: 40, height: 40, borderRadius: 10,
+                  background: activeMotion === m.id ? 'rgba(255,255,255,.2)' : m.tintBg,
+                  color: activeMotion === m.id ? '#fff' : m.tint,
+                  display: 'grid', placeItems: 'center',
+                }}>
+                  <Icon name={m.icon} size={20} color={activeMotion === m.id ? '#fff' : m.tint}/>
+                </div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 600, lineHeight: 1.2 }}>{m.name}</div>
+                  <div style={{ fontSize: 10, opacity: activeMotion === m.id ? .8 : .65, marginTop: 4 }}>{m.sub}</div>
+                </div>
+                <div style={{ marginTop: 'auto', fontSize: 10, fontWeight: 600, opacity: .7, display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <Icon name="chevUp" size={12}/>Swipe up
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ margin: '0 16px', padding: '10px 12px', background: '#fff', border: '1px solid #DDE4F0', borderRadius: 12 }}>
+            <div style={{ fontSize: 11, color: 'rgba(20,29,34,.65)', marginBottom: 6, fontWeight: 600 }}>Recent taps · today</div>
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+              {['NW', 'KM', 'JS', 'TR', 'LP'].map((i, x) => (
+                <div key={x} style={{ width: 26, height: 26, borderRadius: '50%', background: x === 0 ? '#0080FF' : '#EAF3FF', color: x === 0 ? '#fff' : 'rgba(20,29,34,.65)', fontSize: 10, fontWeight: 600, display: 'grid', placeItems: 'center' }}>{i}</div>
+              ))}
+              <div style={{ fontSize: 11, color: 'rgba(20,29,34,.55)', alignSelf: 'center' }}>+7</div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Bottom swipe hint */}
+      <div style={{ padding: '10px 16px 12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, color: 'rgba(20,29,34,.65)', fontSize: 11 }}>
+        <Icon name="chevUp" size={14} color="rgba(20,29,34,.65)"/> Swipe up on a card to send
+      </div>
+    </div>
+  );
+};
+
+
+
+// Prospect mobile: Landing (capture name + URL), Experience pages (brochure, RSVP).
+// Variations A (hero-forward with NFC visual), B (minimal form-first), C (branded sales-card header).
+
+const ProspectLanding = ({ variant = 'A', stage = 'capture', motion = null }) => {
+  const isA = variant === 'A', isB = variant === 'B', isC = variant === 'C';
+
+  // BROCHURE stage
+  if (stage === 'brochure') {
+    return (
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#FBFCFE', overflow: 'hidden' }}>
+        <div style={{ padding: '14px 20px', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #EAF3FF', background: '#fff' }}>
+          <TapInMark size={20}/>
+          <div style={{ fontSize: 13, fontWeight: 600, color: '#141D22' }}>tap.tapin.me</div>
+          <div style={{ marginLeft: 'auto', fontSize: 11, color: 'rgba(20,29,34,.65)', display: 'flex', alignItems: 'center', gap: 4 }}><Icon name="lock" size={12}/>Secure</div>
+        </div>
+        <div style={{ padding: '20px 20px 12px' }}>
+          <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#0080FF' }}>From Matt Gropp</div>
+          <div style={{ fontSize: 20, fontWeight: 600, color: '#141D22', lineHeight: 1.2, marginTop: 4 }}>TapIn — Platform Overview</div>
+        </div>
+        <div style={{ margin: '0 20px', flex: 1, background: '#fff', border: '1px solid #DDE4F0', borderRadius: 14, padding: 14, display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div style={{ height: 90, background: 'linear-gradient(135deg, #0080FF, #1BACE0)', borderRadius: 10, display: 'grid', placeItems: 'center', color: '#fff', fontWeight: 600 }}>
+            <div style={{ textAlign: 'center' }}><TapInMark size={28} color="#fff"/><div style={{ fontSize: 13, marginTop: 6 }}>Platform Overview</div></div>
+          </div>
+          <div style={{ fontSize: 11, color: '#404569', lineHeight: 1.5 }}>
+            <div style={{ height: 6, background: '#EAF3FF', borderRadius: 2, marginBottom: 5 }}/>
+            <div style={{ height: 6, background: '#EAF3FF', borderRadius: 2, marginBottom: 5, width: '80%' }}/>
+            <div style={{ height: 6, background: '#EAF3FF', borderRadius: 2, width: '60%' }}/>
+          </div>
+          <div style={{ fontSize: 10, color: 'rgba(20,29,34,.55)', marginTop: 'auto' }}>Page 1 of 8 · PDF · 2.4 MB</div>
+        </div>
+        <div style={{ padding: 16 }}>
+          <button style={{ width: '100%', background: '#0080FF', color: '#fff', border: 0, borderRadius: 999, padding: '13px', fontWeight: 600, fontSize: 14 }}>Download Brochure</button>
+        </div>
+      </div>
+    );
+  }
+
+  // HAPPY HOUR stage
+  if (stage === 'happyhour') {
+    return (
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#fff', overflow: 'hidden' }}>
+        <div style={{ padding: '14px 20px', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #EAF3FF' }}>
+          <TapInMark size={20}/>
+          <div style={{ fontSize: 13, fontWeight: 600 }}>tap.tapin.me</div>
+          <div style={{ marginLeft: 'auto', fontSize: 11, color: 'rgba(20,29,34,.65)', display: 'flex', alignItems: 'center', gap: 4 }}><Icon name="lock" size={12}/>Secure</div>
+        </div>
+        <div style={{ padding: '18px 20px 14px', background: 'linear-gradient(180deg, #F2E0BD 0%, #fff 100%)' }}>
+          <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#C97200' }}>You're Invited</div>
+          <div style={{ fontSize: 22, fontWeight: 600, lineHeight: 1.15, marginTop: 4, letterSpacing: '-.02em' }}>SaaStr Happy Hour</div>
+          <div style={{ fontSize: 12, color: '#404569', marginTop: 6 }}>Tonight · 6:00 PM · Hotel Nia Lobby</div>
+        </div>
+        <div style={{ padding: '14px 20px', flex: 1, display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ fontSize: 12, color: '#404569', lineHeight: 1.5 }}>
+            Drinks &amp; conversation with the TapIn team. No pitches — just founders comparing notes after day one.
+          </div>
+          <div>
+            <label style={{ fontSize: 11, fontWeight: 600, color: '#404569', display: 'block', marginBottom: 6 }}>Email for confirmation</label>
+            <input defaultValue="nicholas@acme.com" style={{ width: '100%', boxSizing: 'border-box', border: '1px solid #DDE4F0', borderRadius: 10, padding: '11px 12px', fontSize: 13, fontFamily: 'inherit' }}/>
+          </div>
+          <button style={{ background: '#0080FF', color: '#fff', border: 0, borderRadius: 999, padding: '13px', fontWeight: 600, fontSize: 14 }}>Accept Invite</button>
+          <button style={{ background: 'transparent', color: 'rgba(20,29,34,.65)', border: 0, padding: '4px', fontSize: 12, fontWeight: 500 }}>Add to calendar</button>
+        </div>
+      </div>
+    );
+  }
+
+  // CAPTURE stage — three visual variants
+  if (isA) {
+    // Variant A — Hero-forward, large NFC illustration up top
+    return (
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#fff', overflow: 'hidden' }}>
+        <div style={{ padding: '12px 20px 0', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+          <div style={{ fontSize: 11, color: 'rgba(20,29,34,.65)', display: 'flex', alignItems: 'center', gap: 4 }}><Icon name="lock" size={11}/>tap.tapin.me — secure session</div>
+        </div>
+        <div style={{ padding: '14px 20px 6px', textAlign: 'center', background: 'linear-gradient(180deg, #EAF3FF 0%, #fff 80%)' }}>
+          <div style={{ display: 'inline-flex', padding: '6px 10px', borderRadius: 999, background: '#fff', border: '1px solid #DDE4F0', fontSize: 10, fontWeight: 600, color: '#0080FF', letterSpacing: '.05em' }}>✓ VERIFIED TAP</div>
+          <div style={{ fontSize: 22, fontWeight: 600, marginTop: 10, letterSpacing: '-.02em', lineHeight: 1.15 }}>You Tapped In with Matt</div>
+          <div style={{ fontSize: 12, color: '#404569', marginTop: 6 }}>Founder · TapIn Solutions</div>
+          <div style={{ margin: '10px auto 4px', width: 80, height: 80, borderRadius: '50%', background: 'radial-gradient(circle at 35% 30%, #1a1d22, #000)', display: 'grid', placeItems: 'center', boxShadow: '0 12px 30px rgba(0,128,255,.3)' }}>
+            <TapInMark size={32} color="#fff"/>
+          </div>
+        </div>
+        <div style={{ padding: '16px 20px', flex: 1, display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div>
+            <label style={{ fontSize: 11, fontWeight: 600, color: '#404569', display: 'block', marginBottom: 5 }}>Your name</label>
+            <input placeholder="Nicholas Wright" style={{ width: '100%', boxSizing: 'border-box', border: '1px solid #DDE4F0', borderRadius: 10, padding: '11px 12px', fontSize: 13, fontFamily: 'inherit' }}/>
+          </div>
+          <div>
+            <label style={{ fontSize: 11, fontWeight: 600, color: '#404569', display: 'block', marginBottom: 5 }}>Company URL</label>
+            <div style={{ position: 'relative' }}>
+              <div style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'rgba(20,29,34,.55)', fontSize: 13 }}>https://</div>
+              <input placeholder="acme.com" style={{ width: '100%', boxSizing: 'border-box', border: '1px solid #DDE4F0', borderRadius: 10, padding: '11px 12px 11px 64px', fontSize: 13, fontFamily: 'inherit' }}/>
+            </div>
+          </div>
+          <button style={{ background: '#0080FF', color: '#fff', border: 0, borderRadius: 999, padding: '13px', fontWeight: 600, fontSize: 14, marginTop: 4 }}>Continue</button>
+          <div style={{ fontSize: 10, color: 'rgba(20,29,34,.55)', textAlign: 'center', marginTop: 'auto' }}>Powered by TapIn · your data is encrypted</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (isB) {
+    // Variant B — Minimal, form-first
+    return (
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#fff', overflow: 'hidden' }}>
+        <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 10, borderBottom: '1px solid #EAF3FF' }}>
+          <TapInMark size={22}/>
+          <div style={{ flex: 1 }}/>
+          <div style={{ fontSize: 11, color: 'rgba(20,29,34,.65)', display: 'flex', alignItems: 'center', gap: 4 }}><Icon name="lock" size={11}/>Secure</div>
+        </div>
+        <div style={{ padding: '30px 20px 16px' }}>
+          <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#0080FF' }}>Tap Verified</div>
+          <div style={{ fontSize: 26, fontWeight: 600, marginTop: 6, lineHeight: 1.1, letterSpacing: '-.02em' }}>Welcome.</div>
+          <div style={{ fontSize: 13, color: '#404569', marginTop: 8, lineHeight: 1.5 }}>Matt will see your details instantly. This takes two seconds.</div>
+        </div>
+        <div style={{ padding: '8px 20px', flex: 1, display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div>
+            <label style={{ fontSize: 11, fontWeight: 600, color: '#404569', display: 'block', marginBottom: 5 }}>Your name</label>
+            <input placeholder="Full name" style={{ width: '100%', boxSizing: 'border-box', border: 0, borderBottom: '1.5px solid #DDE4F0', padding: '10px 0', fontSize: 16, fontFamily: 'inherit', background: 'transparent' }}/>
+          </div>
+          <div>
+            <label style={{ fontSize: 11, fontWeight: 600, color: '#404569', display: 'block', marginBottom: 5 }}>Company URL</label>
+            <input placeholder="yourcompany.com" style={{ width: '100%', boxSizing: 'border-box', border: 0, borderBottom: '1.5px solid #DDE4F0', padding: '10px 0', fontSize: 16, fontFamily: 'inherit', background: 'transparent' }}/>
+          </div>
+          <button style={{ background: '#0080FF', color: '#fff', border: 0, borderRadius: 999, padding: '13px', fontWeight: 600, fontSize: 14, marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>Continue <Icon name="arrow" size={15} color="#fff"/></button>
+          <div style={{ fontSize: 10, color: 'rgba(20,29,34,.55)', textAlign: 'center' }}>tap.tapin.me · encrypted session</div>
+        </div>
+      </div>
+    );
+  }
+
+  // Variant C — Branded sales-card header (mimics the physical card)
+  return (
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#FBFCFE', overflow: 'hidden' }}>
+      <div style={{ padding: '10px 20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ fontSize: 10, color: 'rgba(20,29,34,.65)', display: 'flex', alignItems: 'center', gap: 4 }}><Icon name="lock" size={10}/>tap.tapin.me</div>
+      </div>
+      {/* Sales card hero */}
+      <div style={{ margin: '6px 16px 14px', borderRadius: 18, padding: 16, background: 'linear-gradient(135deg, #0080FF 0%, #0066CC 70%)', color: '#fff', boxShadow: '0 12px 30px rgba(0,128,255,.3)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <TapInMark size={26} color="#fff"/>
+          <Icon name="tappoint" size={22} color="rgba(255,255,255,.75)"/>
+        </div>
+        <div style={{ marginTop: 28 }}>
+          <div style={{ fontSize: 18, fontWeight: 600 }}>Matt Gropp</div>
+          <div style={{ fontSize: 11, opacity: .8 }}>Founder · TapIn Solutions</div>
+          <div style={{ fontSize: 10, opacity: .65, marginTop: 10, letterSpacing: '.05em', textTransform: 'uppercase' }}>SaaStr · Booth 42</div>
+        </div>
+      </div>
+      <div style={{ padding: '0 20px 12px' }}>
+        <div style={{ fontSize: 15, fontWeight: 600, color: '#141D22' }}>Say hi back</div>
+        <div style={{ fontSize: 12, color: 'rgba(20,29,34,.65)', marginTop: 4 }}>Matt will see this instantly on his phone.</div>
+      </div>
+      <div style={{ padding: '0 20px', flex: 1, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <input placeholder="Your name" style={{ width: '100%', boxSizing: 'border-box', border: '1px solid #DDE4F0', background: '#fff', borderRadius: 10, padding: '11px 12px', fontSize: 13, fontFamily: 'inherit' }}/>
+        <input placeholder="yourcompany.com" style={{ width: '100%', boxSizing: 'border-box', border: '1px solid #DDE4F0', background: '#fff', borderRadius: 10, padding: '11px 12px', fontSize: 13, fontFamily: 'inherit' }}/>
+        <button style={{ background: '#0080FF', color: '#fff', border: 0, borderRadius: 999, padding: '13px', fontWeight: 600, fontSize: 14 }}>Tap In</button>
+      </div>
+    </div>
+  );
+};
+
+
+
+// ===== App =====
+const TWEAKS = /*EDITMODE-BEGIN*/{
+  "motionPickerLayout": "grid"
+}/*EDITMODE-END*/;
+
+function App() {
+  const [layout, setLayout] = React.useState(() => localStorage.getItem('tapin_layout') || TWEAKS.motionPickerLayout);
+  const [tweaksOpen, setTweaksOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    localStorage.setItem('tapin_layout', layout);
+  }, [layout]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      if (e.data?.type === '__activate_edit_mode') setTweaksOpen(true);
+      if (e.data?.type === '__deactivate_edit_mode') setTweaksOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const setLayoutPersist = (v) => {
+    setLayout(v);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { motionPickerLayout: v } }, '*');
+  };
+
+  return (
+    <div className="page" data-screen-label="TapIn Wireframes">
+      <div className="hero">
+        <div className="eyebrow">TapIn to Sales · Wireframes</div>
+        <div className="title">One tap turns a conversation into data.</div>
+        <div className="lede">Four surfaces, one flow — Matt sets up motions before the conference, meets a prospect at the booth, the prospect taps into a verified session, and Matt pushes brochure → happy-hour invite from his phone in real time.</div>
+      </div>
+
+      <div className="flow-bar">
+        <div className="step"><span className="num dark">1</span><span className="label">Matt configures motions on desktop</span></div>
+        <span className="arrow">→</span>
+        <div className="step"><span className="num dark">2</span><span className="label">Prospect taps NFC, enters name + URL</span></div>
+        <span className="arrow">→</span>
+        <div className="step"><span className="num dark">3</span><span className="label">Matt sees ICP + picks motion on phone</span></div>
+        <span className="arrow">→</span>
+        <div className="step"><span className="num dark">4</span><span className="label">Prospect receives brochure, RSVPs to HH</span></div>
+      </div>
+
+      <div className="section-label" data-screen-label="01 Setup Website">
+        <span className="n">1</span>
+        <h2>Setup website (desktop)</h2>
+        <div className="desc">Matt configures default motions + a SaaStr-specific event campaign, linking his TapIn sales card to the set.</div>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <SetupWebsite/>
+      </div>
+
+      <div className="section-label" data-screen-label="02 Prospect Landing">
+        <span className="n">2</span>
+        <h2>Prospect landing · 3 variations</h2>
+        <div className="desc">Post-tap, asks name + company URL. Matt sees this appear live on his phone as the prospect types.</div>
+      </div>
+      <div className="frame-row">
+        <div className="frame-col">
+          <div className="cap">A · Hero NFC verify</div>
+          <Phone><StatusBar/><ProspectLanding variant="A" stage="capture"/></Phone>
+          <div className="sub">Reassuring — proves the tap worked before asking anything.</div>
+        </div>
+        <div className="frame-col">
+          <div className="cap">B · Minimal form-first</div>
+          <Phone><StatusBar/><ProspectLanding variant="B" stage="capture"/></Phone>
+          <div className="sub">Fastest. "Two seconds" promise, no decoration.</div>
+        </div>
+        <div className="frame-col">
+          <div className="cap">C · Branded sales card</div>
+          <Phone><StatusBar/><ProspectLanding variant="C" stage="capture"/></Phone>
+          <div className="sub">Shows Matt's card on-screen — matches the physical object in the prospect's hand.</div>
+        </div>
+      </div>
+
+      <div className="section-label" data-screen-label="03 Sales Mobile">
+        <span className="n">3</span>
+        <h2>Salesperson live screen · 3 motion-picker layouts</h2>
+        <div className="desc">Mobile. Prospect card fills in real-time with ICP score + auto-looked-up title. Swipe a motion card up to push it to the prospect's phone.</div>
+      </div>
+
+      <div className="tabs">
+        {[['stack', 'Stack list'], ['grid', '2-col grid'], ['carousel', 'Horizontal carousel']].map(([v, l]) => (
+          <button key={v} className={layout === v ? 'active' : ''} onClick={() => setLayoutPersist(v)}>{l}</button>
+        ))}
+      </div>
+
+      <div className="frame-row">
+        <div className="frame-col">
+          <div className="cap">Live · idle</div>
+          <Phone><StatusBar/><SalesMobile layout={layout}/></Phone>
+          <div className="sub">The three layouts trade density for speed. Stack wins on scanability; grid on glanceability; carousel on tactile swipe-up feel.</div>
+        </div>
+        <div className="frame-col">
+          <div className="cap">Live · brochure selected</div>
+          <Phone><StatusBar/><SalesMobile layout={layout} activeMotion="brochure"/></Phone>
+          <div className="sub">Selected card lifts. Swipe-up sends; data shown in ICP pill.</div>
+        </div>
+        <div className="frame-col">
+          <div className="cap">Live · happy-hour selected</div>
+          <Phone><StatusBar/><SalesMobile layout={layout} activeMotion="happyhour"/></Phone>
+          <div className="sub">Event-only motion. Will ask prospect for email to RSVP.</div>
+        </div>
+      </div>
+
+      <div className="section-label" data-screen-label="04 Prospect Experiences">
+        <span className="n">4</span>
+        <h2>Prospect experience pages</h2>
+        <div className="desc">What the prospect sees after Matt pushes a motion. Same session, content swaps in.</div>
+      </div>
+      <div className="frame-row">
+        <div className="frame-col">
+          <div className="cap">Brochure received</div>
+          <Phone><StatusBar/><ProspectLanding stage="brochure"/></Phone>
+          <div className="sub">PDF preview + download. "From Matt Gropp" attribution keeps it personal.</div>
+        </div>
+        <div className="frame-col">
+          <div className="cap">Happy Hour RSVP</div>
+          <Phone><StatusBar/><ProspectLanding stage="happyhour"/></Phone>
+          <div className="sub">Warm cream gradient (TapIn accent). Asks for email — only field added mid-session.</div>
+        </div>
+      </div>
+
+      <div className="caveat">
+        <strong>Heads-up:</strong> the admin app (<code>tap.tapin.me</code>) wasn't attached, so the Setup layout is inferred from marketing-site screenshots. Sidebar IA, iconography, and exact visual density should be confirmed against the real codebase or Figma. The motion-picker swipe interaction is new to this flow — worth usability-testing against a one-tap alternative.
+      </div>
+
+      {tweaksOpen && (
+        <div style={{
+          position: 'fixed', bottom: 24, right: 24, width: 260,
+          background: '#fff', border: '1px solid #DDE4F0', borderRadius: 14,
+          boxShadow: '0 20px 40px rgba(10,15,20,.12)', padding: 16, zIndex: 100,
+        }}>
+          <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#0080FF', marginBottom: 10 }}>Tweaks</div>
+          <div style={{ fontSize: 12, fontWeight: 600, marginBottom: 6 }}>Motion picker layout</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {[['stack', 'Stack list'], ['grid', '2-col grid'], ['carousel', 'Carousel']].map(([v, l]) => (
+              <button key={v}
+                onClick={() => setLayoutPersist(v)}
+                style={{
+                  border: `1px solid ${layout === v ? '#0080FF' : '#DDE4F0'}`,
+                  background: layout === v ? '#EAF3FF' : '#fff',
+                  color: layout === v ? '#0080FF' : '#404569',
+                  padding: '8px 12px', borderRadius: 8, fontFamily: 'inherit',
+                  fontSize: 12, fontWeight: 500, textAlign: 'left', cursor: 'pointer',
+                }}>{l}</button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

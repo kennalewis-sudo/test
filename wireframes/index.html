@@ -1,0 +1,1849 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>TapIn to Sales — Wireframes v2</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; background: #EEF2F6; font-family: 'Poppins', sans-serif; }
+  .page { max-width: 1500px; margin: 0 auto; padding: 40px 32px 80px; }
+  .hero { margin-bottom: 32px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #08699E; }
+  .title { font-size: 40px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin: 8px 0 10px; color: #0A0F14; }
+  .lede { font-size: 16px; line-height: 1.55; color: #3B4654; max-width: 760px; }
+  .section-label { display: flex; align-items: center; gap: 14px; margin: 44px 0 18px; }
+  .section-label .n { width: 28px; height: 28px; border-radius: 50%; background: #08699E; color: #fff; display: grid; place-items: center; font-size: 12px; font-weight: 700; }
+  .section-label h2 { font-size: 22px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  .section-label .desc { margin-left: auto; font-size: 13px; color: #5C6874; max-width: 480px; text-align: right; }
+  .frame-row { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+  .frame-col { display: flex; flex-direction: column; gap: 10px; }
+  .frame-col .cap { font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: #5C6874; }
+  .frame-col .sub { font-size: 12px; color: #8E9BA8; max-width: 300px; line-height: 1.4; }
+  .tabs { display: inline-flex; background: #fff; border: 1px solid #DDE4EB; border-radius: 999px; padding: 4px; gap: 2px; margin-bottom: 16px; }
+  .tabs button { border: 0; background: transparent; padding: 7px 16px; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 500; color: #5C6874; cursor: pointer; }
+  .tabs button.active { background: #08699E; color: #fff; font-weight: 600; }
+  .model-box { background: #fff; border: 1px solid #DDE4EB; border-radius: 14px; padding: 20px 24px; margin: 20px 0 12px; }
+  .model-box h3 { margin: 0 0 14px; font-size: 14px; font-weight: 600; color: #0A0F14; }
+  .model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .model-card { padding: 14px; border: 1px solid #EEF2F6; border-radius: 10px; background: #F7F9FB; }
+  .model-card .h { font-size: 12px; font-weight: 600; color: #08699E; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 6px; }
+  .model-card .b { font-size: 13px; color: #0A0F14; font-weight: 600; margin-bottom: 4px; }
+  .model-card .d { font-size: 11px; color: #5C6874; line-height: 1.45; }
+  .caveat { padding: 14px 18px; background: rgba(255,171,59,.12); border: 1px solid rgba(255,171,59,.35); border-radius: 12px; color: #8f5a0f; font-size: 13px; line-height: 1.5; margin-top: 18px; }
+  @keyframes tapin-pulse { 0%, 100% { opacity: .3; } 50% { opacity: 1; } }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+/* ═══ LIB ═══ */
+const Icon = ({ name, size = 20, color = 'currentColor' }) => {
+  const p = { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: color, strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' };
+  const paths = {
+    play: <><path d="m10 7 5 3-5 3z" fill={color}/><rect x="2" y="4" width="20" height="16" rx="3"/></>,
+    file: <><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></>,
+    cal: <><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></>,
+    glass: <><path d="M8 2h8l4 10v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8z"/><path d="M4 12h16"/><path d="M10 12v6"/><path d="M14 12v6"/></>,
+    card: <><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2.5"/><path d="M14 10h5"/><path d="M14 14h4"/></>,
+    lock: <><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></>,
+    user: <><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></>,
+    users: <><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0"/><circle cx="17" cy="8" r="3"/><path d="M17 13a5 5 0 0 1 5 5"/></>,
+    plus: <><path d="M12 5v14"/><path d="M5 12h14"/></>,
+    check: <path d="M20 6 9 17l-5-5"/>,
+    sparkle: <><path d="M12 3v4"/><path d="M12 17v4"/><path d="M3 12h4"/><path d="M17 12h4"/><path d="m5.6 5.6 2.8 2.8"/><path d="m15.6 15.6 2.8 2.8"/><path d="m5.6 18.4 2.8-2.8"/><path d="m15.6 8.4 2.8-2.8"/></>,
+    arrow: <><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></>,
+    search: <><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></>,
+    settings: <><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.5-2.3.9a7 7 0 0 0-2-1.2L14 3h-4l-.6 2.5a7 7 0 0 0-2 1.2l-2.3-.9-2 3.5 2 1.5A7 7 0 0 0 5 12a7 7 0 0 0 .1 1.2l-2 1.5 2 3.5 2.3-.9a7 7 0 0 0 2 1.2L10 21h4l.6-2.5a7 7 0 0 0 2-1.2l2.3.9 2-3.5-2-1.5A7 7 0 0 0 19 12z"/></>,
+    home: <path d="M3 11 12 3l9 8v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/>,
+    tappoint: <><circle cx="12" cy="12" r="2.5" fill={color}/><path d="M8 12a4 4 0 0 1 8 0"/><path d="M4 12a8 8 0 0 1 16 0"/></>,
+    link: <><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></>,
+    layers: <><path d="m12 2 10 6-10 6L2 8z"/><path d="m2 14 10 6 10-6"/></>,
+    chart: <><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></>,
+    chevUp: <path d="m18 15-6-6-6 6"/>,
+    mail: <><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></>,
+    copy: <><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></>,
+  };
+  return <svg {...p}>{paths[name]}</svg>;
+};
+
+const TapInMark = ({ size = 28, color = 'currentColor' }) => {
+  const src = (color === '#fff' || color === 'white' || (typeof color === 'string' && color.startsWith('rgba(255'))) ? '../assets/logo-wordmark-white.png' : '../assets/logo-wordmark-dark.png';
+  return <img src={src} alt="TapIn" style={{ height: size, width: 'auto', display: 'block' }}/>;
+};
+
+const Phone = ({ children, width = 320, height = 640 }) => (
+  <div style={{ width, height, borderRadius: 42, padding: 10, background: '#0A0F14', boxShadow: '0 30px 60px rgba(10,15,20,.2), 0 0 0 1px rgba(0,0,0,.1)', flexShrink: 0 }}>
+    <div style={{ width: '100%', height: '100%', borderRadius: 32, overflow: 'hidden', background: '#fff', position: 'relative', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ position: 'absolute', top: 8, left: '50%', transform: 'translateX(-50%)', width: 88, height: 24, borderRadius: 16, background: '#000', zIndex: 10 }}/>
+      {children}
+    </div>
+  </div>
+);
+
+const StatusBar = () => (
+  <div style={{ height: 44, flexShrink: 0, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '0 20px 4px', fontSize: 12, fontWeight: 600, color: '#000' }}>
+    <span>9:41</span><span style={{opacity:0}}>•</span>
+    <span style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+      <svg width="14" height="10" viewBox="0 0 14 10"><rect x="0" y="6" width="2.5" height="4" rx="0.5" fill="#000"/><rect x="4" y="4" width="2.5" height="6" rx="0.5" fill="#000"/><rect x="8" y="2" width="2.5" height="8" rx="0.5" fill="#000"/></svg>
+      <svg width="18" height="10" viewBox="0 0 18 10"><rect x="0.5" y="0.5" width="15" height="9" rx="2" stroke="#000" strokeOpacity=".4" fill="none"/><rect x="2" y="2" width="10" height="6" rx="1" fill="#000"/></svg>
+    </span>
+  </div>
+);
+
+/* ═══ DESKTOP SHELL ═══ */
+const DesktopShell = ({ role, setRole, route, setRoute, crumbs, children }) => {
+  const isLead = role === 'lead';
+  const nav = isLead ? [
+    { id: 'home', name: 'Dashboard', icon: 'home' },
+    { id: 'insights', name: 'Insights', icon: 'chart' },
+    { id: 'leads', name: 'Leads', icon: 'user' },
+    { id: 'templates', name: 'Experience Templates', icon: 'layers' },
+    { id: 'events', name: 'Events', icon: 'cal' },
+    { id: 'team', name: 'Teams', icon: 'users' },
+    { id: 'tappoints', name: 'TapPoints', icon: 'tappoint' },
+    { id: 'settings', name: 'Settings', icon: 'settings', children: [
+      { id: 'members', name: 'Members & roles' },
+      { id: 'integrations', name: 'Integrations' },
+      { id: 'branding', name: 'Branding' },
+      { id: 'billing', name: 'Billing' },
+      { id: 'privacy', name: 'Data & privacy' },
+    ]},
+  ] : [
+    { id: 'home', name: 'Dashboard', icon: 'home' },
+    { id: 'myleads', name: 'Leads', icon: 'user' },
+    { id: 'insights', name: 'Insights', icon: 'chart' },
+    { id: 'mycard', name: 'TapIn Card', icon: 'card' },
+    { id: 'myevents', name: 'Events', icon: 'cal' },
+    { id: 'notifications', name: 'Notifications', icon: 'settings' },
+  ];
+  return (
+    <div style={{ width: 1240, height: 820, background: '#F7F9FB', display: 'flex', fontFamily: 'Poppins, sans-serif', borderRadius: 14, overflow: 'hidden', border: '1px solid #DDE4EB', boxShadow: '0 20px 50px rgba(10,15,20,.08)' }}>
+      <div style={{ width: 232, background: '#fff', borderRight: '1px solid #EEF2F6', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '18px 20px', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #EEF2F6' }}>
+          <TapInMark size={22}/>
+          <div style={{ fontSize: 14, fontWeight: 700 }}>TapIn</div>
+          <div style={{ marginLeft: 'auto', padding: '2px 8px', borderRadius: 999, background: isLead ? '#E6F1F8' : 'rgba(131,194,21,.14)', color: isLead ? '#08699E' : '#4f7a0c', fontSize: 9, fontWeight: 700, letterSpacing: '.05em' }}>{isLead ? 'TEAM LEAD' : 'REP'}</div>
+        </div>
+        <div style={{ padding: '14px 10px', display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {nav.map(i => {
+            const isActive = route === i.id || (i.children && i.children.some(c => route === c.id));
+            const isOpen = i.children && isActive;
+            return (
+              <React.Fragment key={i.id}>
+                <div onClick={() => setRoute(i.id)} style={{
+                  padding: '9px 12px', borderRadius: 8, fontSize: 13,
+                  display: 'flex', alignItems: 'center', gap: 10,
+                  background: route === i.id ? '#E6F1F8' : 'transparent',
+                  color: isActive ? '#08699E' : '#3B4654',
+                  fontWeight: isActive ? 600 : 500, cursor: 'pointer',
+                }}>
+                  <Icon name={i.icon} size={16} color={isActive ? '#08699E' : '#5C6874'}/>{i.name}
+                  {i.children && <span style={{ marginLeft: 'auto', fontSize: 9, color: '#8E9BA8', transform: isOpen ? 'rotate(90deg)' : 'none', transition: 'transform .15s' }}>▸</span>}
+                </div>
+                {isOpen && i.children.map(c => (
+                  <div key={c.id} onClick={() => setRoute(c.id)} style={{
+                    padding: '7px 12px 7px 38px', borderRadius: 8, fontSize: 12,
+                    background: route === c.id ? '#E6F1F8' : 'transparent',
+                    color: route === c.id ? '#08699E' : '#5C6874',
+                    fontWeight: route === c.id ? 600 : 500, cursor: 'pointer',
+                  }}>{c.name}</div>
+                ))}
+              </React.Fragment>
+            );
+          })}
+        </div>
+        <div style={{ marginTop: 'auto', padding: 14, borderTop: '1px solid #EEF2F6' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+            <div style={{ width: 30, height: 30, borderRadius: '50%', background: '#08699E', color: '#fff', display: 'grid', placeItems: 'center', fontSize: 11, fontWeight: 600 }}>{isLead ? 'MG' : 'AR'}</div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 12, fontWeight: 600 }}>{isLead ? 'Matt Gropp' : 'Ava Ramos'}</div>
+              <div style={{ fontSize: 10, color: '#8E9BA8' }}>{isLead ? 'Team Lead' : 'Account Executive'}</div>
+            </div>
+          </div>
+          {!isLead && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 1, marginBottom: 10 }}>
+              {[['profile', 'My profile'], ['password', 'Password & security']].map(([id, label]) => (
+                <div key={id} onClick={() => setRoute(id)} style={{
+                  padding: '6px 10px', borderRadius: 6, fontSize: 11, cursor: 'pointer',
+                  background: route === id ? '#E6F1F8' : 'transparent',
+                  color: route === id ? '#08699E' : '#5C6874',
+                  fontWeight: route === id ? 600 : 500,
+                }}>{label}</div>
+              ))}
+            </div>
+          )}
+          <button onClick={() => setRole(isLead ? 'rep' : 'lead')} style={{ width: '100%', background: '#F7F9FB', border: '1px solid #DDE4EB', borderRadius: 8, padding: '6px 10px', fontSize: 10, fontWeight: 600, color: '#5C6874', cursor: 'pointer', fontFamily: 'inherit' }}>Switch to {isLead ? 'Rep' : 'Team Lead'} view</button>
+        </div>
+      </div>
+      <div style={{ flex: 1, overflowY: 'auto' }}>
+        <div style={{ padding: '14px 28px', borderBottom: '1px solid #EEF2F6', background: '#fff', display: 'flex', alignItems: 'center', gap: 8 }}>
+          {crumbs.map((c, i) => (
+            <React.Fragment key={i}>
+              {i > 0 && <span style={{ color: '#C3CED8' }}>›</span>}
+              <div style={{ fontSize: 12, color: i === crumbs.length - 1 ? '#0A0F14' : '#8E9BA8', fontWeight: i === crumbs.length - 1 ? 600 : 500 }}>{c}</div>
+            </React.Fragment>
+          ))}
+        </div>
+        {children}
+      </div>
+    </div>
+  );
+};
+
+/* ═══ PAGE: EVENTS LIST (Lead) ═══ */
+const EventsList = ({ setRoute }) => (
+  <div style={{ padding: '24px 28px' }}>
+    <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 22 }}>
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#08699E' }}>Events</div>
+        <div style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-.02em', marginTop: 4 }}>Every event, one place</div>
+        <div style={{ fontSize: 13, color: '#5C6874', marginTop: 4 }}>Create an event, assign a template + team, and TapIn activates their cards for that window.</div>
+      </div>
+      <button onClick={() => setRoute('newevent')} style={{ background: '#08699E', color: '#fff', border: 0, borderRadius: 999, padding: '9px 18px', fontWeight: 600, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'inherit' }}>
+        <Icon name="plus" size={14} color="#fff"/> New Event
+      </button>
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14, marginBottom: 22 }}>
+      {[
+        { label: 'Upcoming', n: '3', sub: 'Next: SaaStr · Oct 14' },
+        { label: 'Live now', n: '1', sub: 'HubSpot INBOUND · Day 2' },
+        { label: 'Leads this quarter', n: '1,482', sub: '+38% vs Q3' },
+      ].map(s => (
+        <div key={s.label} style={{ padding: 18, background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14 }}>
+          <div style={{ fontSize: 11, color: '#8E9BA8', fontWeight: 500 }}>{s.label}</div>
+          <div style={{ fontSize: 30, fontWeight: 600, letterSpacing: '-.02em', marginTop: 4 }}>{s.n}</div>
+          <div style={{ fontSize: 11, color: '#5C6874', marginTop: 2 }}>{s.sub}</div>
+        </div>
+      ))}
+    </div>
+    <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, overflow: 'hidden' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1.3fr 1fr 1fr 90px', padding: '12px 20px', fontSize: 10, fontWeight: 600, color: '#8E9BA8', letterSpacing: '.06em', textTransform: 'uppercase', background: '#F7F9FB', borderBottom: '1px solid #EEF2F6' }}>
+        <div>Event</div><div>Template</div><div>Team</div><div>Leads</div><div>Status</div>
+      </div>
+      {[
+        { n: 'HubSpot INBOUND 2026', loc: 'Boston · Sep 9–11', tpl: 'Event Booth (Enterprise)', team: '6 reps', leads: 412, status: 'Live', sc: '#4f7a0c', sb: 'rgba(131,194,21,.14)' },
+        { n: 'SaaStr Annual 2026', loc: 'San Francisco · Oct 14–16', tpl: 'Event Booth (SMB)', team: '4 reps', leads: 0, status: 'Scheduled', sc: '#08699E', sb: '#E6F1F8' },
+        { n: 'Dreamforce 2026', loc: 'San Francisco · Sep 15–18', tpl: 'Event Booth (Enterprise)', team: '8 reps', leads: 0, status: 'Draft', sc: '#5C6874', sb: '#EEF2F6' },
+        { n: 'Money 20/20', loc: 'Las Vegas · Oct 26–29', tpl: 'Event Booth (Enterprise)', team: '3 reps', leads: 0, status: 'Scheduled', sc: '#08699E', sb: '#E6F1F8' },
+        { n: 'Web Summit Lisbon', loc: 'Lisbon · Nov 3–6', tpl: 'Conference (EU)', team: '2 reps', leads: 0, status: 'Scheduled', sc: '#08699E', sb: '#E6F1F8' },
+        { n: 'RSA 2026', loc: 'San Francisco · Apr 27–May 1', tpl: '— none —', team: '—', leads: 1240, status: 'Closed', sc: '#8E9BA8', sb: '#EEF2F6' },
+      ].map((e, i) => (
+        <div key={i} style={{ display: 'grid', gridTemplateColumns: '2fr 1.3fr 1fr 1fr 90px', padding: '14px 20px', alignItems: 'center', borderTop: i ? '1px solid #EEF2F6' : 0, cursor: 'pointer' }} onClick={() => setRoute('eventdetail')} title="Click to view & edit template, team">
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 600 }}>{e.n}</div>
+            <div style={{ fontSize: 11, color: '#5C6874', marginTop: 2 }}>{e.loc}</div>
+          </div>
+          <div style={{ fontSize: 12, color: '#3B4654', display: 'flex', alignItems: 'center', gap: 6 }}>
+            {e.tpl !== '— none —' && <Icon name="layers" size={12} color="#08699E"/>}{e.tpl}
+          </div>
+          <div style={{ fontSize: 12 }}>{e.team}</div>
+          <div style={{ fontSize: 12, fontWeight: 600 }}>{e.leads || '—'}</div>
+          <div style={{ padding: '3px 10px', borderRadius: 999, background: e.sb, color: e.sc, fontSize: 10, fontWeight: 600, display: 'inline-flex', alignItems: 'center', justifySelf: 'start' }}>{e.status}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+/* ═══ PAGE: EVENT DETAIL (Lead) ═══ */
+const EventDetail = () => (
+  <div style={{ padding: '24px 28px' }}>
+    <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 22 }}>
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#08699E' }}>Event</div>
+        <div style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-.02em', marginTop: 4 }}>SaaStr Annual 2026</div>
+        <div style={{ fontSize: 13, color: '#5C6874', marginTop: 4 }}>San Francisco · Oct 14–16, 2026 · Booth 42</div>
+      </div>
+      <div style={{ display: 'flex', gap: 10 }}>
+        <div style={{ padding: '6px 12px', borderRadius: 999, background: '#E6F1F8', color: '#08699E', fontSize: 11, fontWeight: 600 }}>Scheduled · 28 days</div>
+        <button style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 999, padding: '7px 14px', fontSize: 12, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit' }}>Preview landing</button>
+        <button style={{ background: '#08699E', color: '#fff', border: 0, borderRadius: 999, padding: '7px 16px', fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>Go live early</button>
+      </div>
+    </div>
+
+    <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 16 }}>
+      {/* Left: template assignment */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 600 }}>Experience template</div>
+              <div style={{ fontSize: 11, color: '#5C6874', marginTop: 2 }}>What each rep's card will do at this event</div>
+            </div>
+            <button style={{ marginLeft: 'auto', background: 'transparent', border: '1px solid #DDE4EB', borderRadius: 999, padding: '5px 12px', fontSize: 11, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit' }}>Change</button>
+          </div>
+          <div style={{ padding: 14, background: '#F7F9FB', border: '1px solid #EEF2F6', borderRadius: 10, display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div style={{ width: 44, height: 44, borderRadius: 10, background: '#08699E', display: 'grid', placeItems: 'center' }}>
+              <Icon name="layers" size={20} color="#fff"/>
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: 600 }}>Event Booth (SMB)</div>
+              <div style={{ fontSize: 11, color: '#5C6874' }}>5 motions · Digital Card · Brochure · Video · Happy Hour · Book Meeting</div>
+            </div>
+            <div style={{ fontSize: 10, color: '#8E9BA8', fontFamily: 'ui-monospace, monospace' }}>TPL-002</div>
+          </div>
+          <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: 'rgba(27,172,224,.08)', border: '1px solid rgba(27,172,224,.25)', borderRadius: 10 }}>
+            <Icon name="sparkle" size={16} color="#0D7EB5"/>
+            <div style={{ fontSize: 11, color: '#0A4D72', lineHeight: 1.4 }}>Edits here apply to this event only. To change the template for every event, edit <b>TPL-002</b> in Experience Templates.</div>
+          </div>
+        </div>
+
+        <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, overflow: 'hidden' }}>
+          <div style={{ padding: '14px 18px', borderBottom: '1px solid #EEF2F6', display: 'flex', alignItems: 'center' }}>
+            <div style={{ fontSize: 14, fontWeight: 600 }}>Assigned team · 4 reps</div>
+            <div style={{ marginLeft: 'auto', fontSize: 11, color: '#8E9BA8' }}>Cards auto-activate Oct 14, 8:00 AM PT</div>
+          </div>
+          {[
+            { n: 'Matt Gropp', r: 'Team Lead', card: 'TP-0412', state: 'Ready' },
+            { n: 'Ava Ramos', r: 'AE', card: 'TP-0431', state: 'Ready' },
+            { n: 'JB Thomas', r: 'AE', card: 'TP-0490', state: 'Ready' },
+            { n: 'Kyle Park', r: 'SDR', card: 'TP-0502', state: 'Needs card' },
+          ].map((t, i) => (
+            <div key={t.card} style={{ padding: '12px 18px', borderTop: i ? '1px solid #EEF2F6' : 0, display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#E6F1F8', color: '#08699E', display: 'grid', placeItems: 'center', fontSize: 11, fontWeight: 600 }}>{t.n.split(' ').map(x => x[0]).join('')}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 600 }}>{t.n} <span style={{ fontWeight: 400, fontSize: 11, color: '#8E9BA8', marginLeft: 4 }}>· {t.r}</span></div>
+                <div style={{ fontSize: 10, color: '#8E9BA8', fontFamily: 'ui-monospace, monospace' }}>{t.card}</div>
+              </div>
+              <div style={{ fontSize: 11, color: t.state === 'Ready' ? '#4f7a0c' : '#8f5a0f', fontWeight: 600 }}>● {t.state}</div>
+            </div>
+          ))}
+          <div style={{ padding: 12, borderTop: '1px solid #EEF2F6' }}>
+            <button style={{ width: '100%', background: '#F7F9FB', border: '1px dashed #C3CED8', borderRadius: 10, padding: 10, fontSize: 12, fontWeight: 500, color: '#5C6874', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+              <Icon name="plus" size={14} color="#5C6874"/> Add rep to event
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Right: event-only overrides */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+          <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>Event-only overrides</div>
+          <div style={{ fontSize: 11, color: '#5C6874', marginBottom: 12 }}>Swap motions just for SaaStr without touching the template</div>
+          {[
+            { name: 'Happy Hour Invite', sub: 'Oct 14 · 6 PM · Hotel Nia', badge: 'Added', bc: '#8f5a0f', bb: 'rgba(255,171,59,.18)' },
+            { name: 'Send Brochure', sub: 'SaaStr Edition PDF (override)', badge: 'Override', bc: '#08699E', bb: '#E6F1F8' },
+          ].map(m => (
+            <div key={m.name} style={{ padding: 10, border: '1px solid #EEF2F6', borderRadius: 10, marginBottom: 8, display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 12, fontWeight: 600 }}>{m.name}</div>
+                <div style={{ fontSize: 10, color: '#5C6874' }}>{m.sub}</div>
+              </div>
+              <div style={{ padding: '2px 8px', borderRadius: 999, background: m.bb, color: m.bc, fontSize: 9, fontWeight: 700 }}>{m.badge}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+          <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>Event window</div>
+          <div style={{ fontSize: 11, color: '#5C6874', marginBottom: 12 }}>Cards use this template only during this window. Before/after they fall back to the default digital business card.</div>
+          <div style={{ display: 'flex', gap: 10 }}>
+            <div style={{ flex: 1, padding: '10px 12px', background: '#F7F9FB', border: '1px solid #EEF2F6', borderRadius: 8 }}>
+              <div style={{ fontSize: 10, color: '#8E9BA8' }}>Starts</div>
+              <div style={{ fontSize: 12, fontWeight: 600, marginTop: 2 }}>Oct 14 · 8:00 AM</div>
+            </div>
+            <div style={{ flex: 1, padding: '10px 12px', background: '#F7F9FB', border: '1px solid #EEF2F6', borderRadius: 8 }}>
+              <div style={{ fontSize: 10, color: '#8E9BA8' }}>Ends</div>
+              <div style={{ fontSize: 12, fontWeight: 600, marginTop: 2 }}>Oct 16 · 6:00 PM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+/* ═══ PAGE: TEMPLATES (Lead) ═══ */
+const TemplatesPage = () => (
+  <div style={{ padding: '24px 28px' }}>
+    <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 22 }}>
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#08699E' }}>Experience Templates</div>
+        <div style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-.02em', marginTop: 4 }}>Build once. Reuse everywhere.</div>
+        <div style={{ fontSize: 13, color: '#5C6874', marginTop: 4 }}>Templates are a reusable motion set. Assign to any event; edit once to update every event using it.</div>
+      </div>
+      <button style={{ background: '#08699E', color: '#fff', border: 0, borderRadius: 999, padding: '9px 18px', fontWeight: 600, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'inherit' }}>
+        <Icon name="plus" size={14} color="#fff"/> New Template
+      </button>
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+      {[
+        { id: 'TPL-001', n: 'Default Digital Card', desc: 'Always-on — every rep, every day', mot: ['Digital Card'], usage: '12 reps · always', pinned: true, accent: '#4f7a0c', bg: 'rgba(131,194,21,.10)' },
+        { id: 'TPL-002', n: 'Event Booth (SMB)', desc: 'Fast triage at SMB-heavy events', mot: ['Card', 'Brochure', 'Video', 'Happy Hour', 'Meeting'], usage: '3 events', accent: '#08699E', bg: '#E6F1F8' },
+        { id: 'TPL-003', n: 'Event Booth (Enterprise)', desc: 'Deeper qualifier + exec packet', mot: ['Card', 'Exec Brochure', 'Demo Video', 'Meeting'], usage: '2 events', accent: '#08699E', bg: '#E6F1F8' },
+        { id: 'TPL-004', n: 'Conference (EU)', desc: 'GDPR consent + EU contact', mot: ['Card', 'Brochure', 'Meeting'], usage: '1 event', accent: '#0D99A3', bg: 'rgba(13,153,163,.12)' },
+        { id: 'TPL-005', n: 'Field Demo Day', desc: 'Follow-up heavy, no brochure', mot: ['Card', 'Video', 'Meeting'], usage: '0 events', accent: '#5C6874', bg: '#EEF2F6' },
+      ].map(t => (
+        <div key={t.id} style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 16, position: 'relative' }}>
+          {t.pinned && <div style={{ position: 'absolute', top: 12, right: 12, padding: '2px 8px', borderRadius: 999, background: 'rgba(131,194,21,.14)', color: '#4f7a0c', fontSize: 9, fontWeight: 700, letterSpacing: '.04em' }}>DEFAULT</div>}
+          <div style={{ width: 40, height: 40, borderRadius: 10, background: t.bg, display: 'grid', placeItems: 'center', marginBottom: 12 }}>
+            <Icon name="layers" size={18} color={t.accent}/>
+          </div>
+          <div style={{ fontSize: 14, fontWeight: 600 }}>{t.n}</div>
+          <div style={{ fontSize: 10, color: '#8E9BA8', fontFamily: 'ui-monospace, monospace', marginTop: 2 }}>{t.id}</div>
+          <div style={{ fontSize: 12, color: '#5C6874', marginTop: 8, lineHeight: 1.4 }}>{t.desc}</div>
+          <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginTop: 12 }}>
+            {t.mot.map(m => <span key={m} style={{ fontSize: 10, padding: '3px 8px', borderRadius: 999, background: '#F7F9FB', border: '1px solid #EEF2F6', color: '#3B4654' }}>{m}</span>)}
+          </div>
+          <div style={{ marginTop: 14, paddingTop: 12, borderTop: '1px solid #EEF2F6', display: 'flex', alignItems: 'center' }}>
+            <div style={{ fontSize: 11, color: '#8E9BA8' }}>Used by {t.usage}</div>
+            <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+              <button style={{ background: 'transparent', border: '1px solid #DDE4EB', borderRadius: 999, padding: '3px 10px', fontSize: 10, cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 4 }}><Icon name="copy" size={10}/>Duplicate</button>
+              <button style={{ background: '#08699E', color: '#fff', border: 0, borderRadius: 999, padding: '3px 12px', fontSize: 10, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>Edit</button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+/* ═══ PAGE: REP HOME (Rep view) ═══ */
+const RepHome = () => (
+  <div style={{ padding: '24px 28px' }}>
+    <div style={{ marginBottom: 22 }}>
+      <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#08699E' }}>Good morning, Ava</div>
+      <div style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-.02em', marginTop: 4 }}>You're on SaaStr next week</div>
+      <div style={{ fontSize: 13, color: '#5C6874', marginTop: 4 }}>Your card auto-activates Oct 14, 8:00 AM. Here's only what concerns you.</div>
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginBottom: 22 }}>
+      {[
+        { l: 'My leads · this Q', n: '186', s: '+24 this week' },
+        { l: 'Taps today', n: '0', s: 'Next event: SaaStr' },
+        { l: 'My meetings booked', n: '9', s: 'From last event' },
+        { l: 'Match rate', n: '68%', s: 'Match + Partial / all taps' },
+      ].map(s => (
+        <div key={s.l} style={{ padding: 16, background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14 }}>
+          <div style={{ fontSize: 11, color: '#8E9BA8', fontWeight: 500 }}>{s.l}</div>
+          <div style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-.02em', marginTop: 4 }}>{s.n}</div>
+          <div style={{ fontSize: 10, color: '#5C6874', marginTop: 2 }}>{s.s}</div>
+        </div>
+      ))}
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 16 }}>
+      <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
+          <div style={{ fontSize: 14, fontWeight: 600 }}>My upcoming events</div>
+          <div style={{ marginLeft: 'auto', padding: '3px 10px', borderRadius: 999, background: 'rgba(255,171,59,.18)', color: '#8f5a0f', fontSize: 10, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 5 }}>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M12 8v4"/><circle cx="12" cy="16" r=".5" fill="currentColor"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+            7 CRM pushes queued
+          </div>
+        </div>
+        {[
+          { n: 'SaaStr Annual', d: 'Oct 14–16 · Booth 42', tpl: 'Event Booth (SMB)', days: 28, queued: 0, live: false },
+          { n: 'HubSpot INBOUND', d: 'Sep 9–11 · Live now', tpl: 'Event Booth (Enterprise)', days: 'live', queued: 7, live: true },
+          { n: 'Dreamforce', d: 'Sep 15–18 · Booth 210', tpl: 'Event Booth (Enterprise)', days: 'draft', queued: 0 },
+        ].map((e, i) => (
+          <div key={i} style={{ borderTop: i ? '1px solid #EEF2F6' : 0, padding: '12px 0' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ width: 44, height: 44, borderRadius: 10, background: e.live ? 'rgba(131,194,21,.16)' : '#E6F1F8', color: e.live ? '#4f7a0c' : '#08699E', display: 'grid', placeItems: 'center', flexShrink: 0 }}>
+                <Icon name="cal" size={18} color={e.live ? '#4f7a0c' : '#08699E'}/>
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 600 }}>{e.n}</div>
+                <div style={{ fontSize: 11, color: '#5C6874', marginTop: 2 }}>{e.d} · {e.tpl}</div>
+              </div>
+              <div style={{ fontSize: 10, color: e.live ? '#4f7a0c' : '#8E9BA8', fontWeight: 600, textTransform: e.live ? 'uppercase' : 'none', letterSpacing: e.live ? '.08em' : 0 }}>{e.live ? '● LIVE' : typeof e.days === 'number' ? `${e.days} days` : e.days}</div>
+            </div>
+            {e.queued > 0 && (
+              <div style={{ marginTop: 10, marginLeft: 56, padding: '10px 12px', background: '#FFF8EC', border: '1px solid #F5E0B5', borderRadius: 10, display: 'flex', alignItems: 'center', gap: 10 }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8f5a0f" strokeWidth="2" strokeLinecap="round"><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/><path d="M12 7v5l3 2"/></svg>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 11, fontWeight: 600, color: '#5a3a0a' }}>{e.queued} CRM pushes queued offline</div>
+                  <div style={{ fontSize: 10, color: '#8f5a0f', marginTop: 2 }}>Poor Wi-Fi at venue. Will send to Salesforce when back online.</div>
+                </div>
+                <button style={{ background: '#8f5a0f', color: '#fff', border: 0, borderRadius: 999, padding: '5px 12px', fontSize: 10, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap' }}>Retry now</button>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>My Digital Card</div>
+        <div style={{ fontSize: 11, color: '#5C6874', marginBottom: 12 }}>Uses your default personal template when no event is live.</div>
+        <div style={{ padding: 14, borderRadius: 12, background: 'linear-gradient(135deg, #08699E 0%, #065684 70%)', color: '#fff' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <TapInMark size={22} color="#fff"/>
+            <Icon name="tappoint" size={18} color="rgba(255,255,255,.75)"/>
+          </div>
+          <div style={{ marginTop: 22 }}>
+            <div style={{ fontSize: 15, fontWeight: 600 }}>Ava Ramos</div>
+            <div style={{ fontSize: 10, opacity: .8 }}>Account Executive · TapIn</div>
+          </div>
+        </div>
+        <div style={{ marginTop: 12, padding: 10, background: '#F7F9FB', border: '1px solid #EEF2F6', borderRadius: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Icon name="layers" size={14} color="#08699E"/>
+          <div style={{ flex: 1, fontSize: 11 }}>
+            <div style={{ fontWeight: 600 }}>My Default Template</div>
+            <div style={{ color: '#8E9BA8', fontSize: 10 }}>Cloned from TPL-001 · 2 motions</div>
+          </div>
+          <button style={{ background: 'transparent', border: '1px solid #DDE4EB', borderRadius: 999, padding: '4px 10px', fontSize: 10, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>Edit</button>
+        </div>
+        <button style={{ width: '100%', marginTop: 8, background: 'transparent', border: '1px dashed #C3CED8', borderRadius: 8, padding: 8, fontSize: 10, fontWeight: 500, color: '#5C6874', cursor: 'pointer', fontFamily: 'inherit' }}>+ Clone a company template</button>
+      </div>
+    </div>
+  </div>
+);
+
+/* ═══ PAGE: SETTINGS — Team Lead (section driven by route) ═══ */
+const LeadSettingsPage = ({ section = 'workspace' }) => {
+  const titles = {
+    workspace: 'Workspace', members: 'Members & roles', integrations: 'Integrations',
+    branding: 'Branding', billing: 'Billing', privacy: 'Data & privacy',
+  };
+  const subs = {
+    workspace: 'Org-wide defaults for your TapIn workspace.',
+    members: 'Manage seats, roles, and permissions.',
+    integrations: 'Push verified taps + ICP enrichment into your CRM. Syncs at session close.',
+    branding: 'Your logo, colors, and default card styling.',
+    billing: 'Plan, invoices, and payment method.',
+    privacy: 'Data retention, GDPR, and export controls.',
+  };
+  return (
+    <div style={{ padding: '24px 28px' }}>
+      <div style={{ marginBottom: 22 }}>
+        <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#08699E' }}>Settings</div>
+        <div style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-.02em', marginTop: 4 }}>{titles[section]}</div>
+        <div style={{ fontSize: 13, color: '#5C6874', marginTop: 4 }}>{subs[section]}</div>
+      </div>
+      <div style={{ maxWidth: 720 }}>
+        {section === 'integrations' && (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
+            {[
+              { n: 'Salesforce', d: 'Lead object · Custom field mapping', on: true, tag: 'CRM' },
+              { n: 'HubSpot', d: 'Contact + Deal · Real-time', on: false, tag: 'CRM' },
+              { n: 'Pipedrive', d: 'Lead/Person sync', on: false, tag: 'CRM' },
+              { n: 'Slack', d: 'Tap alerts to #booth-floor', on: true, tag: 'Comms' },
+              { n: 'Clearbit', d: 'Company enrichment on URL', on: true, tag: 'Enrichment' },
+              { n: 'Calendly', d: 'Meeting motion backend', on: true, tag: 'Meetings' },
+            ].map(i => (
+              <div key={i.n} style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 12, padding: 14 }}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div style={{ fontSize: 13, fontWeight: 600 }}>{i.n}</div>
+                  <div style={{ marginLeft: 'auto', padding: '2px 8px', borderRadius: 999, background: i.on ? 'rgba(131,194,21,.14)' : '#F7F9FB', color: i.on ? '#4f7a0c' : '#8E9BA8', fontSize: 9, fontWeight: 700 }}>{i.on ? 'CONNECTED' : 'CONNECT'}</div>
+                </div>
+                <div style={{ fontSize: 10, color: '#8E9BA8', textTransform: 'uppercase', letterSpacing: '.05em', marginTop: 2 }}>{i.tag}</div>
+                <div style={{ fontSize: 11, color: '#5C6874', marginTop: 8, lineHeight: 1.4 }}>{i.d}</div>
+              </div>
+            ))}
+          </div>
+        )}
+        {section === 'workspace' && (
+          <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 12, padding: 18 }}>
+            <div style={{ fontSize: 13, color: '#5C6874' }}>Workspace name, region, default time zone, and session defaults live here.</div>
+          </div>
+        )}
+        {section === 'members' && (
+          <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 12, padding: 18 }}>
+            <div style={{ fontSize: 13, color: '#5C6874' }}>14 seats · 12 active reps · 2 team leads. Invite, remove, or change roles.</div>
+          </div>
+        )}
+        {section === 'branding' && (
+          <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 12, padding: 18 }}>
+            <div style={{ fontSize: 13, color: '#5C6874' }}>Upload your logo, set primary colors, choose the default card template for new reps.</div>
+          </div>
+        )}
+        {section === 'billing' && (
+          <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 12, padding: 18 }}>
+            <div style={{ fontSize: 13, color: '#5C6874' }}>Growth plan · $49/seat/mo · Next invoice Dec 1, 2026.</div>
+          </div>
+        )}
+        {section === 'privacy' && (
+          <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 12, padding: 18 }}>
+            <div style={{ fontSize: 13, color: '#5C6874' }}>Data retention policy, GDPR tooling, audit log, export workspace data.</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+/* ═══ PAGE: SETTINGS — Rep (profile default; sub-pages via left nav) ═══ */
+const RepSettingsPage = ({ tab = 'profile' }) => {
+  const field = (label, val, hint, type = 'text') => (
+    <div style={{ marginBottom: 14 }}>
+      <div style={{ fontSize: 11, color: '#5C6874', fontWeight: 600, marginBottom: 6 }}>{label}</div>
+      <input type={type} defaultValue={val} style={{ width: '100%', boxSizing: 'border-box', border: '1px solid #DDE4EB', borderRadius: 8, padding: '10px 12px', fontSize: 13, fontFamily: 'inherit', background: '#fff' }}/>
+      {hint && <div style={{ fontSize: 10, color: '#8E9BA8', marginTop: 4 }}>{hint}</div>}
+    </div>
+  );
+  const titles = { profile: 'My profile', notifications: 'Notifications', password: 'Password & security' };
+  const subs = {
+    profile: 'This is what appears on your Digital Card and in every motion you send.',
+    notifications: 'Choose when and how TapIn should ping you.',
+    password: 'Keep your account secure.',
+  };
+  return (
+    <div style={{ padding: '24px 28px' }}>
+      <div style={{ marginBottom: 22 }}>
+        <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#08699E' }}>Settings</div>
+        <div style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-.02em', marginTop: 4 }}>{titles[tab]}</div>
+        <div style={{ fontSize: 13, color: '#5C6874', marginTop: 4 }}>{subs[tab]}</div>
+      </div>
+      <div style={{ maxWidth: 560 }}>
+        {tab === 'profile' && (
+          <>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: 16, background: '#fff', border: '1px solid #DDE4EB', borderRadius: 12, marginBottom: 20 }}>
+              <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#08699E', color: '#fff', display: 'grid', placeItems: 'center', fontSize: 18, fontWeight: 600 }}>AR</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 14, fontWeight: 600 }}>Ava Ramos</div>
+                <div style={{ fontSize: 11, color: '#5C6874', marginTop: 2 }}>Account Executive · TapIn Solutions</div>
+              </div>
+              <button style={{ background: 'transparent', border: '1px solid #DDE4EB', borderRadius: 999, padding: '6px 12px', fontSize: 11, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit' }}>Change photo</button>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+              <div>{field('First name', 'Ava')}</div>
+              <div>{field('Last name', 'Ramos')}</div>
+            </div>
+            {field('Job title', 'Account Executive')}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+                <div>{field('Work email', 'ava@tapin.me')}</div>
+                <div>{field('Phone', '+1 (415) 555-0140')}</div>
+              </div>
+              {field('Calendar link', 'https://cal.com/ava-ramos/30min', 'Used by the "Book Meeting" motion.')}
+              {field('LinkedIn', 'linkedin.com/in/avaramos')}
+              <div style={{ display: 'flex', gap: 10, marginTop: 18 }}>
+                <button style={{ background: '#08699E', color: '#fff', border: 0, borderRadius: 999, padding: '9px 20px', fontWeight: 600, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit' }}>Save changes</button>
+                <button style={{ background: 'transparent', border: '1px solid #DDE4EB', borderRadius: 999, padding: '9px 18px', fontSize: 13, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit' }}>Cancel</button>
+              </div>
+            </>
+          )}
+          {tab === 'notifications' && (
+            <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 12, padding: 18 }}>
+              {[
+                { t: 'New tap during session', d: 'Vibrate when a prospect taps your card.', on: true },
+                { t: 'Motion delivered', d: 'Notify when the prospect opens a motion you sent.', on: true },
+                { t: 'Meeting booked', d: 'Email + push when a "Book Meeting" motion converts.', on: true },
+                { t: 'Offline queue synced', d: 'Get confirmation when queued CRM pushes go through.', on: false },
+                { t: 'Weekly digest', d: 'Monday morning summary of last week\'s leads.', on: true },
+              ].map((n, i) => (
+                <div key={n.t} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 0', borderTop: i ? '1px solid #EEF2F6' : 0 }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, fontWeight: 600 }}>{n.t}</div>
+                    <div style={{ fontSize: 11, color: '#5C6874', marginTop: 2 }}>{n.d}</div>
+                  </div>
+                  <div style={{ width: 36, height: 20, borderRadius: 999, background: n.on ? '#08699E' : '#DDE4EB', position: 'relative', cursor: 'pointer' }}>
+                    <div style={{ position: 'absolute', top: 2, left: n.on ? 18 : 2, width: 16, height: 16, borderRadius: '50%', background: '#fff', transition: 'left .15s' }}/>
+                  </div>
+                </div>
+              ))}
+              <div style={{ display: 'flex', gap: 10, marginTop: 18 }}>
+                <button style={{ background: '#08699E', color: '#fff', border: 0, borderRadius: 999, padding: '9px 20px', fontWeight: 600, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit' }}>Save preferences</button>
+              </div>
+            </div>
+          )}
+          {tab === 'password' && (
+            <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 12, padding: 18 }}>
+              {field('Current password', '', '', 'password')}
+              {field('New password', '', 'At least 12 characters with 1 number and 1 symbol.', 'password')}
+              {field('Confirm new password', '', '', 'password')}
+              <div style={{ marginTop: 8, padding: 12, background: '#F7F9FB', borderRadius: 8, display: 'flex', alignItems: 'center', gap: 10 }}>
+                <Icon name="lock" size={16} color="#08699E"/>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 12, fontWeight: 600 }}>Two-factor authentication</div>
+                  <div style={{ fontSize: 10, color: '#5C6874' }}>Not enabled · Required by workspace policy</div>
+                </div>
+                <button style={{ background: 'transparent', border: '1px solid #08699E', color: '#08699E', borderRadius: 999, padding: '6px 12px', fontSize: 11, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>Enable</button>
+              </div>
+              <div style={{ display: 'flex', gap: 10, marginTop: 18 }}>
+                <button style={{ background: '#08699E', color: '#fff', border: 0, borderRadius: 999, padding: '9px 20px', fontWeight: 600, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit' }}>Update password</button>
+              </div>
+            </div>
+          )}
+        </div>
+    </div>
+  );
+};
+
+/* ═══ PAGES: NEW ═══ */
+const PageHeader = ({ eyebrow, title, sub }) => (
+  <div style={{ marginBottom: 22 }}>
+    <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#08699E' }}>{eyebrow}</div>
+    <div style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-.02em', marginTop: 4 }}>{title}</div>
+    {sub && <div style={{ fontSize: 13, color: '#5C6874', marginTop: 4 }}>{sub}</div>}
+  </div>
+);
+
+const StatCards = ({ stats }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: `repeat(${stats.length}, 1fr)`, gap: 14, marginBottom: 22 }}>
+    {stats.map(s => (
+      <div key={s.l} style={{ padding: 18, background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14 }}>
+        <div style={{ fontSize: 11, color: '#8E9BA8', fontWeight: 500 }}>{s.l}</div>
+        <div style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-.02em', marginTop: 4 }}>{s.n}</div>
+        <div style={{ fontSize: 10, color: s.c || '#5C6874', marginTop: 2 }}>{s.sub}</div>
+      </div>
+    ))}
+  </div>
+);
+
+const LeadDashboard = () => (
+  <div style={{ padding: '24px 28px' }}>
+    <PageHeader eyebrow="Dashboard" title="Good morning, Matt" sub="HubSpot INBOUND is live in Boston. 412 leads captured so far."/>
+    <StatCards stats={[
+      { l: 'Taps · this week', n: '412', sub: '+38% vs last event', c: '#4f7a0c' },
+      { l: 'Match rate', n: '72%', sub: '298 match + partial' },
+      { l: 'Meetings booked', n: '41', sub: '↑ 12 vs goal', c: '#4f7a0c' },
+      { l: 'Motions delivered', n: '1,124', sub: 'Brochure · Video · Meeting' },
+    ]}/>
+    <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 16 }}>
+      <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>Live: HubSpot INBOUND · Day 2</div>
+        <div style={{ fontSize: 11, color: '#5C6874', marginBottom: 14 }}>6 reps on floor · Real-time tap feed</div>
+        {[
+          { r: 'Ava Ramos', p: 'Nicholas Wright', c: 'Acme Inc.', m: 'Match', t: '2 min ago', mb: '#08699E' },
+          { r: 'JB Thomas', p: 'Sarah Lin', c: 'Northwind', m: 'Match', t: '4 min', mb: '#08699E' },
+          { r: 'Kyle Park', p: 'Dev Patel', c: 'Globex', m: 'Partial', t: '7 min', mb: '#FFAB3B' },
+          { r: 'Ava Ramos', p: 'Chen Liu', c: 'Initech', m: 'Match', t: '11 min', mb: '#08699E' },
+          { r: 'Priya Shah', p: 'Ibrahim Ali', c: 'Hooli', m: 'No Match', t: '14 min', mb: '#8E9BA8' },
+        ].map((x, i) => (
+          <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr auto auto', gap: 10, padding: '10px 0', borderTop: i ? '1px solid #EEF2F6' : 0, alignItems: 'center', fontSize: 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div style={{ width: 24, height: 24, borderRadius: '50%', background: '#E6F1F8', color: '#08699E', display: 'grid', placeItems: 'center', fontSize: 10, fontWeight: 600 }}>{x.r.split(' ').map(s => s[0]).join('')}</div>
+              <span style={{ fontWeight: 500 }}>{x.r}</span>
+            </div>
+            <div><b>{x.p}</b> · <span style={{ color: '#5C6874' }}>{x.c}</span></div>
+            <div style={{ padding: '2px 8px', borderRadius: 999, background: x.mb, color: x.mb === '#FFAB3B' ? '#5a3a0a' : '#fff', fontSize: 9, fontWeight: 700 }}>{x.m}</div>
+            <div style={{ fontSize: 10, color: '#8E9BA8' }}>{x.t}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+          <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>Top reps this week</div>
+          {[['Ava Ramos', 98, '#08699E'], ['JB Thomas', 76, '#1BACE0'], ['Kyle Park', 61, '#0D99A3'], ['Priya Shah', 44, '#83C215']].map(([n, v, c]) => (
+            <div key={n} style={{ marginBottom: 10 }}>
+              <div style={{ display: 'flex', fontSize: 11, marginBottom: 4 }}><span>{n}</span><span style={{ marginLeft: 'auto', fontWeight: 600 }}>{v}</span></div>
+              <div style={{ height: 6, background: '#EEF2F6', borderRadius: 3 }}>
+                <div style={{ width: `${v}%`, height: '100%', background: c, borderRadius: 3 }}/>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+          <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 10 }}>Next up</div>
+          <div style={{ fontSize: 12, color: '#3B4654', lineHeight: 1.5 }}>
+            <div style={{ marginBottom: 8, display: 'flex', gap: 8 }}><div style={{ width: 3, background: '#08699E', borderRadius: 2 }}/><div><b>SaaStr Annual</b><div style={{ color: '#8E9BA8', fontSize: 10 }}>Oct 14 · 28 days</div></div></div>
+            <div style={{ marginBottom: 8, display: 'flex', gap: 8 }}><div style={{ width: 3, background: '#DDE4EB', borderRadius: 2 }}/><div><b>Dreamforce</b><div style={{ color: '#8E9BA8', fontSize: 10 }}>Sep 15 · draft</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const LeadInsights = () => {
+  const insights = [
+    { tint: '#08699E', bg: '#E6F1F8', k: 'Coaching', t: 'Ava converts Video 2.4x faster than team', d: 'Ava opens with Video in 72% of Match sessions — time-to-booked 4m 12s vs 8m 12s team avg. Pair her with Marco and Jin for a 1:1; record her sequencing.' },
+    { tint: '#4f7a0c', bg: 'rgba(131,194,21,.14)', k: 'Template improvement', t: 'Brochure-first openers stall at 9m — move Video above it', d: 'Reps who send Brochure as the first motion take 9m 12s on avg and convert at 22%. Video-first sessions convert at 38% in 5m 40s. Reorder the SMB template.' },
+    { tint: '#8f5a0f', bg: 'rgba(255,171,59,.18)', k: 'Focus time', t: 'No-Match sessions burn 14% of rep time for 3% of bookings', d: 'Suggest a "Thank & move on" end-state at the 3-min mark for No-Match leads. Today reps spend an average of 7m 24s on them.' },
+    { tint: '#0D99A3', bg: 'rgba(13,153,163,.14)', k: 'Best practice', t: 'Winning motion order: Video → Happy Hour → Book Meeting', d: 'This sequence books at 61% for Matches (vs 34% baseline). Kyle and Priya follow it consistently — add to the rep playbook.' },
+  ];
+  return (
+  <div style={{ padding: '24px 28px' }}>
+    <PageHeader eyebrow="Insights" title="Team performance & coaching" sub="Session timestamps reveal where reps win, stall, and what to teach next."/>
+    <StatCards stats={[
+      { l: 'Verified contacts', n: '1,284', sub: 'Last 6 events' },
+      { l: 'ICP match rate', n: '62%', sub: '+8 pts vs benchmark', c: '#4f7a0c' },
+      { l: 'Avg time → booked', n: '8m 12s', sub: 'Median across team' },
+      { l: 'Top motion', n: 'Book Meeting', sub: '34% overall · 61% after Video' },
+    ]}/>
+
+    <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18, marginBottom: 16 }}>
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 14 }}>
+        <div style={{ fontSize: 14, fontWeight: 600 }}>Areas to explore</div>
+        <div style={{ marginLeft: 'auto', fontSize: 10, color: '#8E9BA8', letterSpacing: '.06em', textTransform: 'uppercase' }}>Generated from last 6 events</div>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        {insights.map(i => (
+          <div key={i.t} style={{ padding: 14, border: '1px solid #EEF2F6', borderRadius: 12, background: '#F7F9FB' }}>
+            <div style={{ display: 'inline-block', fontSize: 9, fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', color: i.tint, background: i.bg, padding: '3px 8px', borderRadius: 999 }}>{i.k}</div>
+            <div style={{ fontSize: 13, fontWeight: 600, marginTop: 8, lineHeight: 1.35 }}>{i.t}</div>
+            <div style={{ fontSize: 11, color: '#5C6874', marginTop: 6, lineHeight: 1.5 }}>{i.d}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 16, marginBottom: 16 }}>
+      <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>Session funnel · median timestamps</div>
+        <div style={{ fontSize: 11, color: '#8E9BA8', marginBottom: 14 }}>From tap → meeting booked. Timestamps are medians across 1,284 sessions.</div>
+        {[
+          { s: 'Tap → session opens', t: '0s', n: 1284, p: 100, c: '#08699E' },
+          { s: 'Contact captured', t: '+38s', n: 1210, p: 94, c: '#08699E' },
+          { s: 'First motion sent', t: '+1m 12s', n: 1124, p: 87, c: '#1BACE0' },
+          { s: 'Prospect taps motion', t: '+2m 40s', n: 812, p: 63, c: '#0D99A3' },
+          { s: 'Meeting booked', t: '+8m 12s', n: 437, p: 34, c: '#83C215' },
+        ].map((r, i) => (
+          <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr auto auto', gap: 12, alignItems: 'center', padding: '9px 0', borderTop: i ? '1px solid #EEF2F6' : 0 }}>
+            <div>
+              <div style={{ fontSize: 12, fontWeight: 600 }}>{r.s}</div>
+              <div style={{ height: 5, background: '#EEF2F6', borderRadius: 3, marginTop: 5 }}>
+                <div style={{ width: `${r.p}%`, height: '100%', background: r.c, borderRadius: 3 }}/>
+              </div>
+            </div>
+            <div style={{ fontSize: 11, color: '#5C6874', fontVariantNumeric: 'tabular-nums' }}>{r.n.toLocaleString()}</div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: '#08699E', fontVariantNumeric: 'tabular-nums', minWidth: 64, textAlign: 'right' }}>{r.t}</div>
+          </div>
+        ))}
+        <div style={{ fontSize: 10, color: '#8f5a0f', marginTop: 14, padding: 10, background: 'rgba(255,171,59,.12)', borderRadius: 8, lineHeight: 1.45 }}><b>Biggest drop:</b> Prospect taps motion → Meeting booked loses 29% over 5m 32s. Shorten the motion copy or lead with a hot motion.</div>
+      </div>
+      <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>Motion order → booking rate</div>
+        <div style={{ fontSize: 11, color: '#8E9BA8', marginBottom: 14 }}>First two motions a rep sends in a Match session.</div>
+        {[
+          { seq: 'Video → Happy Hour → Meeting', r: 61, n: 142, c: '#4f7a0c' },
+          { seq: 'Video → Meeting', r: 48, n: 318, c: '#08699E' },
+          { seq: 'Brochure → Meeting', r: 34, n: 402, c: '#1BACE0' },
+          { seq: 'Happy Hour → Meeting', r: 27, n: 88, c: '#FFAB3B' },
+          { seq: 'Brochure → Video', r: 22, n: 214, c: '#8E9BA8' },
+        ].map((r, i) => (
+          <div key={i} style={{ marginBottom: 10 }}>
+            <div style={{ display: 'flex', fontSize: 11, marginBottom: 4 }}>
+              <span style={{ fontWeight: 500 }}>{r.seq}</span>
+              <span style={{ marginLeft: 'auto' }}><b style={{ color: r.c }}>{r.r}%</b> <span style={{ color: '#8E9BA8' }}>n={r.n}</span></span>
+            </div>
+            <div style={{ height: 6, background: '#EEF2F6', borderRadius: 3 }}>
+              <div style={{ width: `${r.r}%`, height: '100%', background: r.c, borderRadius: 3 }}/>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>Rep coaching leaderboard</div>
+        <div style={{ fontSize: 11, color: '#8E9BA8', marginBottom: 14 }}>Ranked by time-to-book. Click a rep to see their session replays.</div>
+        {[
+          { n: 'Ava Ramos', t: '4m 12s', r: 41, badge: 'Top performer', bc: '#4f7a0c', bg: 'rgba(131,194,21,.14)' },
+          { n: 'Kyle Park', t: '5m 40s', r: 38, badge: 'Consistent', bc: '#08699E', bg: '#E6F1F8' },
+          { n: 'Jin Lee', t: '6m 58s', r: 34, badge: null },
+          { n: 'JB Thomas', t: '8m 48s', r: 29, badge: null },
+          { n: 'Priya Shah', t: '9m 20s', r: 27, badge: 'Try Video-first', bc: '#8f5a0f', bg: 'rgba(255,171,59,.18)' },
+          { n: 'Marco Silva', t: '11m 04s', r: 19, badge: 'Coach 1:1', bc: '#8f5a0f', bg: 'rgba(255,171,59,.18)' },
+        ].map((r, i) => (
+          <div key={r.n} style={{ display: 'grid', gridTemplateColumns: '18px 1fr auto auto', gap: 10, alignItems: 'center', padding: '9px 0', borderTop: i ? '1px solid #EEF2F6' : 0 }}>
+            <div style={{ fontSize: 11, color: '#8E9BA8', fontWeight: 600, fontVariantNumeric: 'tabular-nums' }}>#{i + 1}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div style={{ fontSize: 12, fontWeight: 600 }}>{r.n}</div>
+              {r.badge && <div style={{ fontSize: 9, fontWeight: 700, color: r.bc, background: r.bg, padding: '2px 7px', borderRadius: 999, letterSpacing: '.04em', textTransform: 'uppercase' }}>{r.badge}</div>}
+            </div>
+            <div style={{ fontSize: 11, color: '#5C6874', fontVariantNumeric: 'tabular-nums' }}>{r.t}</div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: '#08699E', fontVariantNumeric: 'tabular-nums', minWidth: 36, textAlign: 'right' }}>{r.r}%</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>Template health</div>
+        <div style={{ fontSize: 11, color: '#8E9BA8', marginBottom: 14 }}>Are the experience templates converting?</div>
+        {[
+          { n: 'Event Booth (SMB)', used: '842 sessions', r: 37, signal: 'Strong', sc: '#4f7a0c' },
+          { n: 'Event Booth (Enterprise)', used: '248 sessions', r: 22, signal: 'Brochure stalls', sc: '#8f5a0f' },
+          { n: 'Lobby / Receptionist', used: '128 sessions', r: 14, signal: 'Needs Book Meeting motion', sc: '#8f5a0f' },
+          { n: 'Field sales · out in the wild', used: '66 sessions', r: 41, signal: 'Small but strong', sc: '#4f7a0c' },
+        ].map((t, i) => (
+          <div key={t.n} style={{ padding: '10px 0', borderTop: i ? '1px solid #EEF2F6' : 0 }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+              <div style={{ fontSize: 12, fontWeight: 600, flex: 1 }}>{t.n}</div>
+              <div style={{ fontSize: 11, fontWeight: 600, color: '#08699E', fontVariantNumeric: 'tabular-nums' }}>{t.r}%</div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 3, fontSize: 10, color: '#8E9BA8' }}>
+              <span>{t.used}</span>
+              <span>·</span>
+              <span style={{ color: t.sc, fontWeight: 600 }}>{t.signal}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+  );
+};
+
+const LeadLeads = () => (
+  <div style={{ padding: '24px 28px' }}>
+    <PageHeader eyebrow="Leads" title="All leads" sub="Every verified tap across the workspace. Push to Salesforce, filter by event or rep."/>
+    <div style={{ display: 'flex', gap: 10, marginBottom: 16, flexWrap: 'wrap' }}>
+      <input placeholder="Search name, company, email…" style={{ flex: 1, minWidth: 240, border: '1px solid #DDE4EB', borderRadius: 8, padding: '9px 12px', fontSize: 13, fontFamily: 'inherit' }}/>
+      {['All events', 'All reps', 'Match = any', 'Last 30 days'].map(f => (
+        <button key={f} style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 999, padding: '7px 14px', fontSize: 11, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit' }}>{f} ▾</button>
+      ))}
+      <button style={{ background: '#08699E', color: '#fff', border: 0, borderRadius: 999, padding: '8px 16px', fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>Export CSV</button>
+    </div>
+    <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, overflow: 'hidden' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1.4fr 1fr 1fr 1fr 90px', padding: '12px 20px', fontSize: 10, fontWeight: 600, color: '#8E9BA8', letterSpacing: '.06em', textTransform: 'uppercase', background: '#F7F9FB', borderBottom: '1px solid #EEF2F6' }}>
+        <div>Prospect</div><div>Company</div><div>Rep</div><div>Event</div><div>Match</div><div>CRM</div>
+      </div>
+      {[
+        { p: 'Nicholas Wright', e: 'nicholas@acme.com', c: 'Acme Inc.', r: 'Ava Ramos', ev: 'INBOUND', m: 'Match', mb: '#08699E', s: '✓' },
+        { p: 'Sarah Lin', e: 'sarah@northwind.io', c: 'Northwind', r: 'JB Thomas', ev: 'INBOUND', m: 'Match', mb: '#08699E', s: '✓' },
+        { p: 'Dev Patel', e: 'dev@globex.com', c: 'Globex', r: 'Kyle Park', ev: 'INBOUND', m: 'Partial', mb: '#FFAB3B', s: '⏱' },
+        { p: 'Chen Liu', e: 'chen@initech.io', c: 'Initech', r: 'Ava Ramos', ev: 'INBOUND', m: 'Match', mb: '#08699E', s: '✓' },
+        { p: 'Ibrahim Ali', e: 'ibrahim@hooli.com', c: 'Hooli', r: 'Priya Shah', ev: 'INBOUND', m: 'No Match', mb: '#8E9BA8', s: '—' },
+        { p: 'Maya Kowalski', e: 'maya@umbrella.co', c: 'Umbrella', r: 'JB Thomas', ev: 'RSA 2026', m: 'Match', mb: '#08699E', s: '✓' },
+        { p: 'Jordan Reeves', e: 'jordan@stark.io', c: 'Stark Industries', r: 'Kyle Park', ev: 'RSA 2026', m: 'Match', mb: '#08699E', s: '✓' },
+      ].map((l, i) => (
+        <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.4fr 1.4fr 1fr 1fr 1fr 90px', padding: '12px 20px', fontSize: 12, borderTop: i ? '1px solid #EEF2F6' : 0, alignItems: 'center' }}>
+          <div><div style={{ fontWeight: 600 }}>{l.p}</div><div style={{ fontSize: 10, color: '#8E9BA8' }}>{l.e}</div></div>
+          <div>{l.c}</div>
+          <div style={{ fontSize: 11, color: '#5C6874' }}>{l.r}</div>
+          <div style={{ fontSize: 11, color: '#5C6874' }}>{l.ev}</div>
+          <div><span style={{ padding: '2px 8px', borderRadius: 999, background: l.mb, color: l.mb === '#FFAB3B' ? '#5a3a0a' : '#fff', fontSize: 9, fontWeight: 700 }}>{l.m}</span></div>
+          <div style={{ fontSize: 13 }}>{l.s === '✓' && <span style={{ color: '#4f7a0c' }}>✓ Synced</span>}{l.s === '⏱' && <span style={{ color: '#8f5a0f' }}>⏱ Queued</span>}{l.s === '—' && <span style={{ color: '#8E9BA8' }}>—</span>}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const LeadTeams = () => (
+  <div style={{ padding: '24px 28px' }}>
+    <PageHeader eyebrow="Teams" title="Your sales team" sub="Reps in this workspace. Assign them to events from the Events page."/>
+    <div style={{ display: 'flex', gap: 10, marginBottom: 16 }}>
+      <input placeholder="Search rep…" style={{ flex: 1, maxWidth: 320, border: '1px solid #DDE4EB', borderRadius: 8, padding: '9px 12px', fontSize: 13, fontFamily: 'inherit' }}/>
+      <button style={{ background: '#08699E', color: '#fff', border: 0, borderRadius: 999, padding: '8px 16px', fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>+ Invite rep</button>
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
+      {[
+        { n: 'Ava Ramos', t: 'AE · SMB', ev: 'HubSpot INBOUND', leads: 186, meetings: 9, online: true },
+        { n: 'JB Thomas', t: 'AE · Enterprise', ev: 'HubSpot INBOUND', leads: 142, meetings: 12, online: true },
+        { n: 'Kyle Park', t: 'AE · Mid-Market', ev: 'HubSpot INBOUND', leads: 98, meetings: 6, online: true },
+        { n: 'Priya Shah', t: 'AE · SMB', ev: 'Between events', leads: 220, meetings: 14, online: false },
+        { n: 'Marco Silva', t: 'SDR', ev: 'Between events', leads: 58, meetings: 3, online: false },
+        { n: 'Jin Lee', t: 'AE · Enterprise', ev: 'SaaStr (scheduled)', leads: 310, meetings: 22, online: false },
+      ].map(r => (
+        <div key={r.n} style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 16 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ position: 'relative' }}>
+              <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#E6F1F8', color: '#08699E', display: 'grid', placeItems: 'center', fontSize: 13, fontWeight: 600 }}>{r.n.split(' ').map(s => s[0]).join('')}</div>
+              {r.online && <div style={{ position: 'absolute', bottom: 0, right: 0, width: 10, height: 10, borderRadius: '50%', background: '#83C215', border: '2px solid #fff' }}/>}
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 13, fontWeight: 600 }}>{r.n}</div>
+              <div style={{ fontSize: 10, color: '#5C6874' }}>{r.t}</div>
+            </div>
+          </div>
+          <div style={{ fontSize: 10, color: '#8E9BA8', marginTop: 12, marginBottom: 4, letterSpacing: '.06em', textTransform: 'uppercase' }}>Currently on</div>
+          <div style={{ fontSize: 12, fontWeight: 500 }}>{r.ev}</div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginTop: 12, paddingTop: 12, borderTop: '1px solid #EEF2F6' }}>
+            <div><div style={{ fontSize: 10, color: '#8E9BA8' }}>Leads</div><div style={{ fontSize: 15, fontWeight: 600 }}>{r.leads}</div></div>
+            <div><div style={{ fontSize: 10, color: '#8E9BA8' }}>Meetings</div><div style={{ fontSize: 15, fontWeight: 600 }}>{r.meetings}</div></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const LeadTapPoints = () => (
+  <div style={{ padding: '24px 28px' }}>
+    <PageHeader eyebrow="TapPoints" title="Event-assigned hardware" sub="Autonomous TapPoints — NFC cards and dispensers — each one belongs to an event, not a rep."/>
+    <StatCards stats={[
+      { l: 'TapPoints deployed', n: '84', sub: '26 cards · 58 dispensers' },
+      { l: 'Taps this month', n: '2,140', sub: '+12% vs last month', c: '#4f7a0c' },
+      { l: 'Needs attention', n: '2', sub: 'Low battery on dispensers', c: '#8f5a0f' },
+    ]}/>
+    <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, overflow: 'hidden' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr 1fr 1fr 1fr', padding: '12px 20px', fontSize: 10, fontWeight: 600, color: '#8E9BA8', letterSpacing: '.06em', textTransform: 'uppercase', background: '#F7F9FB', borderBottom: '1px solid #EEF2F6' }}>
+        <div>ID</div><div>Assigned event</div><div>Type</div><div>Last tap</div><div>Status</div>
+      </div>
+      {[
+        { id: 'TP-0041', a: 'INBOUND · HQ Lobby', t: 'NFC Card', lt: '2 min ago', s: 'Active', c: '#4f7a0c' },
+        { id: 'TP-0042', a: 'INBOUND · HQ Lobby', t: 'NFC Card', lt: '4 min ago', s: 'Active', c: '#4f7a0c' },
+        { id: 'TP-0118', a: 'INBOUND · Booth 42', t: 'Dispenser', lt: '1 min ago', s: 'Active', c: '#4f7a0c' },
+        { id: 'TP-0119', a: 'INBOUND · Booth 42', t: 'Dispenser', lt: '3 min ago', s: 'Low battery', c: '#8f5a0f' },
+        { id: 'TP-0120', a: 'SaaStr Annual 2026 · Booth 42', t: 'Dispenser', lt: '—', s: 'Shipped', c: '#08699E' },
+        { id: 'TP-0088', a: 'Unassigned', t: 'NFC Card', lt: '12 d ago', s: 'Idle', c: '#8E9BA8' },
+      ].map((p, i) => (
+        <div key={p.id} style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr 1fr 1fr 1fr', padding: '12px 20px', fontSize: 12, borderTop: i ? '1px solid #EEF2F6' : 0, alignItems: 'center' }}>
+          <div style={{ fontFamily: 'ui-monospace, monospace', fontSize: 11 }}>{p.id}</div>
+          <div>{p.a}</div>
+          <div style={{ color: '#5C6874' }}>{p.t}</div>
+          <div style={{ color: '#5C6874' }}>{p.lt}</div>
+          <div style={{ color: p.c, fontWeight: 600, fontSize: 11 }}>● {p.s}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const RepLeads = () => (
+  <div style={{ padding: '24px 28px' }}>
+    <PageHeader eyebrow="Leads" title="My leads" sub="Every prospect you've tapped in with. Yours only."/>
+    <div style={{ display: 'flex', gap: 10, marginBottom: 16, flexWrap: 'wrap' }}>
+      <input placeholder="Search…" style={{ flex: 1, minWidth: 240, border: '1px solid #DDE4EB', borderRadius: 8, padding: '9px 12px', fontSize: 13, fontFamily: 'inherit' }}/>
+      {['All events', 'Match = any', 'This quarter'].map(f => (
+        <button key={f} style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 999, padding: '7px 14px', fontSize: 11, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit' }}>{f} ▾</button>
+      ))}
+    </div>
+    <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, overflow: 'hidden' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1.2fr 1fr 1fr 1fr', padding: '12px 20px', fontSize: 10, fontWeight: 600, color: '#8E9BA8', letterSpacing: '.06em', textTransform: 'uppercase', background: '#F7F9FB', borderBottom: '1px solid #EEF2F6' }}>
+        <div>Prospect</div><div>Company</div><div>Event</div><div>Match</div><div>Status</div>
+      </div>
+      {[
+        { p: 'Nicholas Wright', e: 'nicholas@acme.com', c: 'Acme Inc.', ev: 'INBOUND', m: 'Match', mb: '#08699E', s: 'Meeting booked', sc: '#4f7a0c' },
+        { p: 'Chen Liu', e: 'chen@initech.io', c: 'Initech', ev: 'INBOUND', m: 'Match', mb: '#08699E', s: 'Watching video', sc: '#08699E' },
+        { p: 'Leona Park', e: 'leona@vandelay.co', c: 'Vandelay', ev: 'RSA 2026', m: 'Partial', mb: '#FFAB3B', s: 'Brochure opened', sc: '#08699E' },
+        { p: 'Mia Okafor', e: 'mia@soylent.io', c: 'Soylent', ev: 'RSA 2026', m: 'Match', mb: '#08699E', s: 'Meeting booked', sc: '#4f7a0c' },
+        { p: 'Tobias Funke', e: 'tobias@bluthco.com', c: 'Bluth Co.', ev: 'Dreamforce \'25', m: 'No Match', mb: '#8E9BA8', s: '—', sc: '#8E9BA8' },
+      ].map((l, i) => (
+        <div key={i} style={{ display: 'grid', gridTemplateColumns: '1.4fr 1.2fr 1fr 1fr 1fr', padding: '12px 20px', fontSize: 12, borderTop: i ? '1px solid #EEF2F6' : 0, alignItems: 'center' }}>
+          <div><div style={{ fontWeight: 600 }}>{l.p}</div><div style={{ fontSize: 10, color: '#8E9BA8' }}>{l.e}</div></div>
+          <div>{l.c}</div>
+          <div style={{ fontSize: 11, color: '#5C6874' }}>{l.ev}</div>
+          <div><span style={{ padding: '2px 8px', borderRadius: 999, background: l.mb, color: l.mb === '#FFAB3B' ? '#5a3a0a' : '#fff', fontSize: 9, fontWeight: 700 }}>{l.m}</span></div>
+          <div style={{ fontSize: 11, color: l.sc, fontWeight: 500 }}>{l.s}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const RepInsights = () => {
+  const insights = [
+    { icon: 'sparkle', tone: 'pos', title: 'Lead with Video over Brochure', body: 'Your Video motion converts at 71% watch-through vs Brochure at 48%. On Match + Partial leads, try sending Video first.' },
+    { icon: 'user', tone: 'warn', title: 'Cut No-Match conversations short', body: 'No-Match leads convert at 4% and take 11 min average. That\'s 2.3 hours last event with almost zero pipeline. Close the session faster and move on.' },
+    { icon: 'cal', tone: 'pos', title: 'Best order: Video → Happy Hour → Book Meeting', body: 'Sessions that follow this order book meetings 2.1× more than Brochure-first sessions. 18 of your 24 booked meetings used it.' },
+    { icon: 'chart', tone: 'neutral', title: 'You\'re fastest right after a tap', body: 'Your first motion in a session converts 38% higher than motion #3. Pick the right one early — the fifth tile rarely gets sent.' },
+  ];
+  const toneStyle = {
+    pos: { bg: 'rgba(131,194,21,.14)', fg: '#4f7a0c', bar: '#83C215' },
+    warn: { bg: 'rgba(255,171,59,.18)', fg: '#8f5a0f', bar: '#FFAB3B' },
+    neutral: { bg: '#E6F1F8', fg: '#08699E', bar: '#08699E' },
+  };
+  return (
+  <div style={{ padding: '24px 28px' }}>
+    <PageHeader eyebrow="Insights" title="How you're doing" sub="Your personal performance vs team — with suggestions on where to focus next."/>
+    <StatCards stats={[
+      { l: 'My leads this Q', n: '186', sub: '+24 this week', c: '#4f7a0c' },
+      { l: 'Match rate', n: '68%', sub: 'Team avg: 62%', c: '#4f7a0c' },
+      { l: 'Avg time → booked', n: '6m 24s', sub: 'Team avg: 8m 12s', c: '#4f7a0c' },
+      { l: 'My rank', n: '#2', sub: 'of 6 reps' },
+    ]}/>
+
+    {/* Areas to explore */}
+    <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18, marginBottom: 16 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
+        <Icon name="sparkle" size={16} color="#08699E"/>
+        <div style={{ fontSize: 14, fontWeight: 600 }}>Areas to explore</div>
+        <div style={{ marginLeft: 'auto', fontSize: 10, color: '#8E9BA8' }}>Based on your last 6 events · updated daily</div>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        {insights.map((ins, i) => {
+          const t = toneStyle[ins.tone];
+          return (
+            <div key={i} style={{ display: 'flex', gap: 12, padding: 14, border: '1px solid #EEF2F6', borderRadius: 12, background: '#F7F9FB', position: 'relative', overflow: 'hidden' }}>
+              <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 3, background: t.bar }}/>
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: t.bg, display: 'grid', placeItems: 'center', flexShrink: 0 }}>
+                <Icon name={ins.icon} size={16} color={t.fg}/>
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4 }}>{ins.title}</div>
+                <div style={{ fontSize: 11, color: '#5C6874', lineHeight: 1.5 }}>{ins.body}</div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+
+    <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 16, marginBottom: 16 }}>
+      <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 14 }}>Leads by event</div>
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 10, height: 140 }}>
+          {[['RSA', 62], ['Dreamforce \'25', 44], ['Money 20/20', 28], ['INBOUND', 52]].map(([n, v]) => (
+            <div key={n} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+              <div style={{ fontSize: 11, fontWeight: 600 }}>{v}</div>
+              <div style={{ width: '100%', height: `${v * 1.6}px`, background: '#08699E', borderRadius: '6px 6px 0 0' }}/>
+              <div style={{ fontSize: 10, color: '#5C6874' }}>{n}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>Your best motion</div>
+        <div style={{ padding: 14, background: 'linear-gradient(135deg, #08699E, #1BACE0)', borderRadius: 12, color: '#fff', marginBottom: 12 }}>
+          <div style={{ fontSize: 10, opacity: .8, letterSpacing: '.06em', textTransform: 'uppercase' }}>Video</div>
+          <div style={{ fontSize: 28, fontWeight: 600, marginTop: 4 }}>71%</div>
+          <div style={{ fontSize: 11, opacity: .85 }}>watch-through on Match leads</div>
+        </div>
+        <div style={{ fontSize: 11, color: '#3B4654', lineHeight: 1.5 }}>Video beats Brochure by 23 pts for you. Lean in.</div>
+      </div>
+    </div>
+
+    {/* Session timing */}
+    <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 16 }}>
+      <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+          <div style={{ fontSize: 14, fontWeight: 600 }}>Session timing · median</div>
+          <div style={{ marginLeft: 'auto', fontSize: 10, color: '#8E9BA8' }}>Tap → booked meeting</div>
+        </div>
+        <div style={{ fontSize: 11, color: '#5C6874', marginBottom: 14 }}>Every action in a session is timestamped. Here's your median flow.</div>
+        {[
+          { l: 'Tap → session start', t: '0s', w: 0, c: '#8E9BA8' },
+          { l: 'Session start → name + URL', t: '28s', w: 6, c: '#08699E' },
+          { l: 'Name + URL → enriched', t: '34s', w: 7, c: '#0D99A3' },
+          { l: 'Enriched → 1st motion sent', t: '1m 12s', w: 18, c: '#08699E' },
+          { l: '1st motion → prospect taps open', t: '2m 04s', w: 32, c: '#08699E' },
+          { l: 'Motion opened → meeting booked', t: '2m 36s', w: 37, c: '#83C215' },
+        ].map((r, i) => (
+          <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 120px 52px', gap: 8, alignItems: 'center', padding: '6px 0' }}>
+            <div style={{ fontSize: 11, color: '#3B4654' }}>{r.l}</div>
+            <div style={{ height: 6, background: '#EEF2F6', borderRadius: 3, position: 'relative' }}>
+              <div style={{ width: `${r.w * 2.5}%`, height: '100%', background: r.c, borderRadius: 3 }}/>
+            </div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: '#3B4654', fontFamily: 'ui-monospace, monospace', textAlign: 'right' }}>{r.t}</div>
+          </div>
+        ))}
+        <div style={{ marginTop: 14, padding: 10, background: '#F7F9FB', borderRadius: 8, fontSize: 10, color: '#5C6874', lineHeight: 1.5 }}>
+          <b>Total:</b> 6m 24s — 22% faster than team median. You lose most time between "name captured" and "first motion sent" — try pre-selecting the motion before the prospect finishes typing.
+        </div>
+      </div>
+
+      <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 14 }}>Motion order → booking rate</div>
+        <div style={{ fontSize: 11, color: '#5C6874', marginBottom: 12 }}>Which opening motion converts best for you.</div>
+        {[
+          { seq: 'Video → Meeting', rate: 42, n: 18 },
+          { seq: 'Brochure → Meeting', rate: 28, n: 14 },
+          { seq: 'Video → Happy Hour → Meeting', rate: 61, n: 9, hot: true },
+          { seq: 'Meeting first', rate: 19, n: 6 },
+        ].map((r, i) => (
+          <div key={i} style={{ marginBottom: 12 }}>
+            <div style={{ display: 'flex', fontSize: 11, marginBottom: 4, alignItems: 'center', gap: 6 }}>
+              <span style={{ fontWeight: 500, flex: 1 }}>{r.seq}</span>
+              {r.hot && <span style={{ fontSize: 8, fontWeight: 700, color: '#4f7a0c', background: 'rgba(131,194,21,.14)', padding: '1px 6px', borderRadius: 999 }}>TOP</span>}
+              <span><b>{r.rate}%</b> <span style={{ color: '#8E9BA8' }}>· n={r.n}</span></span>
+            </div>
+            <div style={{ height: 6, background: '#EEF2F6', borderRadius: 3 }}>
+              <div style={{ width: `${r.rate}%`, height: '100%', background: r.hot ? '#83C215' : '#08699E', borderRadius: 3 }}/>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+  );
+};
+
+const RepCard = () => (
+  <div style={{ padding: '24px 28px' }}>
+    <PageHeader eyebrow="TapIn Card" title="My Digital Card" sub="This is what shows up when someone taps your card outside of an event."/>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, maxWidth: 820 }}>
+      <div>
+        <div style={{ padding: 22, borderRadius: 16, background: 'linear-gradient(135deg, #08699E 0%, #065684 70%)', color: '#fff', boxShadow: '0 16px 40px rgba(8,105,158,.3)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <TapInMark size={28} color="#fff"/>
+            <Icon name="tappoint" size={22} color="rgba(255,255,255,.75)"/>
+          </div>
+          <div style={{ marginTop: 48 }}>
+            <div style={{ fontSize: 20, fontWeight: 600 }}>Ava Ramos</div>
+            <div style={{ fontSize: 12, opacity: .85, marginTop: 2 }}>Account Executive · TapIn</div>
+            <div style={{ fontSize: 10, opacity: .65, marginTop: 14 }}>ava@tapin.me · cal.com/ava-ramos</div>
+          </div>
+        </div>
+        <div style={{ marginTop: 12, padding: 12, background: '#F7F9FB', borderRadius: 10, fontSize: 11, color: '#5C6874', lineHeight: 1.5 }}>
+          Card auto-switches to event template during event windows and reverts to this default afterward.
+        </div>
+      </div>
+      <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18 }}>
+        <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4 }}>My default personal template</div>
+        <div style={{ fontSize: 11, color: '#5C6874', marginBottom: 14 }}>Motions available when no event is live.</div>
+        {[
+          { n: 'vCard (auto)', d: 'Always on' },
+          { n: 'Brochure', d: 'Platform Overview PDF' },
+          { n: 'Book Meeting', d: 'cal.com/ava-ramos/30min' },
+        ].map((m, i) => (
+          <div key={m.n} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 0', borderTop: i ? '1px solid #EEF2F6' : 0 }}>
+            <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#83C215' }}/>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 12, fontWeight: 600 }}>{m.n}</div>
+              <div style={{ fontSize: 10, color: '#8E9BA8' }}>{m.d}</div>
+            </div>
+            <button style={{ background: 'transparent', border: 0, color: '#08699E', fontSize: 11, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>Edit</button>
+          </div>
+        ))}
+        <button style={{ width: '100%', marginTop: 12, background: 'transparent', border: '1px dashed #C3CED8', borderRadius: 8, padding: 10, fontSize: 11, fontWeight: 500, color: '#5C6874', cursor: 'pointer', fontFamily: 'inherit' }}>+ Clone a company template</button>
+      </div>
+    </div>
+  </div>
+);
+
+const RepEvents = () => (
+  <div style={{ padding: '24px 28px' }}>
+    <PageHeader eyebrow="Events" title="My events" sub="You're assigned to one event at a time. Past events archived below."/>
+    <div style={{ background: '#fff', border: '1px solid rgba(131,194,21,.4)', borderRadius: 14, padding: 18, marginBottom: 16, boxShadow: '0 0 0 3px rgba(131,194,21,.08)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+        <div style={{ padding: '3px 10px', borderRadius: 999, background: 'rgba(131,194,21,.18)', color: '#4f7a0c', fontSize: 10, fontWeight: 700, letterSpacing: '.06em' }}>● LIVE</div>
+        <div style={{ fontSize: 16, fontWeight: 600 }}>HubSpot INBOUND 2026</div>
+        <div style={{ marginLeft: 'auto', fontSize: 11, color: '#5C6874' }}>Boston · Sep 9–11 · Booth 42</div>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 14 }}>
+        {[['Taps today', '38'], ['My match rate', '71%'], ['Meetings booked', '4'], ['Template', 'Enterprise']].map(([l, v]) => (
+          <div key={l}><div style={{ fontSize: 10, color: '#8E9BA8', letterSpacing: '.05em', textTransform: 'uppercase' }}>{l}</div><div style={{ fontSize: 18, fontWeight: 600, marginTop: 2 }}>{v}</div></div>
+        ))}
+      </div>
+      <div style={{ padding: 12, background: '#FFF8EC', border: '1px solid #F5E0B5', borderRadius: 10, display: 'flex', alignItems: 'center', gap: 10 }}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8f5a0f" strokeWidth="2" strokeLinecap="round"><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/><path d="M12 7v5l3 2"/></svg>
+        <div style={{ flex: 1, fontSize: 11 }}>
+          <div style={{ fontWeight: 600, color: '#5a3a0a' }}>7 CRM pushes queued offline</div>
+          <div style={{ color: '#8f5a0f', marginTop: 2 }}>Poor Wi-Fi at venue. Will auto-sync to Salesforce.</div>
+        </div>
+        <button style={{ background: '#8f5a0f', color: '#fff', border: 0, borderRadius: 999, padding: '5px 12px', fontSize: 10, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>Retry now</button>
+      </div>
+    </div>
+    <div style={{ fontSize: 11, color: '#8E9BA8', letterSpacing: '.06em', textTransform: 'uppercase', fontWeight: 600, marginBottom: 8 }}>Upcoming</div>
+    <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 16, marginBottom: 8, display: 'flex', alignItems: 'center', gap: 12 }}>
+      <Icon name="cal" size={20} color="#08699E"/>
+      <div style={{ flex: 1 }}><div style={{ fontSize: 13, fontWeight: 600 }}>SaaStr Annual 2026</div><div style={{ fontSize: 11, color: '#5C6874' }}>Oct 14–16 · Booth 42 · Event Booth (SMB)</div></div>
+      <div style={{ fontSize: 11, color: '#8E9BA8', fontWeight: 600 }}>28 days</div>
+    </div>
+    <div style={{ fontSize: 11, color: '#8E9BA8', letterSpacing: '.06em', textTransform: 'uppercase', fontWeight: 600, margin: '16px 0 8px' }}>Past</div>
+    {[
+      { n: 'RSA 2026', d: 'Apr 27–May 1', leads: 62, meetings: 4 },
+      { n: 'Dreamforce 2025', d: 'Sep 15–18', leads: 44, meetings: 3 },
+      { n: 'Money 20/20', d: 'Oct 26–29', leads: 28, meetings: 2 },
+    ].map((e, i) => (
+      <div key={e.n} style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 14, marginBottom: 8, display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', alignItems: 'center', fontSize: 12 }}>
+        <div><div style={{ fontWeight: 600 }}>{e.n}</div><div style={{ fontSize: 10, color: '#8E9BA8' }}>{e.d}</div></div>
+        <div><div style={{ fontSize: 10, color: '#8E9BA8' }}>Leads</div><div style={{ fontWeight: 600 }}>{e.leads}</div></div>
+        <div><div style={{ fontSize: 10, color: '#8E9BA8' }}>Meetings</div><div style={{ fontWeight: 600 }}>{e.meetings}</div></div>
+        <div style={{ textAlign: 'right' }}><button style={{ background: 'transparent', border: 0, color: '#08699E', fontSize: 11, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>View →</button></div>
+      </div>
+    ))}
+  </div>
+);
+
+/* ═══ PAGE: NEW EVENT (Lead) ═══ */
+const NewEventPage = ({ setRoute }) => {
+  const [url, setUrl] = React.useState('');
+  const [fetched, setFetched] = React.useState(false);
+  const mock = {
+    name: 'SaaStr Annual 2026', start: '2026-10-14', end: '2026-10-16',
+    location: 'Moscone West, San Francisco',
+  };
+  return (
+    <div style={{ padding: '24px 28px', maxWidth: 860 }}>
+      <div style={{ marginBottom: 22 }}>
+        <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#08699E' }}>Events / New</div>
+        <div style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-.02em', marginTop: 4 }}>Create an event</div>
+        <div style={{ fontSize: 13, color: '#5C6874', marginTop: 4 }}>Drop in the event URL — we'll pull what we can. Fill in the rest.</div>
+      </div>
+
+      <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 18, marginBottom: 16 }}>
+        <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8 }}>Event URL</div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <input value={url} onChange={e => setUrl(e.target.value)} placeholder="https://www.saastrannual.com" style={{ flex: 1, boxSizing: 'border-box', border: '1px solid #DDE4EB', borderRadius: 8, padding: '10px 12px', fontSize: 13, fontFamily: 'inherit' }}/>
+          <button onClick={() => setFetched(true)} style={{ background: '#08699E', color: '#fff', border: 0, borderRadius: 999, padding: '8px 18px', fontWeight: 600, fontSize: 12, cursor: 'pointer', fontFamily: 'inherit' }}>Fetch info</button>
+        </div>
+        {fetched && (
+          <div style={{ marginTop: 12, padding: 12, background: 'rgba(131,194,21,.08)', border: '1px solid rgba(131,194,21,.3)', borderRadius: 10, display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ width: 24, height: 24, borderRadius: '50%', background: '#83C215', display: 'grid', placeItems: 'center', color: '#fff', fontSize: 14, fontWeight: 700 }}>✓</div>
+            <div style={{ fontSize: 12, color: '#3B4654', lineHeight: 1.4 }}>Pulled <b>name, dates, location</b>. Review and complete missing fields below.</div>
+          </div>
+        )}
+      </div>
+
+      <div style={{ background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 20 }}>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 14 }}>Event details</div>
+        <div style={{ marginBottom: 14 }}>
+          <div style={{ fontSize: 11, color: '#5C6874', fontWeight: 600, marginBottom: 6 }}>Event name</div>
+          <input defaultValue={fetched ? mock.name : ''} placeholder="e.g. SaaStr Annual 2026" style={{ width: '100%', boxSizing: 'border-box', border: '1px solid #DDE4EB', borderRadius: 8, padding: '10px 12px', fontSize: 13, fontFamily: 'inherit' }}/>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 }}>
+          <div>
+            <div style={{ fontSize: 11, color: '#5C6874', fontWeight: 600, marginBottom: 6 }}>Starts</div>
+            <input type="date" defaultValue={fetched ? mock.start : ''} style={{ width: '100%', boxSizing: 'border-box', border: '1px solid #DDE4EB', borderRadius: 8, padding: '10px 12px', fontSize: 13, fontFamily: 'inherit' }}/>
+          </div>
+          <div>
+            <div style={{ fontSize: 11, color: '#5C6874', fontWeight: 600, marginBottom: 6 }}>Ends</div>
+            <input type="date" defaultValue={fetched ? mock.end : ''} style={{ width: '100%', boxSizing: 'border-box', border: '1px solid #DDE4EB', borderRadius: 8, padding: '10px 12px', fontSize: 13, fontFamily: 'inherit' }}/>
+          </div>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 14, marginBottom: 14 }}>
+          <div>
+            <div style={{ fontSize: 11, color: '#5C6874', fontWeight: 600, marginBottom: 6 }}>Location</div>
+            <input defaultValue={fetched ? mock.location : ''} placeholder="City, venue" style={{ width: '100%', boxSizing: 'border-box', border: '1px solid #DDE4EB', borderRadius: 8, padding: '10px 12px', fontSize: 13, fontFamily: 'inherit' }}/>
+          </div>
+          <div>
+            <div style={{ fontSize: 11, color: '#5C6874', fontWeight: 600, marginBottom: 6 }}>Booth <span style={{ color: '#8E9BA8', fontWeight: 400 }}>(optional)</span></div>
+            <input placeholder="e.g. 42" style={{ width: '100%', boxSizing: 'border-box', border: '1px solid #DDE4EB', borderRadius: 8, padding: '10px 12px', fontSize: 13, fontFamily: 'inherit' }}/>
+          </div>
+        </div>
+
+        <div style={{ marginBottom: 14 }}>
+          <div style={{ fontSize: 11, color: '#5C6874', fontWeight: 600, marginBottom: 6 }}>Experience template</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+            {[
+              { id: 'TPL-002', n: 'Event Booth (SMB)', sel: true },
+              { id: 'TPL-003', n: 'Event Booth (Enterprise)' },
+              { id: 'TPL-004', n: 'Conference (EU)' },
+            ].map(t => (
+              <div key={t.id} style={{ padding: 12, border: `1px solid ${t.sel ? '#08699E' : '#DDE4EB'}`, background: t.sel ? '#E6F1F8' : '#fff', borderRadius: 10, cursor: 'pointer' }}>
+                <div style={{ fontSize: 12, fontWeight: 600 }}>{t.n}</div>
+                <div style={{ fontSize: 10, color: '#8E9BA8', fontFamily: 'ui-monospace, monospace', marginTop: 2 }}>{t.id}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ marginBottom: 18 }}>
+          <div style={{ fontSize: 11, color: '#5C6874', fontWeight: 600, marginBottom: 6 }}>Assigned team</div>
+          <div style={{ border: '1px solid #DDE4EB', borderRadius: 10, padding: 10, display: 'flex', flexWrap: 'wrap', gap: 6, alignItems: 'center' }}>
+            {[{ n: 'Matt Gropp', i: 'MG' }, { n: 'Ava Ramos', i: 'AR' }, { n: 'JB Thomas', i: 'JB' }, { n: 'Kyle Park', i: 'KP' }].map(p => (
+              <div key={p.n} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 10px 4px 4px', background: '#E6F1F8', borderRadius: 999, fontSize: 11, fontWeight: 600, color: '#08699E' }}>
+                <div style={{ width: 22, height: 22, borderRadius: '50%', background: '#08699E', color: '#fff', display: 'grid', placeItems: 'center', fontSize: 9 }}>{p.i}</div>
+                {p.n}
+                <span style={{ marginLeft: 2, cursor: 'pointer', opacity: .6 }}>×</span>
+              </div>
+            ))}
+            <input placeholder="Add rep…" style={{ flex: 1, minWidth: 120, border: 0, padding: '6px 8px', fontSize: 12, fontFamily: 'inherit', outline: 'none', background: 'transparent' }}/>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: 10, paddingTop: 14, borderTop: '1px solid #EEF2F6' }}>
+          <button onClick={() => setRoute('eventdetail')} style={{ background: '#08699E', color: '#fff', border: 0, borderRadius: 999, padding: '10px 22px', fontWeight: 600, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit' }}>Create event</button>
+          <button onClick={() => setRoute('events')} style={{ background: 'transparent', border: '1px solid #DDE4EB', borderRadius: 999, padding: '10px 20px', fontSize: 13, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit' }}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ═══ MOBILE: live sales screen (grid-only) ═══ */
+const MOTIONS = [
+  { id: 'brochure', name: 'Brochure', sub: 'PDF · 2.4 MB', icon: 'file', tint: '#0D99A3', bg: 'rgba(13,153,163,.14)' },
+  { id: 'video', name: 'Video', sub: '90-sec demo', icon: 'play', tint: '#08699E', bg: '#E6F1F8' },
+  { id: 'happyhour', name: 'Happy Hour Invite', sub: 'Tonight 6 PM', icon: 'glass', tint: '#8f5a0f', bg: 'rgba(255,171,59,.18)' },
+  { id: 'meeting', name: 'Book Meeting', sub: '30-min', icon: 'cal', tint: '#08699E', bg: '#E6F1F8' },
+];
+
+const MATCH_STYLE = {
+  match: { label: 'Match', bg: '#08699E', fg: '#fff' },
+  partial: { label: 'Partial Match', bg: '#FFAB3B', fg: '#5a3a0a' },
+  none: { label: 'No Match', bg: '#EEF2F6', fg: '#5C6874' },
+};
+
+const SalesMobile = ({ activeMotion = null, match = 'match', idle = false, sent = [], preContact = false, enriching = false }) => {
+  const m = MATCH_STYLE[match];
+  // Normalize sent: can be array of strings or array of {id, status}
+  const sentMap = {};
+  sent.forEach(s => {
+    if (typeof s === 'string') sentMap[s] = { status: 'sent', label: 'Sent · 2 min ago' };
+    else sentMap[s.id] = s;
+  });
+  const statusStyle = {
+    sent:     { bg: '#E6F1F8', fg: '#08699E', icon: 'check', label: 'Sent' },
+    tapped:   { bg: 'rgba(13,153,163,.14)', fg: '#0D99A3', icon: 'sparkle', label: 'Tapped' },
+    booked:   { bg: 'rgba(131,194,21,.14)', fg: '#4f7a0c', icon: 'cal', label: 'Booked' },
+    accepted: { bg: 'rgba(131,194,21,.14)', fg: '#4f7a0c', icon: 'check', label: 'Accepted' },
+  };
+  return (
+  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#F7F9FB', overflow: 'hidden' }}>
+    <div style={{ padding: '10px 16px 12px', display: 'flex', alignItems: 'center', gap: 10, background: '#fff', borderBottom: '1px solid #EEF2F6' }}>
+      <TapInMark size={22}/>
+      <div>
+        <div style={{ fontSize: 10, color: '#8E9BA8', lineHeight: 1 }}>LIVE · SAASTR</div>
+        <div style={{ fontSize: 12, fontWeight: 600, marginTop: 2 }}>Event Booth (SMB)</div>
+      </div>
+      {!idle && (
+        <button style={{ marginLeft: 'auto', border: '1px solid #DDE4EB', background: '#fff', borderRadius: 999, padding: '4px 10px', fontSize: 10, fontWeight: 600, color: '#5C6874', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 4 }}>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          Close session
+        </button>
+      )}
+    </div>
+    {idle ? (
+      <div style={{ margin: '12px 16px 0', padding: '24px 14px', background: '#fff', border: '1px dashed #DDE4EB', borderRadius: 14, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, textAlign: 'center' }}>
+        <div style={{ width: 48, height: 48, borderRadius: '50%', background: '#E6F1F8', display: 'grid', placeItems: 'center' }}>
+          <Icon name="tappoint" size={22} color="#08699E"/>
+        </div>
+        <div style={{ fontSize: 13, fontWeight: 600 }}>Waiting for a tap</div>
+        <div style={{ fontSize: 11, color: '#5C6874', lineHeight: 1.4, maxWidth: 220 }}>Have the prospect tap your TapIn card. Their info + ICP match will show here.</div>
+      </div>
+    ) : preContact ? (
+      <div style={{ margin: '12px 16px 0', padding: 14, background: '#fff', border: '1px solid #08699E', borderRadius: 14, boxShadow: '0 2px 6px rgba(10,15,20,.06)', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: 'linear-gradient(90deg, transparent, #08699E, transparent)', animation: 'tapin-pulse 1.4s ease-in-out infinite' }}/>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#E6F1F8', display: 'grid', placeItems: 'center' }}>
+            <Icon name="tappoint" size={18} color="#08699E"/>
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 13, fontWeight: 600 }}>Session started</div>
+            <div style={{ fontSize: 11, color: '#5C6874' }}>Waiting for name + company URL</div>
+          </div>
+          <div style={{ padding: '3px 10px', borderRadius: 999, background: '#FFF4E0', color: '#8f5a0f', fontSize: 10, fontWeight: 700, whiteSpace: 'nowrap' }}>WAITING</div>
+        </div>
+        <div style={{ fontSize: 10, color: '#5C6874', lineHeight: 1.4, padding: '8px 10px', background: '#F7F9FB', borderRadius: 8 }}>Ask for their name + company website. Motions unlock once both are captured.</div>
+      </div>
+    ) : (
+      <div style={{ margin: '12px 16px 0', padding: 14, background: '#fff', border: `1px solid ${enriching ? '#0D99A3' : '#DDE4EB'}`, borderRadius: 14, boxShadow: '0 2px 6px rgba(10,15,20,.06)', position: 'relative', overflow: 'hidden' }}>
+        {enriching && <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: 'linear-gradient(90deg, transparent, #0D99A3, transparent)', animation: 'tapin-pulse 1.4s ease-in-out infinite' }}/>}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, #08699E, #1BACE0)', display: 'grid', placeItems: 'center', color: '#fff', fontWeight: 600, fontSize: 13 }}>NW</div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 13, fontWeight: 600 }}>Nicholas Wright</div>
+            <div style={{ fontSize: 11, color: '#5C6874' }}>{enriching ? 'acme.com · looking up company…' : 'VP Product · Acme Inc.'}</div>
+          </div>
+          {enriching ? (
+            <div style={{ padding: '3px 8px', borderRadius: 999, background: 'rgba(13,153,163,.14)', color: '#0D99A3', fontSize: 10, fontWeight: 700, whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: 4 }}>
+              <Icon name="sparkle" size={9} color="#0D99A3"/>ENRICHING
+            </div>
+          ) : (
+            <div style={{ padding: '3px 10px', borderRadius: 999, background: m.bg, color: m.fg, fontSize: 10, fontWeight: 700, whiteSpace: 'nowrap' }}>{m.label}</div>
+          )}
+        </div>
+        <div style={{ display: 'flex', gap: 8, fontSize: 10, color: enriching ? '#8E9BA8' : '#5C6874' }}>
+          {enriching ? (
+            <>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}><Icon name="sparkle" size={10} color="#0D99A3"/>Pulling firmographics from acme.com…</span>
+            </>
+          ) : (
+            <>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}><Icon name="link" size={10}/>acme.com</span>
+              <span>·</span><span>Series B · 240 emp</span>
+            </>
+          )}
+        </div>
+      </div>
+    )}
+    <div style={{ padding: '14px 16px 6px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#5C6874' }}>Send a motion</div>
+      <div style={{ fontSize: 10, color: '#8E9BA8' }}>Template · SMB</div>
+    </div>
+    <div style={{ padding: '0 16px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, flex: 1, overflowY: 'auto', alignContent: 'start' }}>
+      {MOTIONS.map(mo => {
+        const on = activeMotion === mo.id;
+        const st = sentMap[mo.id];
+        const wasSent = !!st;
+        const sty = st ? statusStyle[st.status] : null;
+        const disabled = preContact;
+        return (
+          <div key={mo.id} style={{
+            padding: 14, background: wasSent ? '#F7F9FB' : '#fff',
+            border: `1px solid ${on ? '#08699E' : wasSent ? '#C3CED8' : '#DDE4EB'}`,
+            borderRadius: 14, display: 'flex', flexDirection: 'column', gap: 8,
+            boxShadow: on ? '0 8px 20px rgba(8,105,158,.18)' : '0 1px 2px rgba(10,15,20,.03)',
+            aspectRatio: '1/1.05', position: 'relative', opacity: disabled ? 0.4 : wasSent ? 0.85 : 1,
+          }}>
+            {wasSent && sty && (
+              <div style={{ position: 'absolute', top: 8, right: 8, padding: '3px 7px', borderRadius: 999, background: sty.bg, color: sty.fg, fontSize: 8, fontWeight: 700, letterSpacing: '.04em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: 3 }}>
+                <Icon name={sty.icon} size={8} color={sty.fg}/>{sty.label}
+              </div>
+            )}
+            <div style={{ width: 36, height: 36, borderRadius: 10, background: mo.bg, display: 'grid', placeItems: 'center', filter: wasSent ? 'saturate(0.6)' : 'none' }}>
+              <Icon name={mo.icon} size={18} color={mo.tint}/>
+            </div>
+            <div style={{ marginTop: 'auto' }}>
+              <div style={{ fontSize: 12, fontWeight: 600, lineHeight: 1.2, textDecoration: wasSent ? 'line-through' : 'none', textDecorationColor: '#C3CED8' }}>{mo.name}</div>
+              <div style={{ fontSize: 10, color: wasSent ? sty.fg : '#5C6874', marginTop: 3, lineHeight: 1.3, fontWeight: wasSent ? 600 : 400 }}>{wasSent ? st.time || 'Just now' : mo.sub}</div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+    <div style={{ padding: '10px 16px 12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, color: '#5C6874', fontSize: 11 }}>
+      <Icon name="chevUp" size={14} color="#5C6874"/> {preContact ? 'Ask for name + company URL to unlock motions' : 'Swipe up on a card to send'}
+    </div>
+  </div>
+  );
+};
+
+/* ═══ MOBILE: prospect screens ═══ */
+const ProspectCapture = () => (
+  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#F7F9FB', overflow: 'hidden' }}>
+    <div style={{ padding: '10px 20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ fontSize: 10, color: '#5C6874', display: 'flex', alignItems: 'center', gap: 4 }}><Icon name="lock" size={10}/>tap.tapin.me</div>
+    </div>
+    <div style={{ margin: '6px 16px 10px', borderRadius: 18, padding: 16, background: 'linear-gradient(135deg, #08699E 0%, #065684 70%)', color: '#fff', boxShadow: '0 12px 30px rgba(8,105,158,.3)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <TapInMark size={26} color="#fff"/>
+        <Icon name="tappoint" size={22} color="rgba(255,255,255,.75)"/>
+      </div>
+      <div style={{ marginTop: 28 }}>
+        <div style={{ fontSize: 18, fontWeight: 600 }}>Matt Gropp</div>
+        <div style={{ fontSize: 11, opacity: .8 }}>Founder · TapIn Solutions</div>
+        <div style={{ fontSize: 10, opacity: .65, marginTop: 10, letterSpacing: '.05em', textTransform: 'uppercase' }}>SaaStr · Booth 42</div>
+      </div>
+    </div>
+    <div style={{ margin: '0 16px 12px' }}>
+      <button style={{ width: '100%', background: '#fff', color: '#08699E', border: '1px solid #08699E', borderRadius: 999, padding: '10px 14px', fontWeight: 600, fontSize: 12, fontFamily: 'inherit', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#08699E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+        Save contact (.vcf)
+      </button>
+    </div>
+    <div style={{ padding: '0 20px 12px' }}>
+      <div style={{ fontSize: 15, fontWeight: 600 }}>Say hi back</div>
+      <div style={{ fontSize: 12, color: '#5C6874', marginTop: 4 }}>Matt will see this instantly on his phone.</div>
+    </div>
+    <div style={{ padding: '0 20px', flex: 1, display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <input placeholder="Your name" style={{ width: '100%', boxSizing: 'border-box', border: '1px solid #DDE4EB', background: '#fff', borderRadius: 10, padding: '11px 12px', fontSize: 13, fontFamily: 'inherit' }}/>
+      <input placeholder="yourcompany.com" style={{ width: '100%', boxSizing: 'border-box', border: '1px solid #DDE4EB', background: '#fff', borderRadius: 10, padding: '11px 12px', fontSize: 13, fontFamily: 'inherit' }}/>
+      <button style={{ background: '#08699E', color: '#fff', border: 0, borderRadius: 999, padding: '13px', fontWeight: 600, fontSize: 14, fontFamily: 'inherit' }}>Tap In</button>
+    </div>
+  </div>
+);
+
+const ProspectBrochure = () => (
+  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#F7F9FB', overflow: 'hidden' }}>
+    <div style={{ padding: '14px 20px', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #EEF2F6', background: '#fff' }}>
+      <TapInMark size={20}/>
+      <div style={{ fontSize: 13, fontWeight: 600 }}>tap.tapin.me</div>
+      <div style={{ marginLeft: 'auto', fontSize: 11, color: '#5C6874', display: 'flex', alignItems: 'center', gap: 4 }}><Icon name="lock" size={12}/>Secure</div>
+    </div>
+    <div style={{ padding: '20px 20px 12px' }}>
+      <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#08699E' }}>From Matt Gropp</div>
+      <div style={{ fontSize: 20, fontWeight: 600, lineHeight: 1.2, marginTop: 4 }}>TapIn — Platform Overview</div>
+    </div>
+    <div style={{ margin: '0 20px', flex: 1, background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 14 }}>
+      <div style={{ height: 90, background: 'linear-gradient(135deg, #08699E, #1BACE0)', borderRadius: 10, display: 'grid', placeItems: 'center', color: '#fff' }}>
+        <div style={{ textAlign: 'center' }}><TapInMark size={28} color="#fff"/><div style={{ fontSize: 13, marginTop: 6, fontWeight: 600 }}>Platform Overview</div></div>
+      </div>
+      <div style={{ marginTop: 10 }}>
+        <div style={{ height: 6, background: '#EEF2F6', borderRadius: 2, marginBottom: 5 }}/>
+        <div style={{ height: 6, background: '#EEF2F6', borderRadius: 2, marginBottom: 5, width: '80%' }}/>
+        <div style={{ height: 6, background: '#EEF2F6', borderRadius: 2, width: '60%' }}/>
+      </div>
+      <div style={{ fontSize: 10, color: '#8E9BA8', marginTop: 12 }}>Page 1 of 8 · PDF · 2.4 MB</div>
+    </div>
+    <div style={{ padding: 16 }}>
+      <button style={{ width: '100%', background: '#08699E', color: '#fff', border: 0, borderRadius: 999, padding: '13px', fontWeight: 600, fontSize: 14, fontFamily: 'inherit' }}>Book a Demo</button>
+    </div>
+  </div>
+);
+
+const ProspectHappyHour = () => (
+  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#fff', overflow: 'hidden' }}>
+    <div style={{ padding: '14px 20px', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #EEF2F6' }}>
+      <TapInMark size={20}/>
+      <div style={{ fontSize: 13, fontWeight: 600 }}>tap.tapin.me</div>
+      <div style={{ marginLeft: 'auto', fontSize: 11, color: '#5C6874', display: 'flex', alignItems: 'center', gap: 4 }}><Icon name="lock" size={12}/>Secure</div>
+    </div>
+    <div style={{ padding: '18px 20px 14px', background: 'linear-gradient(180deg, #F2E0BD 0%, #fff 100%)' }}>
+      <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#C97200' }}>You're Invited</div>
+      <div style={{ fontSize: 22, fontWeight: 600, lineHeight: 1.15, marginTop: 4, letterSpacing: '-.02em' }}>SaaStr Happy Hour</div>
+      <div style={{ fontSize: 12, color: '#3B4654', marginTop: 6 }}>Tonight · 6:00 PM · Hotel Nia Lobby</div>
+    </div>
+    <div style={{ padding: '14px 20px', flex: 1, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ fontSize: 12, color: '#3B4654', lineHeight: 1.5 }}>Drinks &amp; conversation with the TapIn team. No pitches — just founders comparing notes after day one.</div>
+      <div>
+        <label style={{ fontSize: 11, fontWeight: 600, color: '#3B4654', display: 'block', marginBottom: 6 }}>Email for confirmation</label>
+        <input defaultValue="nicholas@acme.com" style={{ width: '100%', boxSizing: 'border-box', border: '1px solid #DDE4EB', borderRadius: 10, padding: '11px 12px', fontSize: 13, fontFamily: 'inherit' }}/>
+      </div>
+      <button style={{ background: '#08699E', color: '#fff', border: 0, borderRadius: 999, padding: '13px', fontWeight: 600, fontSize: 14, fontFamily: 'inherit' }}>Accept Invite</button>
+    </div>
+  </div>
+);
+
+const ProspectVideo = () => (
+  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#0A0F14', overflow: 'hidden', color: '#fff' }}>
+    <div style={{ padding: '14px 20px', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid rgba(255,255,255,.08)', background: 'rgba(255,255,255,.03)' }}>
+      <TapInMark size={20} color="#fff"/>
+      <div style={{ fontSize: 13, fontWeight: 600 }}>tap.tapin.me</div>
+      <div style={{ marginLeft: 'auto', fontSize: 11, color: 'rgba(255,255,255,.6)', display: 'flex', alignItems: 'center', gap: 4 }}><Icon name="lock" size={12} color="rgba(255,255,255,.6)"/>Secure</div>
+    </div>
+    <div style={{ padding: '18px 20px 10px' }}>
+      <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#1BACE0' }}>From Matt Gropp</div>
+      <div style={{ fontSize: 20, fontWeight: 600, lineHeight: 1.2, marginTop: 4 }}>TapIn in 90 seconds</div>
+    </div>
+    <div style={{ margin: '0 16px', borderRadius: 14, background: 'linear-gradient(135deg, #0A2B44 0%, #08699E 70%)', flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 30% 40%, rgba(27,172,224,.3), transparent 60%)' }}/>
+      <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'rgba(255,255,255,.95)', display: 'grid', placeItems: 'center', boxShadow: '0 8px 24px rgba(0,0,0,.4)', position: 'relative' }}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#08699E"><polygon points="8,5 19,12 8,19"/></svg>
+      </div>
+      <div style={{ position: 'absolute', bottom: 12, left: 12, right: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: 10, color: 'rgba(255,255,255,.8)' }}>
+        <div style={{ flex: 1, height: 3, background: 'rgba(255,255,255,.2)', borderRadius: 2, overflow: 'hidden' }}>
+          <div style={{ width: '22%', height: '100%', background: '#1BACE0' }}/>
+        </div>
+        <span>0:20 / 1:30</span>
+      </div>
+    </div>
+    <div style={{ padding: 16 }}>
+      <div style={{ fontSize: 11, color: 'rgba(255,255,255,.6)', textAlign: 'center', marginBottom: 10 }}>After watching, take the next step</div>
+      <button style={{ width: '100%', background: '#1BACE0', color: '#fff', border: 0, borderRadius: 999, padding: '13px', fontWeight: 600, fontSize: 14, fontFamily: 'inherit', cursor: 'pointer' }}>Book a demo</button>
+    </div>
+  </div>
+);
+
+const ProspectMeeting = () => {
+  const days = ['Tue 14', 'Wed 15', 'Thu 16', 'Fri 17', 'Mon 20'];
+  const times = ['9:00', '9:30', '10:00', '10:30', '2:00'];
+  return (
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#F7F9FB', overflow: 'hidden' }}>
+      <div style={{ padding: '14px 20px', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #EEF2F6', background: '#fff' }}>
+        <TapInMark size={20}/>
+        <div style={{ fontSize: 13, fontWeight: 600 }}>tap.tapin.me</div>
+        <div style={{ marginLeft: 'auto', fontSize: 11, color: '#5C6874', display: 'flex', alignItems: 'center', gap: 4 }}><Icon name="lock" size={12}/>Secure</div>
+      </div>
+      <div style={{ padding: '18px 20px 12px' }}>
+        <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#08699E' }}>Book 30 min with Matt</div>
+        <div style={{ fontSize: 18, fontWeight: 600, lineHeight: 1.2, marginTop: 4 }}>Pick a time that works</div>
+        <div style={{ fontSize: 11, color: '#5C6874', marginTop: 4 }}>All times PT · Video call (Zoom)</div>
+      </div>
+      <div style={{ margin: '0 16px', background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 14 }}>
+        <div style={{ fontSize: 11, fontWeight: 600, color: '#3B4654', marginBottom: 8 }}>October</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 6, marginBottom: 12 }}>
+          {days.map((d, i) => (
+            <div key={d} style={{ padding: '8px 4px', border: `1px solid ${i === 1 ? '#08699E' : '#EEF2F6'}`, background: i === 1 ? '#E6F1F8' : '#fff', borderRadius: 8, textAlign: 'center', fontSize: 10, fontWeight: 600, color: i === 1 ? '#08699E' : '#3B4654' }}>{d}</div>
+          ))}
+        </div>
+        <div style={{ fontSize: 10, fontWeight: 600, color: '#8E9BA8', letterSpacing: '.06em', textTransform: 'uppercase', marginBottom: 6 }}>Wednesday Oct 15</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6 }}>
+          {times.slice(0, 6).map((t, i) => (
+            <div key={t} style={{ padding: '8px 4px', border: `1px solid ${i === 2 ? '#08699E' : '#EEF2F6'}`, background: i === 2 ? '#08699E' : '#fff', color: i === 2 ? '#fff' : '#3B4654', borderRadius: 8, textAlign: 'center', fontSize: 11, fontWeight: 600 }}>{t}</div>
+          ))}
+        </div>
+      </div>
+      <div style={{ margin: '12px 16px 0', background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, padding: 14 }}>
+        <div style={{ fontSize: 10, fontWeight: 600, color: '#8E9BA8', letterSpacing: '.06em', textTransform: 'uppercase', marginBottom: 8 }}>Where should we send the invite?</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, border: '1px solid #DDE4EB', borderRadius: 10, padding: '10px 12px', background: '#fff' }}>
+          <Icon name="mail" size={14} color="#08699E"/>
+          <input defaultValue="" placeholder="you@company.com" style={{ flex: 1, border: 0, outline: 'none', fontSize: 13, color: '#3B4654', fontFamily: 'inherit', background: 'transparent' }}/>
+        </div>
+        <div style={{ fontSize: 10, color: '#8E9BA8', marginTop: 8 }}>Calendar invite + meeting link land here.</div>
+      </div>
+      <div style={{ padding: 16, marginTop: 'auto' }}>
+        <button style={{ width: '100%', background: '#08699E', color: '#fff', border: 0, borderRadius: 999, padding: '13px', fontWeight: 600, fontSize: 14, fontFamily: 'inherit', cursor: 'pointer' }}>Confirm Wed, Oct 15 · 10:00 AM</button>
+      </div>
+    </div>
+  );
+};
+
+/* ═══ APP ═══ */
+const TWEAKS = /*EDITMODE-BEGIN*/{
+  "motionPickerLayout": "grid",
+  "defaultRole": "lead"
+}/*EDITMODE-END*/;
+
+function App() {
+  const [role, setRole] = React.useState(() => localStorage.getItem('tapin_role') || TWEAKS.defaultRole);
+  const [route, setRoute] = React.useState('events');
+  const [tweaksOpen, setTweaksOpen] = React.useState(false);
+
+  React.useEffect(() => { localStorage.setItem('tapin_role', role); }, [role]);
+  React.useEffect(() => {
+    // default route per role
+    setRoute(role === 'lead' ? 'home' : 'home');
+  }, [role]);
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      if (e.data?.type === '__activate_edit_mode') setTweaksOpen(true);
+      if (e.data?.type === '__deactivate_edit_mode') setTweaksOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const isLead = role === 'lead';
+
+  const renderPage = () => {
+    if (!isLead) {
+      if (route === 'profile') return <RepSettingsPage tab="profile"/>;
+      if (route === 'notifications' || route === 'settings') return <RepSettingsPage tab="notifications"/>;
+      if (route === 'password') return <RepSettingsPage tab="password"/>;
+      if (route === 'myleads') return <RepLeads/>;
+      if (route === 'insights') return <RepInsights/>;
+      if (route === 'mycard') return <RepCard/>;
+      if (route === 'myevents') return <RepEvents/>;
+      return <RepHome/>;
+    }
+    if (route === 'home') return <LeadDashboard/>;
+    if (route === 'insights') return <LeadInsights/>;
+    if (route === 'leads') return <LeadLeads/>;
+    if (route === 'team') return <LeadTeams/>;
+    if (route === 'tappoints') return <LeadTapPoints/>;
+    if (route === 'events') return <EventsList setRoute={setRoute}/>;
+    if (route === 'newevent') return <NewEventPage setRoute={setRoute}/>;
+    if (route === 'eventdetail') return <EventDetail/>;
+    if (route === 'templates') return <TemplatesPage/>;
+    if (route === 'settings') return isLead ? <LeadSettingsPage section="workspace"/> : <RepSettingsPage tab="profile"/>;
+    if (route === 'members') return <LeadSettingsPage section="members"/>;
+    if (route === 'integrations') return <LeadSettingsPage section="integrations"/>;
+    if (route === 'branding') return <LeadSettingsPage section="branding"/>;
+    if (route === 'billing') return <LeadSettingsPage section="billing"/>;
+    if (route === 'privacy') return <LeadSettingsPage section="privacy"/>;
+    return <LeadDashboard/>;
+  };
+
+  const crumbs = isLead
+    ? (route === 'eventdetail' ? ['Events', 'SaaStr Annual 2026']
+      : route === 'newevent' ? ['Events', 'New event']
+      : ['members','integrations','branding','billing','privacy'].includes(route) ? ['Settings', { members: 'Members & roles', integrations: 'Integrations', branding: 'Branding', billing: 'Billing', privacy: 'Data & privacy' }[route]]
+      : [{ home: 'Dashboard', insights: 'Insights', leads: 'Leads', team: 'Teams', tappoints: 'TapPoints', events: 'Events', templates: 'Experience Templates', settings: 'Settings' }[route] || 'Dashboard'])
+    : (route === 'profile' ? ['My profile']
+      : route === 'password' ? ['Password & security']
+      : [{ home: 'My Dashboard', myleads: 'Leads', insights: 'Insights', mycard: 'TapIn Card', myevents: 'Events', notifications: 'Notifications', settings: 'Notifications' }[route] || 'My Dashboard']);
+
+  return (
+    <div className="page" data-screen-label="TapIn Wireframes v2">
+      <div className="hero">
+        <div className="eyebrow">TapIn to Sales · Wireframes v2</div>
+        <div className="title">Templates. Events. Cards in the right hands.</div>
+        <div className="lede">Rebuilt IA around the objects that actually matter. A <b>Default Digital Card</b> for every rep, <b>Experience Templates</b> you author once, and <b>Events</b> that assign a template + a team. Team Leads see the org; reps see themselves.</div>
+      </div>
+
+      {/* Domain model */}
+      <div className="model-box">
+        <h3>Domain model</h3>
+        <div className="model-grid">
+          <div className="model-card">
+            <div className="h">Experience Template</div>
+            <div className="b">Reusable motion set</div>
+            <div className="d">A named bundle of motions (brochure, video, RSVP, meeting, card). Edit once, update everywhere. <b>TPL-001</b> is the always-on Default Digital Card.</div>
+          </div>
+          <div className="model-card">
+            <div className="h">Event</div>
+            <div className="b">When &amp; who</div>
+            <div className="d">Points an <b>Experience Template</b> at a <b>team</b> during a date window. Cards auto-activate at start, revert to Default at end. Event-only overrides allowed.</div>
+          </div>
+          <div className="model-card">
+            <div className="h">Rep &amp; Card</div>
+            <div className="b">Person + TapPoint</div>
+            <div className="d">Each rep has a default digital card. Team Leads assign reps to events; reps only see the events and leads that belong to them.</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Role toggle */}
+      <div className="section-label" data-screen-label="01 Admin Website">
+        <span className="n">1</span>
+        <h2>Admin website · role-aware</h2>
+        <div className="desc">Same codebase, different IA. Team Leads manage Events, Templates &amp; Team. Reps see only their own events, card, and leads.</div>
+      </div>
+      <div className="tabs">
+        <button className={isLead ? 'active' : ''} onClick={() => setRole('lead')}>Team Lead view</button>
+        <button className={!isLead ? 'active' : ''} onClick={() => setRole('rep')}>Rep view</button>
+      </div>
+
+      {isLead && (
+        <div className="tabs" style={{ marginLeft: 8 }}>
+          {[['home', 'Dashboard'], ['insights', 'Insights'], ['leads', 'Leads'], ['events', 'Events'], ['newevent', 'New event'], ['eventdetail', 'Event detail'], ['templates', 'Templates'], ['team', 'Teams'], ['tappoints', 'TapPoints'], ['settings', 'Settings']].map(([v, l]) => (
+            <button key={v} className={route === v ? 'active' : ''} onClick={() => setRoute(v)}>{l}</button>
+          ))}
+        </div>
+      )}
+      {!isLead && (
+        <div className="tabs" style={{ marginLeft: 8 }}>
+          {[['home', 'Dashboard'], ['myleads', 'Leads'], ['insights', 'Insights'], ['mycard', 'TapIn Card'], ['myevents', 'Events'], ['settings', 'Profile']].map(([v, l]) => (
+            <button key={v} className={route === v ? 'active' : ''} onClick={() => setRoute(v)}>{l}</button>
+          ))}
+        </div>
+      )}
+
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}>
+        <DesktopShell role={role} setRole={setRole} route={route} setRoute={setRoute} crumbs={Array.isArray(crumbs) ? crumbs : [crumbs]}>
+          {renderPage()}
+        </DesktopShell>
+      </div>
+
+      {/* Mobile: sales live */}
+      <div className="section-label" data-screen-label="02 Sales Mobile">
+        <span className="n">2</span>
+        <h2>Rep phone · live at the booth</h2>
+        <div className="desc">Reads the template assigned to the current event. Motion grid is the chosen layout. Swipe up a card to push it to the prospect's phone.</div>
+      </div>
+      <div className="frame-row">
+        <div className="frame-col">
+          <div className="cap">Idle · waiting for tap</div>
+          <Phone><StatusBar/><SalesMobile idle/></Phone>
+          <div className="sub">Template name &amp; event label up top so the rep always knows which motion set they're running.</div>
+        </div>
+        <div className="frame-col">
+          <div className="cap">Session started · waiting for contact</div>
+          <Phone><StatusBar/><SalesMobile preContact/></Phone>
+          <div className="sub">Session opens the moment a prospect taps. Motion grid is disabled until the rep captures name + company URL.</div>
+        </div>
+        <div className="frame-col">
+          <div className="cap">Enriching · firmographics loading</div>
+          <Phone><StatusBar/><SalesMobile activeMotion="brochure" match="match" enriching/></Phone>
+          <div className="sub">Name + URL captured → the card pulses teal while TapIn pulls company, title, and ICP match from the domain.</div>
+        </div>
+        <div className="frame-col">
+          <div className="cap">Prospect in session · brochure ready</div>
+          <Phone><StatusBar/><SalesMobile activeMotion="brochure" match="match"/></Phone>
+          <div className="sub">Enrichment complete. ICP match pill lands, motion cards unlock, rep picks what to send.</div>
+        </div>
+        <div className="frame-col">
+          <div className="cap">Motion statuses · delivery loop</div>
+          <Phone><StatusBar/><SalesMobile activeMotion="meeting" match="match" sent={[
+            { id: 'brochure', status: 'tapped', time: 'Tapped · 30s ago' },
+            { id: 'video', status: 'sent', time: 'Sent · 2 min ago' },
+            { id: 'happyhour', status: 'accepted', time: 'Invite accepted' },
+          ]}/></Phone>
+          <div className="sub">Each sent card shows its live status — <b>Sent → Tapped → Booked → Accepted</b> — wired to the rep's notification prefs.</div>
+        </div>
+      </div>
+
+      {/* Prospect surfaces */}
+      <div className="section-label" data-screen-label="03 Prospect Experiences">
+        <span className="n">3</span>
+        <h2>Prospect phone · capture + experiences</h2>
+        <div className="desc">Landing uses the branded sales-card treatment. Experience pages render whatever motion the rep pushes, inside the same session.</div>
+      </div>
+      <div className="frame-row">
+        <div className="frame-col">
+          <div className="cap">Landing · tap verified</div>
+          <Phone><StatusBar/><ProspectCapture/></Phone>
+          <div className="sub">Branded sales-card header mirrors the physical card the prospect just tapped.</div>
+        </div>
+        <div className="frame-col">
+          <div className="cap">Brochure motion</div>
+          <Phone><StatusBar/><ProspectBrochure/></Phone>
+          <div className="sub">"From Matt Gropp" attribution keeps it personal.</div>
+        </div>
+        <div className="frame-col">
+          <div className="cap">Video motion</div>
+          <Phone><StatusBar/><ProspectVideo/></Phone>
+          <div className="sub">90-sec demo. Dark surface keeps focus on the content; CTA after the play.</div>
+        </div>
+      </div>
+      <div className="frame-row" style={{ marginTop: 14 }}>
+        <div className="frame-col">
+          <div className="cap">Book Meeting motion</div>
+          <Phone><StatusBar/><ProspectMeeting/></Phone>
+          <div className="sub">Inline calendar — no redirect. Uses the rep's calendar link from their profile.</div>
+        </div>
+        <div className="frame-col">
+          <div className="cap">Happy Hour motion</div>
+          <Phone><StatusBar/><ProspectHappyHour/></Phone>
+          <div className="sub">Warm cream accent for non-deal moments. Email added only here, not on landing.</div>
+        </div>
+        <div className="frame-col" style={{ opacity: 0 }}/>
+      </div>
+
+      <div className="caveat" style={{ background: 'rgba(8,105,158,.08)', borderColor: 'rgba(8,105,158,.25)', color: '#0A4D72' }}>
+        <strong>Decisions locked in this round:</strong> (1) A rep can only be on <b>one event at a time</b>. (2) Reps can <b>clone company templates</b> into their own personal templates. (3) Every card is <b>linked to a sales rep</b>; outside event windows it uses the rep's <b>default personal template</b> (cloneable from a company template). (4) CRM push is <b>per session</b>. (5) Offline sessions queue locally and <b>retry when back online</b> — queued count shows on the rep dashboard next to each event.
+      </div>
+
+      {tweaksOpen && (
+        <div style={{ position: 'fixed', bottom: 24, right: 24, width: 280, background: '#fff', border: '1px solid #DDE4EB', borderRadius: 14, boxShadow: '0 20px 40px rgba(10,15,20,.12)', padding: 16, zIndex: 100 }}>
+          <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: '#08699E', marginBottom: 10 }}>Tweaks</div>
+          <div style={{ fontSize: 12, fontWeight: 600, marginBottom: 6 }}>Role</div>
+          <div style={{ display: 'flex', gap: 6, marginBottom: 14 }}>
+            {[['lead', 'Team Lead'], ['rep', 'Rep']].map(([v, l]) => (
+              <button key={v} onClick={() => setRole(v)} style={{ flex: 1, border: `1px solid ${role === v ? '#08699E' : '#DDE4EB'}`, background: role === v ? '#E6F1F8' : '#fff', color: role === v ? '#08699E' : '#3B4654', padding: '8px 12px', borderRadius: 8, fontFamily: 'inherit', fontSize: 12, fontWeight: 500, cursor: 'pointer' }}>{l}</button>
+            ))}
+          </div>
+          <div style={{ fontSize: 12, fontWeight: 600, marginBottom: 6 }}>Admin page</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {(isLead ? [['events', 'Events'], ['newevent', 'New event'], ['eventdetail', 'Event detail'], ['templates', 'Templates'], ['settings', 'Settings · CRM']] : [['home', 'My Dashboard'], ['settings', 'Settings · Profile']]).map(([v, l]) => (
+              <button key={v} onClick={() => setRoute(v)} style={{ border: `1px solid ${route === v ? '#08699E' : '#DDE4EB'}`, background: route === v ? '#E6F1F8' : '#fff', color: route === v ? '#08699E' : '#3B4654', padding: '8px 12px', borderRadius: 8, fontFamily: 'inherit', fontSize: 12, fontWeight: 500, textAlign: 'left', cursor: 'pointer' }}>{l}</button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
