@@ -1,0 +1,96 @@
+<!-- @dsCard group="Brand" -->
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/>
+<link rel="stylesheet" href="_styles.css"/>
+<style>
+  .hw-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .hw {
+    background: var(--canvas);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .hw__img {
+    aspect-ratio: 1 / 1;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hw__img img { width: 100%; height: 100%; object-fit: contain; }
+  .hw__meta { padding: 10px 12px 12px; border-top: 1px solid var(--line); }
+  .hw__name { font-size: 12px; font-weight: 600; color: var(--ink-900); }
+  .hw__sub  { font-family: var(--font-mono); font-size: 10px; color: var(--ink-600); margin-top: 2px; }
+  .hw--wide { grid-column: span 2; }
+  .hw--wide .hw__img { aspect-ratio: 2 / 1; }
+</style>
+</head><body><div class="card">
+<div class="label" style="margin-bottom:10px;">TapPoint hardware · the physical surface of the product</div>
+<div class="hw-grid">
+  <div class="hw">
+    <div class="hw__img"><img src="../assets/personal-card.png" alt="Personal card"/></div>
+    <div class="hw__meta">
+      <div class="hw__name">Personal card</div>
+      <div class="hw__sub">NFC · gradient + dark</div>
+    </div>
+  </div>
+  <div class="hw">
+    <div class="hw__img"><img src="../assets/group-card.png" alt="Group card"/></div>
+    <div class="hw__meta">
+      <div class="hw__name">Group card</div>
+      <div class="hw__sub">Branded / shared</div>
+    </div>
+  </div>
+  <div class="hw">
+    <div class="hw__img"><img src="../assets/sticker.png" alt="Sticker"/></div>
+    <div class="hw__meta">
+      <div class="hw__name">Sticker</div>
+      <div class="hw__sub">Surface · uid printed</div>
+    </div>
+  </div>
+  <div class="hw">
+    <div class="hw__img"><img src="../assets/hub.png" alt="Hub"/></div>
+    <div class="hw__meta">
+      <div class="hw__name">Hub</div>
+      <div class="hw__sub">Reader puck</div>
+    </div>
+  </div>
+  <div class="hw">
+    <div class="hw__img"><img src="../assets/hub-sign.png" alt="Hub sign"/></div>
+    <div class="hw__meta">
+      <div class="hw__name">Hub sign</div>
+      <div class="hw__sub">"Tap your phone here."</div>
+    </div>
+  </div>
+  <div class="hw">
+    <div class="hw__img"><img src="../assets/card-case.png" alt="Card case"/></div>
+    <div class="hw__meta">
+      <div class="hw__name">Card case</div>
+      <div class="hw__sub">Display stand</div>
+    </div>
+  </div>
+  <div class="hw hw--wide">
+    <div class="hw__img"><img src="../assets/tradeshow.png" alt="Tradeshow layout"/></div>
+    <div class="hw__meta">
+      <div class="hw__name">Tradeshow lockup</div>
+      <div class="hw__sub">Hub + sign + cards + sticker — full surface</div>
+    </div>
+  </div>
+</div>
+<div class="row" style="margin-top:14px;justify-content:space-between;align-items:flex-start;">
+  <div style="font-size:11.5px;color:var(--ink-700);max-width:620px;line-height:1.55;">
+    Hardware photography is shown on white, full-bleed inside its container. The
+    gradient surface is the only place TapIn uses bright color — never recreate it
+    in CSS for chrome. Pair with calm UI so the product, not the page, is the
+    proof.
+  </div>
+  <span class="mono" style="font-size:10px;color:var(--ink-600);white-space:nowrap;">assets/*.png</span>
+</div>
+</div></body></html>

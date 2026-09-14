@@ -1,0 +1,22 @@
+<!-- @dsCard group="Components" -->
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/>
+<link rel="stylesheet" href="_styles.css"/>
+<style></style>
+</head><body><div class="card">
+<div class="label" style="margin-bottom:12px;">Dropdowns</div>
+   <div class="row" style="align-items:flex-start;gap:14px;">
+     <button class="dd-trigger">All spaces <span class="caret"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="m1 1 4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+     <button class="dd-trigger is-open">Last 30 days <span class="caret" style="transform:rotate(180deg);"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="m1 1 4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+     <div class="dd-menu">
+       <div class="dd-item">Today</div>
+       <div class="dd-item">Last 7 days</div>
+       <div class="dd-item is-selected">
+         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5 L6 11 L11.5 3" stroke="var(--tapin-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+         Last 30 days
+       </div>
+       <div class="dd-item">Custom range…</div>
+       <div class="dd-item is-destructive">Reset filter</div>
+     </div>
+   </div>
+</div></body></html>
